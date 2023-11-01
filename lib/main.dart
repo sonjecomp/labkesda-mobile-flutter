@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:labkesda_mobile/presentation/pages/home/home_page.dart';
+import 'package:labkesda_mobile/presentation/router/router.dart';
 
 void main() {
   runApp(const App());
@@ -10,7 +10,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Labkesda Mobile',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -19,7 +19,7 @@ class App extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      routerConfig: router,
     );
   }
 }
