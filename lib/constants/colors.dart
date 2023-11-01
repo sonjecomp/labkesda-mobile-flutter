@@ -4,5 +4,7 @@ class AppColors {
   const AppColors._();
 
   // contoh cata nambahin path
-  static const Color primary = Color(0xFF0A0E21);
+  static const Color primary = Color(0xFF093545);
+  static const Color textWhite = Color(0xFFF7F7F7);
+  static const Color textBrown = Color(0xFF300604);
 }

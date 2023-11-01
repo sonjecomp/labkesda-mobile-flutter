@@ -14,7 +14,7 @@ class OnBoardPage extends StatelessWidget {
           children: [
             // contoh pake assets
             Image.asset(
-              AppAssets.logo,
+              AppAssets.headerimg,
             ),
 
             // contoh pake color
