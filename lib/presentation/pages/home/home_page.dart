@@ -82,10 +82,10 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFED8F27),
+                color: Color(0xFFED8F27),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
