@@ -5,7 +5,10 @@ class RiwayatPemeriksaanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Riwayat Pemeriksaan"),
+      ),
       body: Center(
         child: Text("riwayat"),
       ),
