@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            context.go("/riwayat-pemeriksaan");
+            context.pop();
           },
           child: const Text("riawat"),
         ),
