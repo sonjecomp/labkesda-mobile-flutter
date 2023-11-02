@@ -10,7 +10,7 @@ class CekPemeriksaanPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Cek Pemeriksaan',
-          style: AppStyle.titleAppBar,
+          // style: AppStyle.titleAppBar,
         ),
       ),
       body: const Center(

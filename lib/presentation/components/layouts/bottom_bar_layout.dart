@@ -26,9 +26,10 @@ class BottomBarLayoutState extends State<BottomBarLayout> {
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFDCDCDC).withOpacity(0.6),
-              offset: const Offset(0, -10),
-              blurRadius: 15,
+              color: const Color(0xFFDCDCDC).withOpacity(0.9),
+              offset: const Offset(0, 10),
+              spreadRadius: 5,
+              blurRadius: 10,
             )
           ],
         ),
@@ -38,6 +39,7 @@ class BottomBarLayoutState extends State<BottomBarLayout> {
             topRight: Radius.circular(30),
           ),
           child: NavigationBar(
+            elevation: 0,
             onDestinationSelected: (int index) {
               setState(() {
                 currIndex = index;

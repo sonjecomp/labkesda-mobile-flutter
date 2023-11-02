@@ -18,26 +18,26 @@ class KontakKamiPage extends StatelessWidget {
                 const SizedBox(
                   height: 110,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AppAssets.lampungCoa,
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Balai\nLaboratorium\nKesehatan',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Image.asset(
+                //       AppAssets.lampungCoa,
+                //       height: 100,
+                //     ),
+                //     const SizedBox(
+                //       width: 10,
+                //     ),
+                //     const Text(
+                //       'Balai\nLaboratorium\nKesehatan',
+                //       style: TextStyle(
+                //         fontSize: 24,
+                //         fontWeight: FontWeight.bold,
+                //         color: AppColors.primary,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -55,7 +55,7 @@ class KontakKamiPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Layanan\nPemeriksaan Covid',
+                            'Layanan Pemeriksaan Covid',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -85,7 +85,7 @@ class KontakKamiPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            'Layanan\nPemeriksaan Lainnya',
+                            'Layanan Pemeriksaan Lainnya',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -115,7 +115,7 @@ class KontakKamiPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            'Layanan\nMelalui Surel',
+                            'Layanan Melalui Surel',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -157,17 +157,22 @@ class KontakKamiPage extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.room,
-                                size: 18,
+                                size: 16,
                                 color: AppColors.textWhite,
                               ),
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                'Jl. dr. Sam Ratulangi No. 103 Penengahan,\nBandar Lampung. Kode Pos 35112.',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
+                              SizedBox(
+                                width: 250,
+                                child: Text(
+                                  'Jl. dr. Sam Ratulangi No. 103 Penengahan, Bandar Lampung. Kode Pos 35112.',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.textWhite,
+                                  ),
                                 ),
                               ),
                             ],
