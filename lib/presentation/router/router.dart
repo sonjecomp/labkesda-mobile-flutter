@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:labkesda_mobile/presentation/pages/home/home_page.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
 
 final router = GoRouter(
@@ -7,7 +7,7 @@ final router = GoRouter(
     GoRoute(
       path: "/",
       builder: (context, state) {
-        return const HomePage();
+        return const BottomBarLayout();
       },
       routes: [
         GoRoute(
