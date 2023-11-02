@@ -5,12 +5,12 @@ class FitureButton extends StatelessWidget {
   const FitureButton({super.key, required this.image, required this.text});
   final String image;
   final String text;
-  // final String string
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("Kontol");
+        print('Fiture clicked!');
       },
       child: Column(
         children: [

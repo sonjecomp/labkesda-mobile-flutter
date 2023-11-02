@@ -8,4 +8,9 @@ class AppStyle {
     blurRadius: 10,
     offset: const Offset(0, 4),
   );
+  static TextStyle titleAppBar = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFF093545),
+  );
 }

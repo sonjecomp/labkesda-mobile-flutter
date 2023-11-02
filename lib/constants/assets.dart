@@ -9,4 +9,5 @@ class AppAssets {
   static const String riwayatPemerikasaanLogo =
       'assets/images/time-svgrepo-com.png';
   static const String carouselDump = 'assets/images/dumpCarousel.png';
+  static const String lampungCoa = 'assets/images/Lampung_coa.png';
 }
