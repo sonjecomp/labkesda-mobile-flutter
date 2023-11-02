@@ -19,16 +19,30 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             AppBar(
-              title: const Text(
-                'Selamat Datang\nKembali!',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF093545),
-                ),
+              // title: Text(
+              //   'Selamat Datang\nKembali!',
+              //   style: AppStyle.titleAppBar,
+              // ),
+              title: Row(
+                children: [
+                  Image.asset(
+                    AppAssets.lampungCoa,
+                    width: 35,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    'Balai\nLaboratorium\nKesehatan',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary),
+                  )
+                ],
               ),
               titleSpacing: 0,
             ),

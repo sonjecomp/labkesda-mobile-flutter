@@ -28,7 +28,7 @@ class SliderCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            color: AppColors.primary,
+            color: AppColors.secondary,
             alignment: Alignment.bottomLeft,
             width: double.infinity,
             child: Image.asset(
