@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 
 class FitureButton extends StatelessWidget {
-  const FitureButton({super.key, required this.image, required this.text});
+  const FitureButton(
+      {super.key, required this.image, required this.text, this.onTap});
   final String image;
   final String text;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print('Fiture clicked!');
-      },
+      onTap: onTap,
       child: Column(
         children: [
           Container(
