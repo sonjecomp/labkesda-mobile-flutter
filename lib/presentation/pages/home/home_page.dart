@@ -36,7 +36,12 @@ class HomePage extends StatelessWidget {
                     ),
                     const Text(
                       'Balai\nLaboratorium\nKesehatan',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                        height: 1,
+                      ),
                     )
                   ],
                 ),
