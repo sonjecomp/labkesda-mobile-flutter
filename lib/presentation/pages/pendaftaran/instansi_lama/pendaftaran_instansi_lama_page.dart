@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
@@ -46,8 +47,10 @@ class PendaftaranInstansiLama extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            const TextField(
-                              decoration: InputDecoration(
+                            TextFormField(
+                              keyboardType: TextInputType.number,
+                              maxLength: 16,
+                              decoration: const InputDecoration(
                                 filled: true,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -63,7 +66,7 @@ class PendaftaranInstansiLama extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(
-                              height: 40,
+                              height: 15,
                             ),
                             Text(
                               'Tanggal Kunjungan',
@@ -78,24 +81,26 @@ class PendaftaranInstansiLama extends StatelessWidget {
                                 showDatePicker(
                                   context: context,
                                   initialDate: DateTime.now(),
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(2025),
+                                  firstDate: DateTime(1999),
+                                  lastDate: DateTime(2030),
                                 );
                               },
-                              decoration: const InputDecoration(
-                                suffixIcon: Icon(Icons.date_range),
+                              decoration: InputDecoration(
+                                suffixIcon: const Icon(Icons.date_range),
                                 filled: true,
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
                                   ),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   vertical: 0,
                                   horizontal: 16,
                                 ),
                                 fillColor: AppColors.whiteColor,
-                                hintText: "Tanggal/Bulan/Tahun",
+                                hintText: DateFormat('dd-MM-yyyy')
+                                    .format(DateTime.now())
+                                    .toString(),
                               ),
                             ),
                             const SizedBox(
