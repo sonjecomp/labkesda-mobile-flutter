@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:labkesda_mobile/constants/assets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
-import 'package:labkesda_mobile/presentation/components/input/select_input.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/header_layout.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 
-const List<String> list = <String>[
-  "--Pilih Status Pendaftaran--",
-  "Pasien Baru",
-  "Pasien Lama",
-  "Instansi Baru",
-  "Instansi Lama"
-];
-
-class PilihStatusPendaftaran extends StatelessWidget {
+class PilihStatusPendaftaran extends StatefulWidget {
   const PilihStatusPendaftaran({super.key});
 
+  @override
+  State<PilihStatusPendaftaran> createState() => _PilihStatusPendaftaranState();
+}
+
+class _PilihStatusPendaftaranState extends State<PilihStatusPendaftaran> {
+  final List<ValueDropdown> daftarStatus = [
+    ValueDropdown(
+      value: "pasien-baru",
+      teks: "Pasien Baru",
+    ),
+    ValueDropdown(
+      value: "pasien-lama",
+      teks: "Pasien Lama",
+    ),
+    ValueDropdown(
+      value: "instansi-baru",
+      teks: "Instansi Baru",
+    ),
+    ValueDropdown(
+      value: "instansi-lama",
+      teks: "Instansi Lama",
+    ),
+  ];
+  String? _selectedItem;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,26 +47,7 @@ class PilihStatusPendaftaran extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      AppAssets.lampungCoa,
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Balai\nLaboratorium\nKesehatan',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ],
-                ),
+                const HeaderPages(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -58,35 +58,92 @@ class PilihStatusPendaftaran extends StatelessWidget {
                       Radius.circular(20),
                     ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Status\nPendaftaran',
-                          style: TextStyle(
-                            color: AppColors.whiteColor,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
+                        const TitleForm(title: "Status\nPendaftaran"),
+                        const SizedBox(
                           height: 10,
                         ),
-                        SelectInput(
-                          items: list,
-                          label: "Lanjutkan Sebagai",
-                          placeholder: "--Pilih Status Pendaftaran--",
-                        ),
                         SizedBox(
-                          height: 60,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Lanjutkan Sebagai',
+                                style: AppStyle.inputLabel,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              DropdownButtonFormField<String>(
+                                value: _selectedItem,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  filled: true,
+                                  fillColor: Color(0xFFF7F7F7),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 16),
+                                  hintText: "--Pilih Status Pendaftaran--",
+                                ),
+                                items: daftarStatus.map((e) {
+                                  return DropdownMenuItem<String>(
+                                    value: e.value,
+                                    child: Text(e.teks),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedItem) {
+                                  setState(() {
+                                    _selectedItem = selectedItem;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 40,
                         ),
                         DirectButton(
                           text: "LANJUTKAN",
+                          onPressed: () {
+                            if (_selectedItem == null) {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  shape: Border.all(
+                                    style: BorderStyle.none,
+                                    color: AppColors.whiteColor,
+                                  ),
+                                  title: const Text('PERINGATAN!'),
+                                  content: const Text(
+                                    'Wajib memilih status pendaftaran!',
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text(
+                                        'OK',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            context.push(
+                              "/pilih-status-pendaftaran/${_selectedItem!}",
+                            );
+                          },
                         ),
-                        SizedBox(
-                          height: 20,
+                        const SizedBox(
+                          height: 40,
                         ),
                       ],
                     ),
