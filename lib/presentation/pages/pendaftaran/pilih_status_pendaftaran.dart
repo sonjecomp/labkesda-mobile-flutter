@@ -39,7 +39,10 @@ class _PilihStatusPendaftaranState extends State<PilihStatusPendaftaran> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Menu Utama'),
+          title: Text(
+            'Menu Utama',
+            style: AppStyle.titleAppBar,
+          ),
         ),
         body: Center(
           child: Padding(
@@ -80,12 +83,13 @@ class _PilihStatusPendaftaranState extends State<PilihStatusPendaftaran> {
                               ),
                               DropdownButtonFormField<String>(
                                 value: _selectedItem,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
                                   filled: true,
-                                  fillColor: Color(0xFFF7F7F7),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 16),
+                                  fillColor: const Color(0xFFF7F7F7),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
                                   hintText: "--Pilih Status Pendaftaran--",
                                 ),
                                 items: daftarStatus.map((e) {

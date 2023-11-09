@@ -19,4 +19,10 @@ class AppStyle {
     fontWeight: FontWeight.w500,
     color: AppColors.whiteColor,
   );
+  static BoxDecoration formContainerDecoration = const BoxDecoration(
+    color: AppColors.primary,
+    borderRadius: BorderRadius.all(
+      Radius.circular(20),
+    ),
+  );
 }
