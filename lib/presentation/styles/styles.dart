@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
 
 class AppStyle {
   const AppStyle._();
@@ -8,9 +9,14 @@ class AppStyle {
     blurRadius: 10,
     offset: const Offset(0, 4),
   );
-  static TextStyle titleAppBar = TextStyle(
+  static TextStyle titleAppBar = const TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: Color(0xFF093545),
+  );
+  static TextStyle inputLabel = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.whiteColor,
   );
 }

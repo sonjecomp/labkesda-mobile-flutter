@@ -7,9 +7,9 @@ class RiwayatPemeriksaanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Riwayat Pemeriksaan"),
+        title: const Text("Riwayat Pemeriksaan"),
       ),
-      body: Center(
+      body: const Center(
         child: Text("riwayat"),
       ),
     );

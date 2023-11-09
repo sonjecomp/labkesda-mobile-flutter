@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/router/router.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.redAccent,
+          seedColor: AppColors.primary,
         ),
         useMaterial3: true,
       ),
