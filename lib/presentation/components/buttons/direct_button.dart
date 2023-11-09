@@ -17,7 +17,7 @@ class DirectButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFFF7F7F7),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(100),
         ),
         height: 45,
         child: Center(
