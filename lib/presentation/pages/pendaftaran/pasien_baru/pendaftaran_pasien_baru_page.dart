@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class PendaftaranPasienBaru extends StatelessWidget {
   const PendaftaranPasienBaru({super.key});
@@ -7,8 +8,9 @@ class PendaftaranPasienBaru extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Kembali',
+          style: AppStyle.titleAppBar,
         ),
       ),
       body: const Center(
