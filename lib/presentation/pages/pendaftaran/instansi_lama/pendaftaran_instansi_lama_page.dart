@@ -48,6 +48,7 @@ class PendaftaranInstansiLama extends StatelessWidget {
                               height: 5,
                             ),
                             TextFormField(
+                              onChanged: (value) {},
                               keyboardType: TextInputType.number,
                               maxLength: 16,
                               decoration: const InputDecoration(
@@ -75,7 +76,8 @@ class PendaftaranInstansiLama extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            TextField(
+                            TextFormField(
+                              onChanged: (value) {},
                               readOnly: true,
                               onTap: () {
                                 showDatePicker(
