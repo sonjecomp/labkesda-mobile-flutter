@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
-class CekPemeriksaanPage extends StatelessWidget {
-  const CekPemeriksaanPage({super.key});
+class PendaftaranPasienBaru extends StatelessWidget {
+  const PendaftaranPasienBaru({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Cek Pemeriksaan',
-          // style: AppStyle.titleAppBar,
+          'Kembali',
         ),
       ),
       body: const Center(
         child: Text(
-          'Cek Pemeriksaan Via Barcode',
+          'Pendaftaran Pasien Baru',
         ),
       ),
     );

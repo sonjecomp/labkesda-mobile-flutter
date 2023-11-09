@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/constants/assets.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/fiture_button.dart';
@@ -36,7 +37,12 @@ class HomePage extends StatelessWidget {
                     ),
                     const Text(
                       'Balai\nLaboratorium\nKesehatan',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                        height: 1,
+                      ),
                     )
                   ],
                 ),
@@ -89,7 +95,10 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 30),
               const Text(
                 'Layanan Labkesda',
-                style: TextStyle(color: AppColors.primary, fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Container(
@@ -101,20 +110,23 @@ class HomePage extends StatelessWidget {
                     AppStyle.boxShadow,
                   ],
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(10),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       FitureButton(
                         image: AppAssets.pendaftaranLogo,
                         text: 'Pendaftaran\n',
+                        onTap: () {
+                          context.push("/pilih-status-pendaftaran");
+                        },
                       ),
-                      FitureButton(
+                      const FitureButton(
                         image: AppAssets.hasilPemeriksaanLogo,
                         text: 'Hasil\nPemeriksaan',
                       ),
-                      FitureButton(
+                      const FitureButton(
                         image: AppAssets.riwayatPemerikasaanLogo,
                         text: 'Riwayat\nPemeriksaan',
                       ),
@@ -125,7 +137,10 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 30),
               const Text(
                 'Penawaran Spesial',
-                style: TextStyle(color: AppColors.primary, fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
@@ -137,7 +152,9 @@ class HomePage extends StatelessWidget {
                   autoPlay: true,
                 ),
                 itemCount: 3,
-                itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => const SliderCard(),
+                itemBuilder:
+                    (BuildContext context, int itemIndex, int pageViewIndex) =>
+                        const SliderCard(),
               ),
               // ElevatedButton(
               //   onPressed: () {

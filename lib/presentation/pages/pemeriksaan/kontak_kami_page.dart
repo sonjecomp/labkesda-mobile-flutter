@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:labkesda_mobile/constants/assets.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 
 class KontakKamiPage extends StatelessWidget {
