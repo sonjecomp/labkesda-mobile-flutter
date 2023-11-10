@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/constants/endpoints.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
@@ -20,15 +21,12 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
 
     Future<List<ValueDropdown>> getData() async {
       try {
-        final Response response =
-            await Dio().get('http://192.168.238.48:3001/api/v1/geo/provinsi');
-        print(response.data);
-        final List<ValueDropdown> data =
-            response.data.map((e) => ValueDropdown.fromJson(e)).toList();
+        final Dio dio = Dio();
+        final Response response = await dio.get(AppEndpoints.getAllProvinsi);
+        final List<ValueDropdown> data = (response.data as List).map((e) => ValueDropdown.fromJson(e)).toList();
 
         return data;
       } catch (e) {
-        print(e);
         return [];
       }
     }
@@ -37,7 +35,6 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
     useEffect(() {
       void getDataProvinsi() async {
         final List<ValueDropdown> response = await getData();
-        print('Memek $response');
         listProvinsi.value = response;
       }
 
@@ -142,9 +139,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: listProvinsi.value.isNotEmpty
-                ? listProvinsi.value
-                : dummyProvinsi,
+            values: listProvinsi.value.isNotEmpty ? listProvinsi.value : dummyProvinsi,
             selectedValue: selectedValueProvinsi,
             placeHolder: "--Pilih Provinsi--",
           ),

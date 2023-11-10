@@ -23,7 +23,7 @@ class DropdownInput extends HookConsumerWidget {
       items: values.map((e) {
         return DropdownMenuItem<String>(
           value: e.value,
-          child: Text(e.teks),
+          child: Text(e.teks, style: const TextStyle(fontSize: 12)),
         );
       }).toList(),
       // items: daftarStatus.map((e) {
