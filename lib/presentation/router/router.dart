@@ -11,7 +11,7 @@ import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/penda
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pilih_status_pendaftaran.dart';
 
 final router = GoRouter(
-  initialLocation: "/on-board",
+  // initialLocation: "/on-board",
   routes: [
     GoRoute(
       path: "/on-board",

@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/header_layout.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
-class PendaftaranInstansiBaru extends StatefulWidget {
+class PendaftaranInstansiBaru extends HookConsumerWidget {
   const PendaftaranInstansiBaru({super.key});
 
   @override
-  State<PendaftaranInstansiBaru> createState() =>
-      _PendaftaranInstansiBaruState();
-}
-
-class _PendaftaranInstansiBaruState extends State<PendaftaranInstansiBaru> {
-  final List<ValueDropdown> jenisInstansi = [
-    ValueDropdown(
-      teks: "Tanpa MOU",
-      value: "tanpa-mou",
-    ),
-    ValueDropdown(
-      teks: "Ada MOU",
-      value: "ada-mou",
-    ),
-  ];
-  String? _selectedItem;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedItem = useState<String?>(null);
+    final List<ValueDropdown> jenisInstansi = [
+      ValueDropdown(
+        teks: "Tanpa MOU",
+        value: "tanpa-mou",
+      ),
+      ValueDropdown(
+        teks: "Ada MOU",
+        value: "ada-mou",
+      ),
+    ];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -75,41 +72,20 @@ class _PendaftaranInstansiBaruState extends State<PendaftaranInstansiBaru> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              DropdownButtonFormField<String>(
-                                value: _selectedItem,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  filled: true,
-                                  fillColor: const Color(0xFFF7F7F7),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  hintText: "--Pilih tipe instansi--",
-                                ),
-                                items: jenisInstansi.map((e) {
-                                  return DropdownMenuItem<String>(
-                                    value: e.value,
-                                    child: Text(
-                                      e.teks,
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (String? selectedItem) => {
-                                  setState(() {
-                                    _selectedItem = selectedItem;
-                                  }),
-                                },
+                              DropdownInput(
+                                values: jenisInstansi,
+                                selectedValue: selectedItem,
+                                placeHolder: "Pilih Tipe Instansi",
                               ),
                               const SizedBox(
                                 height: 40,
                               ),
                               DirectButton(
                                 onPressed: () {
-                                  if (_selectedItem == null) {
+                                  if (selectedItem.value == null) {
                                     showDialog<String>(
                                       context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
+                                      builder: (BuildContext context) => AlertDialog(
                                         shape: Border.all(
                                           style: BorderStyle.none,
                                           color: AppColors.whiteColor,
@@ -120,8 +96,7 @@ class _PendaftaranInstansiBaruState extends State<PendaftaranInstansiBaru> {
                                         ),
                                         actions: <Widget>[
                                           TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
+                                            onPressed: () => Navigator.pop(context, 'OK'),
                                             child: const Text(
                                               'OK',
                                               style: TextStyle(
@@ -133,9 +108,10 @@ class _PendaftaranInstansiBaruState extends State<PendaftaranInstansiBaru> {
                                         ],
                                       ),
                                     );
+                                    return;
                                   }
                                   context.push(
-                                    "/pilih-status-pendaftaran/instansi-baru/${_selectedItem!}",
+                                    "/pilih-status-pendaftaran/instansi-baru/${selectedItem.value}",
                                   );
                                 },
                                 text: "SELANJUTNYA",
