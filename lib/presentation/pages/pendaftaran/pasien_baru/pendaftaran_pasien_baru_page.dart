@@ -14,9 +14,30 @@ class PendaftaranPasienBaru extends StatelessWidget {
         ),
       ),
       body: const Center(
-        child: Text(
-          'Pendaftaran Pasien Baru',
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: FormPendaftaranPasienBaru(),
         ),
+      ),
+    );
+  }
+}
+
+class FormPendaftaranPasienBaru extends StatefulWidget {
+  const FormPendaftaranPasienBaru({super.key});
+
+  @override
+  State<FormPendaftaranPasienBaru> createState() =>
+      _FormPendaftaranPasienBaruState();
+}
+
+class _FormPendaftaranPasienBaruState extends State<FormPendaftaranPasienBaru> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: AppStyle.formContainerDecoration,
+      child: const Text(
+        'Pendaftaran pasien baru',
       ),
     );
   }
