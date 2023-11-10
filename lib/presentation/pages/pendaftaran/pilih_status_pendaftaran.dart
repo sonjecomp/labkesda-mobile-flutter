@@ -64,6 +64,9 @@ class PilihStatusPendaftaran extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
                     const TitleForm(title: "Status\nPendaftaran"),
                     const SizedBox(
                       height: 20,

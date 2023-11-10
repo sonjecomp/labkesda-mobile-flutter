@@ -10,6 +10,7 @@ class TextFormFieldInput extends HookConsumerWidget {
     this.readOnly = false,
     this.suffixIcon,
     this.onTap,
+    this.keyboardType = TextInputType.text,
   });
 
   final String? placeHolder;
@@ -17,10 +18,12 @@ class TextFormFieldInput extends HookConsumerWidget {
   final bool readOnly;
   final Widget? suffixIcon;
   final Function()? onTap;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextFormField(
+      keyboardType: keyboardType,
       onTap: onTap,
       readOnly: readOnly,
       validator: isRequired == true

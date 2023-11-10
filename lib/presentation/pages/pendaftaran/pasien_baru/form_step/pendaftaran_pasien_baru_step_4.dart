@@ -36,8 +36,8 @@ final List<ValueDropdown> agama = [
   ),
 ];
 
-class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper});
+class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
+  const PendaftaranPasienBaruStep4({super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
