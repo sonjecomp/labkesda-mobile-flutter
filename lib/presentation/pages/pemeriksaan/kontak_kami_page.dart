@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/components/headers/logo_labkesda_header.dart';
 
 class KontakKamiPage extends StatelessWidget {
   const KontakKamiPage({super.key});
@@ -13,10 +14,8 @@ class KontakKamiPage extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 110,
-                ),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: [
@@ -37,8 +36,9 @@ class KontakKamiPage extends StatelessWidget {
                 //     ),
                 //   ],
                 // ),
+                const LogoLabkesdaHeader(),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Container(
                   decoration: const BoxDecoration(

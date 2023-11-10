@@ -4,15 +4,20 @@ import 'package:labkesda_mobile/constants/colors.dart';
 class AppStyle {
   const AppStyle._();
 
-  static BoxShadow boxShadow = BoxShadow(
-    color: const Color(0xFFDCDCDC).withOpacity(0.9),
+  static BoxShadow boxShadow = const BoxShadow(
+    color: AppColors.shdadowColor,
     blurRadius: 10,
-    offset: const Offset(0, 4),
+    offset: Offset(0, 4),
   );
   static TextStyle titleAppBar = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: Color(0xFF093545),
+  );
+  static TextStyle titleFeature = const TextStyle(
+    color: AppColors.primary,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
   );
   static TextStyle inputLabel = const TextStyle(
     fontSize: 14,
@@ -25,4 +30,17 @@ class AppStyle {
       Radius.circular(20),
     ),
   );
+  static InputDecoration inputTextFormDecoration({required String hintText, Widget? suffixIcon}) => InputDecoration(
+        filled: true,
+        fillColor: AppColors.whiteColor,
+        suffixIcon: suffixIcon,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 0,
+          horizontal: 16,
+        ),
+        hintText: hintText,
+      );
 }
