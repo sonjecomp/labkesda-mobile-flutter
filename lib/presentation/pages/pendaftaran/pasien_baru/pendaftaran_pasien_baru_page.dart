@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_1.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_2.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_3.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_4.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 final stepScrollController = ScrollController();
@@ -31,10 +33,17 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
       ),
       Step(
         title: const Text(""),
-        content: PendaftaranPasienBaruStep2(
+        content: PendaftaranPasienBaruStep3(
           currIndexStepper: currIndex,
         ),
         isActive: currIndex.value >= 2,
+      ),
+      Step(
+        title: Text(""),
+        content: PendaftaranPasienBaruStep4(
+          currIndexStepper: currIndex,
+        ),
+        isActive: currIndex.value >= 3,
       ),
     ];
 

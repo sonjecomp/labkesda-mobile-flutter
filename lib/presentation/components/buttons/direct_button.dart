@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
 
 class DirectButton extends StatelessWidget {
   final String text;
@@ -16,7 +17,7 @@ class DirectButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF7F7F7),
+          color: AppColors.buttonColor,
           borderRadius: BorderRadius.circular(100),
         ),
         height: 45,
@@ -26,6 +27,7 @@ class DirectButton extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
+              color: AppColors.textWhite,
             ),
           ),
         ),
