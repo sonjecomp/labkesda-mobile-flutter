@@ -11,7 +11,8 @@ class TitleForm extends StatelessWidget {
       title,
       style: const TextStyle(
         color: AppColors.whiteColor,
-        fontSize: 32,
+        fontSize: 24,
+        height: 1.2,
         fontWeight: FontWeight.bold,
       ),
     );

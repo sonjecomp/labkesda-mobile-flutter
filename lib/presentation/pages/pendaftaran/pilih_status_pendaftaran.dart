@@ -36,128 +36,123 @@ class _PilihStatusPendaftaranState extends State<PilihStatusPendaftaran> {
   String? _selectedItem;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Menu Utama',
-            style: AppStyle.titleAppBar,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Menu Utama',
+          style: AppStyle.titleAppBar,
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const HeaderPages(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const HeaderPages(),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const TitleForm(title: "Status\nPendaftaran"),
-                        const SizedBox(
-                          height: 10,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TitleForm(title: "Status\nPendaftaran"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Lanjutkan Sebagai',
+                              style: AppStyle.inputLabel,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            DropdownButtonFormField<String>(
+                              value: _selectedItem,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                filled: true,
+                                fillColor: const Color(0xFFF7F7F7),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                hintText: "--Pilih Status Pendaftaran--",
+                              ),
+                              items: daftarStatus.map((e) {
+                                return DropdownMenuItem<String>(
+                                  value: e.value,
+                                  child: Text(e.teks),
+                                );
+                              }).toList(),
+                              onChanged: (String? selectedItem) {
+                                setState(() {
+                                  _selectedItem = selectedItem;
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Lanjutkan Sebagai',
-                                style: AppStyle.inputLabel,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              DropdownButtonFormField<String>(
-                                value: _selectedItem,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  filled: true,
-                                  fillColor: const Color(0xFFF7F7F7),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  hintText: "--Pilih Status Pendaftaran--",
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      DirectButton(
+                        text: "LANJUTKAN",
+                        onPressed: () {
+                          if (_selectedItem == null) {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                shape: Border.all(
+                                  style: BorderStyle.none,
+                                  color: AppColors.whiteColor,
                                 ),
-                                items: daftarStatus.map((e) {
-                                  return DropdownMenuItem<String>(
-                                    value: e.value,
-                                    child: Text(e.teks),
-                                  );
-                                }).toList(),
-                                onChanged: (String? selectedItem) {
-                                  setState(() {
-                                    _selectedItem = selectedItem;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        DirectButton(
-                          text: "LANJUTKAN",
-                          onPressed: () {
-                            if (_selectedItem == null) {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  shape: Border.all(
-                                    style: BorderStyle.none,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  title: const Text('PERINGATAN!'),
-                                  content: const Text(
-                                    'Wajib memilih status pendaftaran!',
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text(
-                                        'OK',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.blueAccent,
-                                        ),
+                                title: const Text('PERINGATAN!'),
+                                content: const Text(
+                                  'Wajib memilih status pendaftaran!',
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, 'OK'),
+                                    child: const Text(
+                                      'OK',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.blueAccent,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              );
-                            }
-                            context.push(
-                              "/pilih-status-pendaftaran/${_selectedItem!}",
+                                  ),
+                                ],
+                              ),
                             );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    ),
+                          }
+                          context.push(
+                            "/pilih-status-pendaftaran/${_selectedItem!}",
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 120,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 120,
+              ),
+            ],
           ),
         ),
       ),

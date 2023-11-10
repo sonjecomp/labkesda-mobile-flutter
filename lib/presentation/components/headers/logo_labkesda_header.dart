@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/assets.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 
-class HeaderPages extends StatelessWidget {
-  const HeaderPages({super.key});
+class LogoLabkesdaHeader extends StatelessWidget {
+  const LogoLabkesdaHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
           AppAssets.lampungCoa,
-          height: 75,
+          width: 35,
         ),
         const SizedBox(
           width: 10,
@@ -20,12 +19,12 @@ class HeaderPages extends StatelessWidget {
         const Text(
           'Balai\nLaboratorium\nKesehatan',
           style: TextStyle(
-            fontSize: 18,
-            height: 1.2,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.primary,
+            height: 1,
           ),
-        ),
+        )
       ],
     );
   }

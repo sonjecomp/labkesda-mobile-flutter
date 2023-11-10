@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 
 class FitureButton extends StatelessWidget {
-  const FitureButton(
-      {super.key, required this.image, required this.text, this.onTap});
+  const FitureButton({super.key, required this.image, required this.text, this.onTap});
   final String image;
   final String text;
   final Function()? onTap;
