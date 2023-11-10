@@ -9,4 +9,5 @@ class AppColors {
   static const Color textWhite = Color(0xFFF7F7F7);
   static const Color textBrown = Color(0xFF300604);
   static const Color whiteColor = Color(0xFFF7F7F7);
+  static const Color linkedText = Color(0xFF0D6EFD);
 }

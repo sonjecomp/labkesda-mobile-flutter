@@ -10,7 +10,7 @@ class AppStyle {
     offset: const Offset(0, 4),
   );
   static TextStyle titleAppBar = const TextStyle(
-    fontSize: 32,
+    fontSize: 16,
     fontWeight: FontWeight.bold,
     color: Color(0xFF093545),
   );
