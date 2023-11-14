@@ -20,15 +20,50 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
     final selectedValueJenisKelamin = useState<String?>(
       null,
     );
-    final selectedValueGolonganDarah = useState<String?>(
-      null,
-    );
+
     final selectedValuePendidikan = useState<String?>(
       null,
     );
+
+    final selectedValueStatusperkawinan = useState<String?>(
+      null,
+    );
+
     final selectedValuePekerjaan = useState<String?>(
       null,
     );
+
+    final selectedValueAgama = useState<String?>(
+      null,
+    );
+
+    final List<ValueDropdown> agama = [
+      ValueDropdown(
+        teks: "Islam",
+        value: "islam",
+      ),
+      ValueDropdown(
+        teks: "Kristen",
+        value: "kristen",
+      ),
+      ValueDropdown(
+        teks: "Katolik",
+        value: "katolik",
+      ),
+      ValueDropdown(
+        teks: "Hindu",
+        value: "hindu",
+      ),
+      ValueDropdown(
+        teks: "Budha",
+        value: "budha",
+      ),
+      ValueDropdown(
+        teks: "Konghucu",
+        value: "konghucu",
+      )
+    ];
+
     final List<ValueDropdown> jenisKelamin = [
       ValueDropdown(
         teks: "Laki-laki",
@@ -40,22 +75,22 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
       ),
     ];
 
-    final List<ValueDropdown> golonganDarah = [
+    final List<ValueDropdown> statusPerkawinan = [
       ValueDropdown(
-        teks: "A",
-        value: "1",
+        teks: "Sudah Menikah",
+        value: "sudah-menikah",
       ),
       ValueDropdown(
-        teks: "B",
-        value: "2",
+        teks: "Belum Menikah",
+        value: "belum-menikah",
       ),
       ValueDropdown(
-        teks: "AB",
-        value: "3",
+        teks: "Cerai Mati",
+        value: "cerai-mati",
       ),
       ValueDropdown(
-        teks: "O",
-        value: "4",
+        teks: "Cerai Hidup",
+        value: "cerai-hidup",
       ),
     ];
 
@@ -93,6 +128,7 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
         value: "8",
       )
     ];
+
     final List<ValueDropdown> pekerjaan = [
       ValueDropdown(
         teks: "PNS/TNI/Polri",
@@ -127,6 +163,7 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
         value: "lainnya",
       )
     ];
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -139,6 +176,21 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
           ),
           const TitleForm(
             title: "Pendaftaran\nPasien Baru",
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Pilih Agama',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          DropdownInput(
+            values: agama,
+            selectedValue: selectedValueAgama,
+            placeHolder: "--Pilih agama--",
           ),
           const SizedBox(
             height: 20,
@@ -158,29 +210,16 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 20,
           ),
           Text(
-            'Golongan Darah',
+            'Status Perkawinan',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          RadioInput(
-            values: golonganDarah,
-            selectedValue: selectedValueGolonganDarah,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Nomor Telepon',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const TextFormFieldInput(
-            keyboardType: TextInputType.phone,
-            placeHolder: 'Masukan nomor telepon',
+          DropdownInput(
+            values: statusPerkawinan,
+            selectedValue: selectedValueStatusperkawinan,
+            placeHolder: "--Pilih status perkawinan--",
           ),
           const SizedBox(
             height: 20,
