@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/constants/endpoints.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
@@ -16,35 +17,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 'http://192.168.238.48:3001/api/v1/geo/provinsi'
-
-    Future<List<ValueDropdown>> getData() async {
-      try {
-        final Response response =
-            await Dio().get('http://192.168.238.48:3001/api/v1/geo/provinsi');
-        print(response.data);
-        final List<ValueDropdown> data =
-            response.data.map((e) => ValueDropdown.fromJson(e)).toList();
-
-        return data;
-      } catch (e) {
-        print(e);
-        return [];
-      }
-    }
-
-    final listProvinsi = useState<List<ValueDropdown>>([]);
-    useEffect(() {
-      void getDataProvinsi() async {
-        final List<ValueDropdown> response = await getData();
-        print('Memek $response');
-        listProvinsi.value = response;
-      }
-
-      getDataProvinsi();
-      return () {};
-    }, []);
-
+    // Selected value dropdown
     final selectedValueProvinsi = useState<String?>(
       null,
     );
@@ -58,65 +31,84 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
       null,
     );
 
-    final List<ValueDropdown> dummyProvinsi = [
-      ValueDropdown(
-        teks: 'Jawa Barat',
-        value: '1',
-      ),
-      ValueDropdown(
-        teks: 'Jawa Tengah',
-        value: '2',
-      ),
-      ValueDropdown(
-        teks: 'Jawa Timur',
-        value: '3',
-      ),
-    ];
+    // List data dropdown
+    final listProvinsi = useState<List<ValueDropdown>>([]);
+    final listKabupaten = useState<List<ValueDropdown>>([]);
+    final listKecamatan = useState<List<ValueDropdown>>([]);
+    final listKelurahan = useState<List<ValueDropdown>>([]);
 
-    final List<ValueDropdown> dummyKabupaten = [
-      ValueDropdown(
-        teks: 'Bandung',
-        value: '1',
-      ),
-      ValueDropdown(
-        teks: 'Cimahi',
-        value: '2',
-      ),
-      ValueDropdown(
-        teks: 'Bandung Barat',
-        value: '3',
-      ),
-    ];
+    Future<List<ValueDropdown>> getDataForDropdown(String url) async {
+      try {
+        final Dio dio = Dio();
+        final Response response = await dio.get(url);
+        final List<ValueDropdown> data = (response.data as List)
+            .map((e) => ValueDropdown.fromJson(e))
+            .toList();
+        return data;
+      } catch (e) {
+        return [];
+      }
+    }
 
-    final List<ValueDropdown> dummyKecamatan = [
-      ValueDropdown(
-        teks: 'Cimahi Selatan',
-        value: '1',
-      ),
-      ValueDropdown(
-        teks: 'Cimahi Tengah',
-        value: '2',
-      ),
-      ValueDropdown(
-        teks: 'Cimahi Utara',
-        value: '3',
-      ),
-    ];
+    useEffect(() {
+      // useEffect for get data dropdown provinsi
+      void getData() async {
+        final List<ValueDropdown> response =
+            await getDataForDropdown(AppEndpoints.getAllProvinsi);
+        listProvinsi.value = response;
+      }
 
-    final List<ValueDropdown> dummyKelurahan = [
-      ValueDropdown(
-        teks: 'Cibabat',
-        value: '1',
-      ),
-      ValueDropdown(
-        teks: 'Citeureup',
-        value: '2',
-      ),
-      ValueDropdown(
-        teks: 'Cigugur Tengah',
-        value: '3',
-      ),
-    ];
+      getData();
+      return () {};
+    }, []);
+
+    useEffect(() {
+      // useEffect for get data dropdown kabupaten
+      void getData() async {
+        selectedValueKabupaten.value = null;
+        final List<ValueDropdown> response = await getDataForDropdown(
+          AppEndpoints.getAllKabupatenByProvinsiId(
+            selectedValueProvinsi.value.toString(),
+          ),
+        );
+        listKabupaten.value = response;
+      }
+
+      getData();
+      return () {};
+    }, [selectedValueProvinsi.value]);
+
+    useEffect(() {
+      // useEffect for get data dropdown kecamatan
+      void getData() async {
+        selectedValueKecamatan.value = null;
+        final List<ValueDropdown> response = await getDataForDropdown(
+          AppEndpoints.getAllKecamatanByKabupatenId(
+            selectedValueKabupaten.value.toString(),
+          ),
+        );
+        listKecamatan.value = response;
+      }
+
+      getData();
+      return () {};
+    }, [selectedValueKabupaten.value]);
+
+    useEffect(() {
+      // useEffect for get data dropdown kelurahan
+      void getData() async {
+        selectedValueKelurahan.value = null;
+        final List<ValueDropdown> response = await getDataForDropdown(
+          AppEndpoints.getAllKelurahanByKecamatanId(
+            selectedValueKecamatan.value.toString(),
+          ),
+        );
+        listKelurahan.value = response;
+      }
+
+      getData();
+      return () {};
+    }, [selectedValueKecamatan.value]);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -144,7 +136,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           DropdownInput(
             values: listProvinsi.value.isNotEmpty
                 ? listProvinsi.value
-                : dummyProvinsi,
+                : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueProvinsi,
             placeHolder: "--Pilih Provinsi--",
           ),
@@ -159,7 +151,10 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: dummyKabupaten,
+            isDisabled: selectedValueProvinsi.value == null,
+            values: listKabupaten.value.isNotEmpty
+                ? listKabupaten.value
+                : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueKabupaten,
             placeHolder: "--Pilih Kabupaten--",
           ),
@@ -174,7 +169,10 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: dummyKecamatan,
+            isDisabled: selectedValueKabupaten.value == null,
+            values: listKecamatan.value.isNotEmpty
+                ? listKecamatan.value
+                : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueKecamatan,
             placeHolder: "--Pilih Kecamatan--",
           ),
@@ -189,7 +187,10 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: dummyKelurahan,
+            isDisabled: selectedValueKecamatan.value == null,
+            values: listKelurahan.value.isNotEmpty
+                ? listKelurahan.value
+                : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueKelurahan,
             placeHolder: "--Pilih Kelurahan--",
           ),
@@ -212,10 +213,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DirectButton(
             text: "SELANJUTNYA",
-            onPressed: () async {
-              final List response = await getData();
-              print(response);
-            },
+            onPressed: () {},
           ),
           const SizedBox(
             height: 40,
