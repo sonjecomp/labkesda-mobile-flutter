@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
@@ -28,6 +29,8 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedKewarganegaraan = useState(null);
+    final dateController = useTextEditingController();
+    final selectedDate = useState(DateTime.now());
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -95,15 +98,29 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             readOnly: true,
-            placeHolder: 'Masukan tanggal lahir',
+            isRequired: true,
+            controller: DateFormat('dd/MM/yyyy')
+                    .format(DateTime.now())
+                    .toString()
+                    .isNotEmpty
+                ? dateController
+                : null,
+            placeHolder:
+                DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
             suffixIcon: const Icon(Icons.date_range),
-            onTap: () {
-              showDatePicker(
+            onTap: () async {
+              final value = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(1999),
                 lastDate: DateTime(2030),
+                helpText: 'Pilih tanggal lahir',
               );
+              if (value != null) {
+                dateController.text =
+                    DateFormat('dd/MM/yyyy').format(value).toString();
+                selectedDate.value = value;
+              }
             },
           ),
           const SizedBox(
@@ -125,7 +142,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 40,
           ),
           DirectButton(
-            text: 'Kanjutkan',
+            text: 'Lanjutkan',
             onPressed: () {
               currIndexStepper.value++;
               stepScrollController.jumpTo(0);

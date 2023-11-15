@@ -5,6 +5,8 @@ import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_2.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_3.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_4.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_5.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_6.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 final stepScrollController = ScrollController();
@@ -39,11 +41,25 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         isActive: currIndex.value >= 2,
       ),
       Step(
-        title: Text(""),
+        title: const Text(""),
         content: PendaftaranPasienBaruStep4(
           currIndexStepper: currIndex,
         ),
         isActive: currIndex.value >= 3,
+      ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienBaruStep5(
+          currIndexStepper: currIndex,
+        ),
+        isActive: currIndex.value >= 4,
+      ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienBaruStep6(
+          currIndexStepper: currIndex,
+        ),
+        isActive: currIndex.value >= 5,
       ),
     ];
 
