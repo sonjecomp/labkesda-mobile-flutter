@@ -2,36 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
+import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
-import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
-
-final List<ValueDropdown> golonganDarah = [
-  // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
-  ValueDropdown(
-    teks: "A",
-    value: "a",
-  ),
-  ValueDropdown(
-    teks: "B",
-    value: "b",
-  ),
-  ValueDropdown(
-    teks: "AB",
-    value: "ab",
-  ),
-  ValueDropdown(
-    teks: "O",
-    value: "o",
-  ),
-  ValueDropdown(
-    teks: "Tidak Tahu",
-    value: "tidak_tahu",
-  ),
-];
 
 class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
   const PendaftaranPasienBaruStep4({super.key, required this.currIndexStepper});
@@ -40,6 +16,8 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final golonganDarahState = ref.watch(golonganDarahProvider);
+
     final selectedGolonganDarah = useState(null);
 
     return Container(
@@ -80,9 +58,10 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
           ),
           // Bikin radio button
           DropdownInput(
-            values: golonganDarah,
+            values: golonganDarahState.maybeWhen(orElse: () => [], data: (data) => data),
             selectedValue: selectedGolonganDarah,
-            placeHolder: "Pilih Golongan Darah",
+            isDisabled: golonganDarahState.isLoading,
+            placeHolder: golonganDarahState.isLoading ? "Loading..." : "Pilih Golongan Darah",
           ),
           const SizedBox(
             height: 20,

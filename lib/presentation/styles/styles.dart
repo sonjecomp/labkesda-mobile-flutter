@@ -30,9 +30,7 @@ class AppStyle {
       Radius.circular(20),
     ),
   );
-  static InputDecoration inputTextFormDecoration(
-          {required String hintText, Widget? suffixIcon}) =>
-      InputDecoration(
+  static InputDecoration inputTextFormDecoration({required String hintText, Widget? suffixIcon}) => InputDecoration(
         filled: true,
         fillColor: AppColors.whiteColor,
         suffixIcon: suffixIcon,

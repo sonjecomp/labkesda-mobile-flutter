@@ -4,11 +4,7 @@ import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 
 class DropdownInput extends HookConsumerWidget {
   const DropdownInput(
-      {super.key,
-      required this.values,
-      required this.selectedValue,
-      this.isDisabled,
-      this.placeHolder});
+      {super.key, required this.values, required this.selectedValue, this.isDisabled, this.placeHolder});
 
   final List<ValueDropdown> values;
   final ValueNotifier selectedValue;
@@ -25,17 +21,27 @@ class DropdownInput extends HookConsumerWidget {
         fillColor: const Color(0xFFF7F7F7),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         hintText: placeHolder ?? "Placeholder",
+        hintStyle: const TextStyle(fontSize: 12),
       ),
-      items: values.map((e) {
-        return DropdownMenuItem<String>(
-          value: e.value,
-          child: Text(e.teks, style: const TextStyle(fontSize: 12)),
-        );
-      }).toList(),
+      items: values.isNotEmpty
+          ? values.map(
+              (e) {
+                return DropdownMenuItem<String>(
+                  value: e.value,
+                  child: Text(e.teks, style: const TextStyle(fontSize: 12)),
+                );
+              },
+            ).toList()
+          : [
+              const DropdownMenuItem<String>(
+                value: "-",
+                child: Text("Loading", style: TextStyle(fontSize: 12)),
+              )
+            ],
       onChanged: isDisabled == true
           ? null
           : (String? selectedItem) {
-              selectedValue.value = selectedItem!;
+              selectedValue.value = selectedItem;
             },
     );
   }

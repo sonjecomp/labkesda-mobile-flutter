@@ -85,10 +85,10 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
             currIndex.value--;
           }
         },
-        // onStepTapped: (index) {
-        //   stepScrollController.jumpTo(0);
-        //   currIndex.value = index;
-        // },
+        onStepTapped: (index) {
+          stepScrollController.jumpTo(0);
+          currIndex.value = index;
+        },
       ),
     );
   }
