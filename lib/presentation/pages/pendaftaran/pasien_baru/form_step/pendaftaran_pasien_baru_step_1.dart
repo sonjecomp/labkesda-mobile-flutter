@@ -1,26 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:labkesda_mobile/constants/endpoints.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
-
-final List<ValueDropdown> kewarganegaraan = [
-  // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
-  ValueDropdown(
-    teks: 'WNA (Warna Negara Asing)',
-    value: 'wna',
-  ),
-  ValueDropdown(
-    teks: 'WNI (Warna Negara Indonesia)',
-    value: 'wni',
-  )
-];
 
 class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
   const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper});
@@ -29,9 +18,52 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Map selectedValues = {
+      "nama": useState<String?>(null),
+      "nik": useState<String?>(null),
+      "tempat_lahir": useState<String?>(null),
+      "tanggal_lahir": useState<String?>(null),
+      "kewarganegaraan": useState<String?>(null),
+    };
     final selectedKewarganegaraan = useState(null);
-    final dateController = useTextEditingController();
     final selectedDate = useState(DateTime.now());
+    final dateController = useTextEditingController();
+    final namaController = TextEditingController();
+    final nikController = TextEditingController();
+    final tempatLahir = TextEditingController();
+
+    final selectedName = namaController.text;
+
+    final kewarganegaraan = useState<List<ValueDropdown>>([]);
+
+    Future<List<ValueDropdown>> getDataForDropdown(String url) async {
+      try {
+        final Dio dio = Dio();
+        final Response response = await dio.get(url);
+        final List<ValueDropdown> data = (response.data as List)
+            .map((e) => ValueDropdown.fromJson(e))
+            .toList();
+        return data;
+      } catch (e) {
+        return [];
+      }
+    }
+
+    useEffect(() {
+      selectedValues["nama"] = namaController.text;
+      selectedValues["nik"] = nikController.text;
+    }, []);
+
+    useEffect(() {
+      void getData() async {
+        final List<ValueDropdown> response =
+            await getDataForDropdown(AppEndpoints.getCategoryById("9"));
+        kewarganegaraan.value = response;
+      }
+
+      getData();
+      return () {};
+    }, []);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -56,7 +88,8 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: namaController,
             placeHolder: 'Masukan nama lengkap',
           ),
           const SizedBox(
@@ -135,9 +168,14 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: kewarganegaraan,
+            values: kewarganegaraan.value.isNotEmpty
+                ? kewarganegaraan.value
+                : [ValueDropdown(teks: "?", value: "?")],
+            isDisabled: kewarganegaraan.value.isEmpty,
             selectedValue: selectedKewarganegaraan,
-            placeHolder: "--Pilih Kewarganegaraan--",
+            placeHolder: kewarganegaraan.value.isEmpty
+                ? "Loading..."
+                : "--Pilih Kewarganegaraan--",
           ),
           const SizedBox(
             height: 40,
@@ -145,8 +183,8 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           DirectButton(
             text: 'Lanjutkan',
             onPressed: () {
-              currIndexStepper.value++;
-              stepScrollController.jumpTo(0);
+              //
+              print(selectedName);
             },
           ),
           const SizedBox(

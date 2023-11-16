@@ -103,4 +103,14 @@ class AppEndpoints {
   /// * id (String)
   static String getAntrianPasienById(String id) =>
       '$_baseUrl/api/v1/antrian-pasien/$id';
+
+  // ====Categories====
+  /// Get Category for dropdown
+  ///
+  /// Require method:
+  /// * GET
+  ///
+  /// Require params:
+  /// * id (String)
+  static String getCategoryById(String id) => '$_baseUrl/api/v1/category/$id';
 }

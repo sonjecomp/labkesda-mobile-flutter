@@ -10,7 +10,7 @@ class PendaftaranPasienLama extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         title: 'Kembali',
@@ -21,7 +21,7 @@ class PendaftaranPasienLama extends StatelessWidget {
       //     style: AppStyle.titleAppBar,
       //   ),
       // ),
-      body: const Center(
+      body: Center(
         child: Padding(
           padding: EdgeInsets.all(20),
           child: FormPendaftaranPasienLama(),

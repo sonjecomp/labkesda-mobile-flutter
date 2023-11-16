@@ -76,7 +76,7 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          TextFormFieldInput(
+          const TextFormFieldInput(
             placeHolder: 'Masukkan nama instansi',
           ),
           const SizedBox(
