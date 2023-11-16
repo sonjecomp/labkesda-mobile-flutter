@@ -5,7 +5,8 @@ class AppEndpoints {
   const AppEndpoints._();
 
   // Base URL
-  static const String _baseUrl = 'http://192.168.7.48:3001';
+  // static const String _baseUrl = 'http://192.168.7.48:3001';
+  static const String _baseUrl = 'https://relieved-cheaply-drum.ngrok-free.app';
 
   // ====Provinsi====
   /// Get All Provinsi

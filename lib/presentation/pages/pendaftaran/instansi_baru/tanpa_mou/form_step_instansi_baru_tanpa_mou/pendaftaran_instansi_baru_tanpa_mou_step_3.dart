@@ -2,37 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
-import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
-import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
-final List<ValueDropdown> kewarganegaraan = [
-  // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
-  ValueDropdown(
-    teks: 'WNA (Warna Negara Asing)',
-    value: 'wna',
-  ),
-  ValueDropdown(
-    teks: 'WNI (Warna Negara Indonesia)',
-    value: 'wni',
-  )
-];
-
-class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper});
+class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
+  const PendaftaranIsntansiBaruTanpaMouStep3(
+      {super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedKewarganegaraan = useState(null);
     final dateController = useTextEditingController();
     final selectedDate = useState(DateTime.now());
-
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -44,54 +29,26 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 20,
           ),
           const TitleForm(
-            title: "Pendaftaran\nPasien Baru",
+            title: 'Pendaftaran\nInstansi Baru',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Nama',
+            'Jenis Sampel',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
           const TextFormFieldInput(
-            placeHolder: 'Masukan nama lengkap',
+            placeHolder: 'Masukkan jenis sampel',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'NIK',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const TextFormFieldInput(
-            keyboardType: TextInputType.number,
-            isRequired: true,
-            placeHolder: 'Masukan NIK',
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Templat Lahir',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const TextFormFieldInput(
-            placeHolder: 'Masukan tempat lahir',
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Tanggal Lahir',
+            'Tanggal Pengambilan Sampel',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -115,7 +72,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
                 initialDate: DateTime.now(),
                 firstDate: DateTime(1999),
                 lastDate: DateTime(2030),
-                helpText: 'Pilih tanggal lahir',
+                helpText: 'Pilih tanggal pengambilan sampel',
               );
               if (value != null) {
                 dateController.text =
@@ -124,30 +81,68 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
               }
             },
           ),
-          const SizedBox(
+          SizedBox(
             height: 20,
           ),
           Text(
-            'Kewarganegaraan',
+            'Wadah/Volume',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          DropdownInput(
-            values: kewarganegaraan,
-            selectedValue: selectedKewarganegaraan,
-            placeHolder: "--Pilih Kewarganegaraan--",
+          const TextFormFieldInput(
+            placeHolder: 'Masukkan wadah/volume',
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Lokasi Sampel',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const TextFormFieldInput(
+            placeHolder: 'Masukkan lokasi sampel',
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Pengambil Sampel',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const TextFormFieldInput(
+            placeHolder: 'Masukkan pengambil sampel',
           ),
           const SizedBox(
             height: 40,
           ),
-          DirectButton(
-            text: 'Lanjutkan',
-            onPressed: () {
-              currIndexStepper.value++;
-              stepScrollController.jumpTo(0);
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StepperButton(
+                text: "Kembali",
+                buttonType: "prev",
+                onPressed: () {
+                  currIndexStepper.value--;
+                  stepScrollController.jumpTo(0);
+                },
+              ),
+              StepperButton(
+                text: "Lanjutkan",
+                buttonType: "next",
+                onPressed: () {
+                  currIndexStepper.value++;
+                  stepScrollController.jumpTo(0);
+                },
+              ),
+            ],
           ),
           const SizedBox(
             height: 40,
