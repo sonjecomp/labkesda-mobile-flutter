@@ -1,38 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
-import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
+import 'package:labkesda_mobile/presentation/components/input/radio_input.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
-final List<ValueDropdown> kewarganegaraan = [
+final List<ValueDropdown> instansiMou = [
   // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
   ValueDropdown(
-    teks: 'WNA (Warna Negara Asing)',
-    value: 'wna',
+    teks: 'Instansi A',
+    value: 'instansi_a',
   ),
   ValueDropdown(
-    teks: 'WNI (Warna Negara Indonesia)',
-    value: 'wni',
-  )
+    teks: 'Instansi B',
+    value: 'instansi_b',
+  ),
+  ValueDropdown(
+    teks: 'Instansi C',
+    value: 'instansi_c',
+  ),
+  ValueDropdown(
+    teks: 'Instansi D',
+    value: 'instansi_d',
+  ),
+  ValueDropdown(
+    teks: 'Instansi E',
+    value: 'instansi_e',
+  ),
 ];
 
-class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper});
+final List<ValueDropdown> jenisKelamin = [
+  ValueDropdown(
+    teks: 'Laki-laki',
+    value: 'laki_laki',
+  ),
+  ValueDropdown(
+    teks: 'Perempuan',
+    value: 'perempuan',
+  ),
+];
+
+class PendaftaranInstansiBaruAdaMouStep1 extends HookConsumerWidget {
+  const PendaftaranInstansiBaruAdaMouStep1(
+      {super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedKewarganegaraan = useState(null);
-    final dateController = useTextEditingController();
-    final selectedDate = useState(DateTime.now());
-
+    final selectedValueInstansiMou = useState(null);
+    final selectedvalueJenisKelamin = useState<String?>(null);
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -44,26 +66,41 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 20,
           ),
           const TitleForm(
-            title: "Pendaftaran\nPasien Baru",
+            title: 'Pendaftaran\nInstansi Baru',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Nama',
+            'Nama Instansi MOU',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          DropdownInput(
+            placeHolder: '--Pilih nama instansi MOU--',
+            values: instansiMou,
+            selectedValue: selectedValueInstansiMou,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Nama Pelanggan',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
           const TextFormFieldInput(
-            placeHolder: 'Masukan nama lengkap',
+            placeHolder: 'Masukkan nama pelanggan',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'NIK',
+            'NIK Pelanggan',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -71,73 +108,35 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           ),
           const TextFormFieldInput(
             keyboardType: TextInputType.number,
-            isRequired: true,
-            placeHolder: 'Masukan NIK',
+            placeHolder: 'Masukkan NIK pelanggan',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Templat Lahir',
+            'Jenis Kelamin Pelanggan',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          RadioInput(
+            values: jenisKelamin,
+            selectedValue: selectedvalueJenisKelamin,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Umur Pelanggan',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
           const TextFormFieldInput(
-            placeHolder: 'Masukan tempat lahir',
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Tanggal Lahir',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          TextFormFieldInput(
-            readOnly: true,
-            isRequired: true,
-            controller: DateFormat('dd/MM/yyyy')
-                    .format(DateTime.now())
-                    .toString()
-                    .isNotEmpty
-                ? dateController
-                : null,
-            placeHolder:
-                DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
-            suffixIcon: const Icon(Icons.date_range),
-            onTap: () async {
-              final value = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1999),
-                lastDate: DateTime(2030),
-                helpText: 'Pilih tanggal lahir',
-              );
-              if (value != null) {
-                dateController.text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
-              }
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Kewarganegaraan',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          DropdownInput(
-            values: kewarganegaraan,
-            selectedValue: selectedKewarganegaraan,
-            placeHolder: "--Pilih Kewarganegaraan--",
+            keyboardType: TextInputType.number,
+            placeHolder: 'Masukkan umur pelanggan',
           ),
           const SizedBox(
             height: 40,

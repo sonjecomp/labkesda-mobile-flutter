@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
+import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/pendaftaran_instansi_baru_page.dart';
@@ -23,6 +24,10 @@ final router = GoRouter(
         return const BottomBarLayout();
       },
       routes: [
+        GoRoute(
+          path: "hasil-pemeriksaan",
+          builder: (context, state) => const HasilPemeriksaanPage(),
+        ),
         GoRoute(
           path: "riwayat-pemeriksaan",
           builder: (context, state) => const RiwayatPemeriksaanPage(),

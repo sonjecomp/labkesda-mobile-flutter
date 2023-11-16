@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
@@ -11,12 +12,15 @@ class PendaftaranPasienLama extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          'Kembali',
-          style: AppStyle.titleAppBar,
-        ),
+      appBar: CustomAppBar(
+        title: 'Kembali',
       ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Kembali',
+      //     style: AppStyle.titleAppBar,
+      //   ),
+      // ),
       body: const Center(
         child: Padding(
           padding: EdgeInsets.all(20),

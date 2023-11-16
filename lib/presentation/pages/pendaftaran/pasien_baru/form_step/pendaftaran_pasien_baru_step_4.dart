@@ -10,6 +10,7 @@ import 'package:labkesda_mobile/presentation/components/input/text_form_field_in
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 
 final List<ValueDropdown> golonganDarah = [
+  // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
   ValueDropdown(
     teks: "A",
     value: "a",

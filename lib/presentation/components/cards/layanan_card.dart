@@ -28,13 +28,19 @@ class LayananCard extends StatelessWidget {
               context.push("/pilih-status-pendaftaran");
             },
           ),
-          const FitureButton(
+          FitureButton(
             image: AppAssets.hasilPemeriksaanLogo,
             text: 'Hasil\nPemeriksaan',
+            onTap: () {
+              context.push("/hasil-pemeriksaan");
+            },
           ),
-          const FitureButton(
+          FitureButton(
             image: AppAssets.riwayatPemerikasaanLogo,
             text: 'Riwayat\nPemeriksaan',
+            onTap: () {
+              context.push("/riwayat-pemeriksaan");
+            },
           ),
         ],
       ),
