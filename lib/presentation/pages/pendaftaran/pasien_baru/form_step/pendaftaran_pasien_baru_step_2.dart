@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/input/radio_input.dart';
+import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 
 class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
@@ -17,152 +17,40 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedValueJenisKelamin = useState<String?>(
-      null,
-    );
+    final agamaState = ref.watch(agamaProvider);
+    final jenisKelaminState = ref.watch(jenisKelaminProvider);
+    final statusPerkawinanState = ref.watch(statusPerkawinanProvider);
+    final pendidikanState = ref.watch(pendidikanProvider);
+    final pekerjaanState = ref.watch(pekerjaanProvider);
+    // final agama = useState<List<ValueDropdown>>([]);
+    // final jenisKelamin = useState<List<ValueDropdown>>([]);
+    // final statusPerkawinan = useState<List<ValueDropdown>>([]);
+    // final pendidikan = useState<List<ValueDropdown>>([]);
+    // final pekerjaan = useState<List<ValueDropdown>>([]);
 
-    final selectedValuePendidikan = useState<String?>(
-      null,
-    );
+    final Map selectedValues = {
+      "agama": useState<String?>(null),
+      "jenisKelamin": useState<String?>(null),
+      "statusPerkawinan": useState<String?>(null),
+      "pendidikan": useState<String?>(null),
+      "pekerjaan": useState<String?>(null),
+    };
 
-    final selectedValueStatusperkawinan = useState<String?>(
-      null,
-    );
-
-    final selectedValuePekerjaan = useState<String?>(
-      null,
-    );
-
-    final selectedValueAgama = useState<String?>(
-      null,
-    );
-
-    final List<ValueDropdown> agama = [
-      ValueDropdown(
-        teks: "Islam",
-        value: "islam",
-      ),
-      ValueDropdown(
-        teks: "Kristen",
-        value: "kristen",
-      ),
-      ValueDropdown(
-        teks: "Katolik",
-        value: "katolik",
-      ),
-      ValueDropdown(
-        teks: "Hindu",
-        value: "hindu",
-      ),
-      ValueDropdown(
-        teks: "Budha",
-        value: "budha",
-      ),
-      ValueDropdown(
-        teks: "Konghucu",
-        value: "konghucu",
-      )
-    ];
-
-    final List<ValueDropdown> jenisKelamin = [
-      ValueDropdown(
-        teks: "Laki-laki",
-        value: "laki-laki",
-      ),
-      ValueDropdown(
-        teks: "Perempuan",
-        value: "perempuan",
-      ),
-    ];
-
-    final List<ValueDropdown> statusPerkawinan = [
-      ValueDropdown(
-        teks: "Sudah Menikah",
-        value: "sudah-menikah",
-      ),
-      ValueDropdown(
-        teks: "Belum Menikah",
-        value: "belum-menikah",
-      ),
-      ValueDropdown(
-        teks: "Cerai Mati",
-        value: "cerai-mati",
-      ),
-      ValueDropdown(
-        teks: "Cerai Hidup",
-        value: "cerai-hidup",
-      ),
-    ];
-
-    final List<ValueDropdown> pendidikan = [
-      ValueDropdown(
-        teks: "SD",
-        value: "1",
-      ),
-      ValueDropdown(
-        teks: "SMP/MTs",
-        value: "2",
-      ),
-      ValueDropdown(
-        teks: "SMA/MA/SMK",
-        value: "3",
-      ),
-      ValueDropdown(
-        teks: "D3",
-        value: "4",
-      ),
-      ValueDropdown(
-        teks: "S1",
-        value: "5",
-      ),
-      ValueDropdown(
-        teks: "S2",
-        value: "6",
-      ),
-      ValueDropdown(
-        teks: "S3",
-        value: "7",
-      ),
-      ValueDropdown(
-        teks: "Dan lain-lain",
-        value: "8",
-      )
-    ];
-
-    final List<ValueDropdown> pekerjaan = [
-      ValueDropdown(
-        teks: "PNS/TNI/Polri",
-        value: "pns",
-      ),
-      ValueDropdown(
-        teks: "Petani",
-        value: "petani",
-      ),
-      ValueDropdown(
-        teks: "Nelayan",
-        value: "nelayan",
-      ),
-      ValueDropdown(
-        teks: "Buruh",
-        value: "buruh",
-      ),
-      ValueDropdown(
-        teks: "Pedagang",
-        value: "pedagang",
-      ),
-      ValueDropdown(
-        teks: "Wiraswasta",
-        value: "wiraswasta",
-      ),
-      ValueDropdown(
-        teks: "Pensiunan",
-        value: "pensiunan",
-      ),
-      ValueDropdown(
-        teks: "Lainnya",
-        value: "lainnya",
-      )
-    ];
+    // useEffect(() {
+    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("3"))
+    //       .then((value) => jenisKelamin.value = value)
+    //       .catchError((e) => jenisKelamin.value = []);
+    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("7"))
+    //       .then((value) => statusPerkawinan.value = value)
+    //       .catchError((e) => statusPerkawinan.value = []);
+    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("6"))
+    //       .then((value) => pendidikan.value = value)
+    //       .catchError((e) => pendidikan.value = []);
+    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("20"))
+    //       .then((value) => pekerjaan.value = value)
+    //       .catchError((e) => pekerjaan.value = []);
+    //   return;
+    // }, []);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -188,9 +76,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: agama,
-            selectedValue: selectedValueAgama,
-            placeHolder: "--Pilih agama--",
+            values: agamaState.maybeWhen(orElse: () => [], data: (data) => data),
+            selectedValue: selectedValues["agama"],
+            isDisabled: agamaState.isLoading,
+            placeHolder: agamaState.isLoading ? "Loading..." : "--Pilih agama--",
           ),
           const SizedBox(
             height: 20,
@@ -202,10 +91,50 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          RadioInput(
-            values: jenisKelamin,
-            selectedValue: selectedValueJenisKelamin,
+          jenisKelaminState.when(
+            data: (data) {
+              return RadioInput(
+                values: data,
+                selectedValue: selectedValues["jenisKelamin"],
+              );
+            },
+            error: (error, stackTrace) {
+              return SizedBox(
+                height: 45,
+                child: Text(
+                  'Error',
+                  style: AppStyle.inputLabel.copyWith(
+                    color: AppColors.textWhite,
+                  ),
+                ),
+              );
+            },
+            loading: () {
+              return SizedBox(
+                height: 45,
+                child: Text(
+                  'Loading...',
+                  style: AppStyle.inputLabel.copyWith(
+                    color: AppColors.textWhite,
+                  ),
+                ),
+              );
+            },
           ),
+          // jenisKelamin.value.isEmpty
+          //     ? SizedBox(
+          //         height: 45,
+          //         child: Text(
+          //           'Loading...',
+          //           style: AppStyle.inputLabel.copyWith(
+          //             color: AppColors.textWhite,
+          //           ),
+          //         ),
+          //       )
+          //     : RadioInput(
+          //         values: jenisKelamin.value,
+          //         selectedValue: selectedValues["jenisKelamin"],
+          //       ),
           const SizedBox(
             height: 20,
           ),
@@ -217,9 +146,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: statusPerkawinan,
-            selectedValue: selectedValueStatusperkawinan,
-            placeHolder: "--Pilih status perkawinan--",
+            values: statusPerkawinanState.maybeWhen(orElse: () => [], data: (data) => data),
+            isDisabled: statusPerkawinanState.isLoading,
+            selectedValue: selectedValues["statusPerkawinan"],
+            placeHolder: statusPerkawinanState.isLoading ? "Loading..." : "--Pilih status perkawinan--",
           ),
           const SizedBox(
             height: 20,
@@ -232,9 +162,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pendidikan,
-            selectedValue: selectedValuePendidikan,
-            placeHolder: "--Pilih pendidikan--",
+            values: pendidikanState.maybeWhen(orElse: () => [], data: (data) => data),
+            isDisabled: pendidikanState.isLoading,
+            selectedValue: selectedValues["pendidikan"],
+            placeHolder: pendidikanState.isLoading ? "Loading..." : "--Pilih pendidikan--",
           ),
           const SizedBox(
             height: 20,
@@ -247,19 +178,46 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pekerjaan,
-            selectedValue: selectedValuePekerjaan,
-            placeHolder: "--Pilih pekerjaan--",
+            values: pekerjaanState.maybeWhen(orElse: () => [], data: (data) => data),
+            isDisabled: pekerjaanState.isLoading,
+            selectedValue: selectedValues["pekerjaan"],
+            placeHolder: pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
           ),
           const SizedBox(
             height: 40,
           ),
-          DirectButton(
-            text: 'SIMPAN',
-            onPressed: () {
-              currIndexStepper.value++;
-              stepScrollController.jumpTo(0);
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StepperButton(
+                text: "Kembali",
+                buttonType: "prev",
+                onPressed: () {
+                  currIndexStepper.value--;
+                  stepScrollController.jumpTo(0);
+                },
+              ),
+              StepperButton(
+                text: "Lanjutkan",
+                buttonType: "next",
+                onPressed: () {
+                  if (selectedValues.values.any((element) => element.value == null)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Center(
+                          child: Text(
+                            "Semua data wajib diisi!",
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
+                  }
+                },
+              ),
+            ],
           ),
           const SizedBox(
             height: 40,

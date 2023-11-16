@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_1.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_2.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_3.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_4.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_5.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_6.dart';
 
 final stepScrollController = ScrollController();
 
@@ -39,22 +41,32 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         isActive: currIndex.value >= 2,
       ),
       Step(
-        title: Text(""),
+        title: const Text(""),
         content: PendaftaranPasienBaruStep4(
           currIndexStepper: currIndex,
         ),
         isActive: currIndex.value >= 3,
       ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienBaruStep5(
+          currIndexStepper: currIndex,
+        ),
+        isActive: currIndex.value >= 4,
+      ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienBaruStep6(
+          currIndexStepper: currIndex,
+        ),
+        isActive: currIndex.value >= 5,
+      ),
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
+      appBar: const CustomAppBar(
+        title: 'Kembali',
         forceMaterialTransparency: true,
-        title: Text(
-          'Kembali',
-          style: AppStyle.titleAppBar,
-        ),
       ),
       body: Stepper(
         steps: steps,

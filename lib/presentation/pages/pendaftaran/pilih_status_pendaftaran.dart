@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
@@ -37,101 +38,102 @@ class PilihStatusPendaftaran extends HookConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Menu Utama',
-          style: AppStyle.titleAppBar,
-        ),
+      resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBar(
+        title: 'PENDAFTARAN',
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const HeaderPages(),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const HeaderPages(),
+                const SizedBox(
+                  height: 20,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 20,
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
                     ),
-                    const TitleForm(title: "Status\nPendaftaran"),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Lanjutkan Sebagai',
-                      style: AppStyle.inputLabel,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    DropdownInput(
-                      values: daftarStatus,
-                      selectedValue: selectedValue,
-                      placeHolder: "--Pilih Status Pendaftaran--",
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    DirectButton(
-                      text: "LANJUTKAN",
-                      onPressed: () {
-                        if (selectedValue.value == null) {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              shape: Border.all(
-                                style: BorderStyle.none,
-                                color: AppColors.whiteColor,
-                              ),
-                              title: const Text('PERINGATAN!'),
-                              content: const Text(
-                                'Wajib memilih status pendaftaran!',
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text(
-                                    'OK',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.blueAccent,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TitleForm(title: "Status\nPendaftaran"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Lanjutkan Sebagai',
+                        style: AppStyle.inputLabel,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      DropdownInput(
+                        values: daftarStatus,
+                        selectedValue: selectedValue,
+                        placeHolder: "--Pilih Status Pendaftaran--",
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      DirectButton(
+                        text: "LANJUTKAN",
+                        onPressed: () {
+                          if (selectedValue.value == null) {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                shape: Border.all(
+                                  style: BorderStyle.none,
+                                  color: AppColors.whiteColor,
+                                ),
+                                title: const Text('PERINGATAN!'),
+                                content: const Text(
+                                  'Wajib memilih status pendaftaran!',
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text(
+                                      'OK',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.blueAccent,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                            );
+                            return;
+                          }
+                          context.push(
+                            "/pilih-status-pendaftaran/${selectedValue.value}",
                           );
-                          return;
-                        }
-                        context.push(
-                          "/pilih-status-pendaftaran/${selectedValue.value}",
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                  ],
+                        },
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 120,
-              ),
-            ],
+                const SizedBox(
+                  height: 120,
+                ),
+              ],
+            ),
           ),
         ),
       ),

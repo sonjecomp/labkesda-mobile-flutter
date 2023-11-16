@@ -4,10 +4,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/endpoints.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/controllers/geo/geo_provider.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
@@ -17,6 +19,8 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final provinsiState = ref.watch(provinsiProvider);
+
     // Selected value dropdown
     final selectedValueProvinsi = useState<String?>(
       null,
@@ -32,7 +36,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
     );
 
     // List data dropdown
-    final listProvinsi = useState<List<ValueDropdown>>([]);
+    // final listProvinsi = useState<List<ValueDropdown>>([]);
     final listKabupaten = useState<List<ValueDropdown>>([]);
     final listKecamatan = useState<List<ValueDropdown>>([]);
     final listKelurahan = useState<List<ValueDropdown>>([]);
@@ -41,26 +45,23 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
       try {
         final Dio dio = Dio();
         final Response response = await dio.get(url);
-        final List<ValueDropdown> data = (response.data as List)
-            .map((e) => ValueDropdown.fromJson(e))
-            .toList();
+        final List<ValueDropdown> data = (response.data as List).map((e) => ValueDropdown.fromJson(e)).toList();
         return data;
       } catch (e) {
         return [];
       }
     }
 
-    useEffect(() {
-      // useEffect for get data dropdown provinsi
-      void getData() async {
-        final List<ValueDropdown> response =
-            await getDataForDropdown(AppEndpoints.getAllProvinsi);
-        listProvinsi.value = response;
-      }
+    // useEffect(() {
+    //   // useEffect for get data dropdown provinsi
+    //   void getData() async {
+    //     final List<ValueDropdown> response = await getDataForDropdown(AppEndpoints.getAllProvinsi);
+    //     listProvinsi.value = response;
+    //   }
 
-      getData();
-      return () {};
-    }, []);
+    //   getData();
+    //   return () {};
+    // }, []);
 
     useEffect(() {
       // useEffect for get data dropdown kabupaten
@@ -74,7 +75,9 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
         listKabupaten.value = response;
       }
 
-      getData();
+      if (selectedValueProvinsi.value != null) {
+        getData();
+      }
       return () {};
     }, [selectedValueProvinsi.value]);
 
@@ -90,7 +93,9 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
         listKecamatan.value = response;
       }
 
-      getData();
+      if (selectedValueKabupaten.value != null) {
+        getData();
+      }
       return () {};
     }, [selectedValueKabupaten.value]);
 
@@ -106,7 +111,9 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
         listKelurahan.value = response;
       }
 
-      getData();
+      if (selectedValueKecamatan.value != null) {
+        getData();
+      }
       return () {};
     }, [selectedValueKecamatan.value]);
 
@@ -134,11 +141,10 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: listProvinsi.value.isNotEmpty
-                ? listProvinsi.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: provinsiState.maybeWhen(orElse: () => [], data: (data) => data),
             selectedValue: selectedValueProvinsi,
-            placeHolder: "--Pilih Provinsi--",
+            isDisabled: provinsiState.isLoading,
+            placeHolder: provinsiState.isLoading ? "Loading..." : "--Pilih Provinsi--",
           ),
           const SizedBox(
             height: 20,
@@ -152,9 +158,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DropdownInput(
             isDisabled: selectedValueProvinsi.value == null,
-            values: listKabupaten.value.isNotEmpty
-                ? listKabupaten.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: listKabupaten.value.isNotEmpty ? listKabupaten.value : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueKabupaten,
             placeHolder: "--Pilih Kabupaten--",
           ),
@@ -170,9 +174,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DropdownInput(
             isDisabled: selectedValueKabupaten.value == null,
-            values: listKecamatan.value.isNotEmpty
-                ? listKecamatan.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: listKecamatan.value.isNotEmpty ? listKecamatan.value : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueKecamatan,
             placeHolder: "--Pilih Kecamatan--",
           ),
@@ -188,9 +190,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DropdownInput(
             isDisabled: selectedValueKecamatan.value == null,
-            values: listKelurahan.value.isNotEmpty
-                ? listKelurahan.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: listKelurahan.value.isNotEmpty ? listKelurahan.value : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValueKelurahan,
             placeHolder: "--Pilih Kelurahan--",
           ),
@@ -211,9 +211,26 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           const SizedBox(
             height: 40,
           ),
-          DirectButton(
-            text: "SELANJUTNYA",
-            onPressed: () {},
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StepperButton(
+                text: "Kembali",
+                onPressed: () {
+                  currIndexStepper.value--;
+                  stepScrollController.jumpTo(0);
+                },
+                buttonType: "prev",
+              ),
+              StepperButton(
+                text: "Lanjutkan",
+                onPressed: () {
+                  currIndexStepper.value++;
+                  stepScrollController.jumpTo(0);
+                },
+                buttonType: "next",
+              ),
+            ],
           ),
           const SizedBox(
             height: 40,

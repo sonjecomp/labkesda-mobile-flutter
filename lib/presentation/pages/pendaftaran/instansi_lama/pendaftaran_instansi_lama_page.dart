@@ -30,11 +30,14 @@ class PendaftaranInstansiLama extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const TitleForm(
                         title: "Pendaftaran\nInstansi Lama",
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       SizedBox(
                         child: Column(
@@ -65,9 +68,6 @@ class PendaftaranInstansiLama extends StatelessWidget {
                                 fillColor: AppColors.whiteColor,
                                 hintText: "Masukkan NIK/Kode Pendaftaran",
                               ),
-                            ),
-                            const SizedBox(
-                              height: 15,
                             ),
                             Text(
                               'Tanggal Kunjungan',

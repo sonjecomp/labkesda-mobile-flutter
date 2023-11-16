@@ -5,7 +5,8 @@ class AppEndpoints {
   const AppEndpoints._();
 
   // Base URL
-  static const String _baseUrl = 'http://192.168.7.48:3001';
+  // static const String _baseUrl = 'http://192.168.7.48:3001';
+  static const String _baseUrl = 'https://relieved-cheaply-drum.ngrok-free.app';
 
   // ====Provinsi====
   /// Get All Provinsi
@@ -102,4 +103,14 @@ class AppEndpoints {
   /// * id (String)
   static String getAntrianPasienById(String id) =>
       '$_baseUrl/api/v1/antrian-pasien/$id';
+
+  // ====Categories====
+  /// Get Category for dropdown
+  ///
+  /// Require method:
+  /// * GET
+  ///
+  /// Require params:
+  /// * id (String)
+  static String getCategoryById(String id) => '$_baseUrl/api/v1/category/$id';
 }

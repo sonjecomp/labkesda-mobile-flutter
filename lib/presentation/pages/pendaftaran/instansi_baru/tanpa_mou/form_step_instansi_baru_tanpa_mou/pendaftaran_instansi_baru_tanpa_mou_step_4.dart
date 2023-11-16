@@ -1,25 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
-import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
-class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep4({super.key, required this.currIndexStepper});
+final List<ValueDropdown> dokterPengirim = [
+  ValueDropdown(
+    teks: 'Dr. A',
+    value: 'dr_a',
+  ),
+  ValueDropdown(
+    teks: 'Dr. B',
+    value: 'dr_b',
+  ),
+  ValueDropdown(
+    teks: 'Dr. C',
+    value: 'dr_c',
+  ),
+  ValueDropdown(
+    teks: 'Dr. D',
+    value: 'dr_d',
+  ),
+  ValueDropdown(
+    teks: 'Dr. E',
+    value: 'dr_e',
+  ),
+];
+
+final List<ValueDropdown> instansiPengirim = [
+  ValueDropdown(
+    teks: 'Instansi A',
+    value: 'instansi_a',
+  ),
+  ValueDropdown(
+    teks: 'Instansi B',
+    value: 'instansi_b',
+  ),
+  ValueDropdown(
+    teks: 'Instansi C',
+    value: 'instansi_c',
+  ),
+  ValueDropdown(
+    teks: 'Instansi D',
+    value: 'instansi_d',
+  ),
+  ValueDropdown(
+    teks: 'Instansi E',
+    value: 'instansi_e',
+  ),
+];
+
+class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
+  const PendaftaranIsntansiBaruTanpaMouStep4(
+      {super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final golonganDarahState = ref.watch(golonganDarahProvider);
-
-    final selectedGolonganDarah = useState(null);
-
+    final selectedValueDokterPengirim = useState<String?>(null);
+    final selectedValueInstansiPengirim = useState<String?>(null);
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -31,65 +76,63 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
             height: 20,
           ),
           const TitleForm(
-            title: "Pendaftaran\nPasien Baru",
+            title: 'Pendaftaran\nInstansi Baru',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Alamat Domisili',
+            'Nama Petugas',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
           const TextFormFieldInput(
-            placeHolder: 'Masukkan alamat domisili',
+            placeHolder: 'Masukkan nama petugas',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Golongan Darah',
+            'Kondisi Saat Diterima',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          // Bikin radio button
+          const TextFormFieldInput(
+            placeHolder: 'Masukkan kondisi saat diterima',
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Dokter Pengirim',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
           DropdownInput(
-            values: golonganDarahState.maybeWhen(orElse: () => [], data: (data) => data),
-            selectedValue: selectedGolonganDarah,
-            isDisabled: golonganDarahState.isLoading,
-            placeHolder: golonganDarahState.isLoading ? "Loading..." : "Pilih Golongan Darah",
+            placeHolder: '-- Pilih Dokter Pengirim --',
+            values: dokterPengirim,
+            selectedValue: selectedValueDokterPengirim,
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Nomor Telepon/Whatsapp',
+            'Instansi Pengirim',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
-            keyboardType: TextInputType.phone,
-            placeHolder: 'Masukkan nomor telepon/whatsapp',
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Email',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const TextFormFieldInput(
-            keyboardType: TextInputType.emailAddress,
-            placeHolder: 'Masukkan email',
+          DropdownInput(
+            placeHolder: '-- Pilih Instansi Pengirim --',
+            values: instansiPengirim,
+            selectedValue: selectedValueInstansiPengirim,
           ),
           const SizedBox(
             height: 40,
@@ -108,10 +151,6 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
               StepperButton(
                 text: "Lanjutkan",
                 buttonType: "next",
-                onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
-                },
               ),
             ],
           ),

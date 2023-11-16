@@ -13,8 +13,8 @@ class ValueDropdown {
   });
   factory ValueDropdown.fromJson(Map<String, dynamic> json) {
     return ValueDropdown(
-      teks: json['name'],
       value: json['id'],
+      teks: json['name'],
     );
   }
 }
