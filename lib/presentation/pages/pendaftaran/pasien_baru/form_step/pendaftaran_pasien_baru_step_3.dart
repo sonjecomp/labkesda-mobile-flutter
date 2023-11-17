@@ -21,22 +21,16 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provinsiState = ref.watch(provinsiProvider);
 
-    // Selected value dropdown
-    final selectedValueProvinsi = useState<String?>(
-      null,
-    );
-    final selectedValueKabupaten = useState<String?>(
-      null,
-    );
-    final selectedValueKecamatan = useState<String?>(
-      null,
-    );
-    final selectedValueKelurahan = useState<String?>(
-      null,
-    );
+    final Map selectedValues = {
+      "provinsi": useState<String?>(null),
+      "kabupaten": useState<String?>(null),
+      "kecamatan": useState<String?>(null),
+      "kelurahan": useState<String?>(null),
+    };
+
+    final kodePosController = useTextEditingController();
 
     // List data dropdown
-    // final listProvinsi = useState<List<ValueDropdown>>([]);
     final listKabupaten = useState<List<ValueDropdown>>([]);
     final listKecamatan = useState<List<ValueDropdown>>([]);
     final listKelurahan = useState<List<ValueDropdown>>([]);
@@ -45,77 +39,68 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
       try {
         final Dio dio = Dio();
         final Response response = await dio.get(url);
-        final List<ValueDropdown> data = (response.data as List).map((e) => ValueDropdown.fromJson(e)).toList();
+        final List<ValueDropdown> data = (response.data as List)
+            .map((e) => ValueDropdown.fromJson(e))
+            .toList();
         return data;
       } catch (e) {
         return [];
       }
     }
 
-    // useEffect(() {
-    //   // useEffect for get data dropdown provinsi
-    //   void getData() async {
-    //     final List<ValueDropdown> response = await getDataForDropdown(AppEndpoints.getAllProvinsi);
-    //     listProvinsi.value = response;
-    //   }
-
-    //   getData();
-    //   return () {};
-    // }, []);
-
     useEffect(() {
       // useEffect for get data dropdown kabupaten
       void getData() async {
-        selectedValueKabupaten.value = null;
+        selectedValues["kabupaten"].value = null;
         final List<ValueDropdown> response = await getDataForDropdown(
           AppEndpoints.getAllKabupatenByProvinsiId(
-            selectedValueProvinsi.value.toString(),
+            selectedValues["provinsi"].value.toString(),
           ),
         );
         listKabupaten.value = response;
       }
 
-      if (selectedValueProvinsi.value != null) {
+      if (selectedValues["provinsi"].value != null) {
         getData();
       }
       return () {};
-    }, [selectedValueProvinsi.value]);
+    }, [selectedValues["provinsi"].value]);
 
     useEffect(() {
       // useEffect for get data dropdown kecamatan
       void getData() async {
-        selectedValueKecamatan.value = null;
+        selectedValues["kecamatan"].value = null;
         final List<ValueDropdown> response = await getDataForDropdown(
           AppEndpoints.getAllKecamatanByKabupatenId(
-            selectedValueKabupaten.value.toString(),
+            selectedValues["kabupaten"].value.toString(),
           ),
         );
         listKecamatan.value = response;
       }
 
-      if (selectedValueKabupaten.value != null) {
+      if (selectedValues["kabupaten"].value != null) {
         getData();
       }
       return () {};
-    }, [selectedValueKabupaten.value]);
+    }, [selectedValues["kabupaten"].value]);
 
     useEffect(() {
       // useEffect for get data dropdown kelurahan
       void getData() async {
-        selectedValueKelurahan.value = null;
+        selectedValues["kelurahan"].value = null;
         final List<ValueDropdown> response = await getDataForDropdown(
           AppEndpoints.getAllKelurahanByKecamatanId(
-            selectedValueKecamatan.value.toString(),
+            selectedValues["kecamatan"].value.toString(),
           ),
         );
         listKelurahan.value = response;
       }
 
-      if (selectedValueKecamatan.value != null) {
+      if (selectedValues["kecamatan"].value != null) {
         getData();
       }
       return () {};
-    }, [selectedValueKecamatan.value]);
+    }, [selectedValues["kecamatan"].value]);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -141,10 +126,12 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: provinsiState.maybeWhen(orElse: () => [], data: (data) => data),
-            selectedValue: selectedValueProvinsi,
+            values:
+                provinsiState.maybeWhen(orElse: () => [], data: (data) => data),
+            selectedValue: selectedValues["provinsi"],
             isDisabled: provinsiState.isLoading,
-            placeHolder: provinsiState.isLoading ? "Loading..." : "--Pilih Provinsi--",
+            placeHolder:
+                provinsiState.isLoading ? "Loading..." : "--Pilih Provinsi--",
           ),
           const SizedBox(
             height: 20,
@@ -157,9 +144,11 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            isDisabled: selectedValueProvinsi.value == null,
-            values: listKabupaten.value.isNotEmpty ? listKabupaten.value : [ValueDropdown(teks: "?", value: "?")],
-            selectedValue: selectedValueKabupaten,
+            isDisabled: selectedValues["provinsi"].value == null,
+            values: listKabupaten.value.isNotEmpty
+                ? listKabupaten.value
+                : [ValueDropdown(teks: "?", value: "?")],
+            selectedValue: selectedValues["kabupaten"],
             placeHolder: "--Pilih Kabupaten--",
           ),
           const SizedBox(
@@ -173,9 +162,11 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            isDisabled: selectedValueKabupaten.value == null,
-            values: listKecamatan.value.isNotEmpty ? listKecamatan.value : [ValueDropdown(teks: "?", value: "?")],
-            selectedValue: selectedValueKecamatan,
+            isDisabled: selectedValues["kabupaten"].value == null,
+            values: listKecamatan.value.isNotEmpty
+                ? listKecamatan.value
+                : [ValueDropdown(teks: "?", value: "?")],
+            selectedValue: selectedValues["kecamatan"],
             placeHolder: "--Pilih Kecamatan--",
           ),
           const SizedBox(
@@ -189,9 +180,11 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            isDisabled: selectedValueKecamatan.value == null,
-            values: listKelurahan.value.isNotEmpty ? listKelurahan.value : [ValueDropdown(teks: "?", value: "?")],
-            selectedValue: selectedValueKelurahan,
+            isDisabled: selectedValues["kecamatan"].value == null,
+            values: listKelurahan.value.isNotEmpty
+                ? listKelurahan.value
+                : [ValueDropdown(teks: "?", value: "?")],
+            selectedValue: selectedValues["kelurahan"],
             placeHolder: "--Pilih Kelurahan--",
           ),
           const SizedBox(
@@ -204,9 +197,10 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
             keyboardType: TextInputType.number,
             placeHolder: 'Masukan kode pos',
+            controller: kodePosController,
           ),
           const SizedBox(
             height: 40,
@@ -225,8 +219,22 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
               StepperButton(
                 text: "Lanjutkan",
                 onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
+                  if (selectedValues.values
+                          .any((element) => element.value == null) ||
+                      kodePosController.value.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        dismissDirection: DismissDirection.startToEnd,
+                        showCloseIcon: true,
+                        content: Text('Mohon lengkapi data terlebih dahulu'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
+                  }
                 },
                 buttonType: "next",
               ),

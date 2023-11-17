@@ -22,11 +22,6 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
     final statusPerkawinanState = ref.watch(statusPerkawinanProvider);
     final pendidikanState = ref.watch(pendidikanProvider);
     final pekerjaanState = ref.watch(pekerjaanProvider);
-    // final agama = useState<List<ValueDropdown>>([]);
-    // final jenisKelamin = useState<List<ValueDropdown>>([]);
-    // final statusPerkawinan = useState<List<ValueDropdown>>([]);
-    // final pendidikan = useState<List<ValueDropdown>>([]);
-    // final pekerjaan = useState<List<ValueDropdown>>([]);
 
     final Map selectedValues = {
       "agama": useState<String?>(null),
@@ -35,22 +30,6 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
       "pendidikan": useState<String?>(null),
       "pekerjaan": useState<String?>(null),
     };
-
-    // useEffect(() {
-    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("3"))
-    //       .then((value) => jenisKelamin.value = value)
-    //       .catchError((e) => jenisKelamin.value = []);
-    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("7"))
-    //       .then((value) => statusPerkawinan.value = value)
-    //       .catchError((e) => statusPerkawinan.value = []);
-    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("6"))
-    //       .then((value) => pendidikan.value = value)
-    //       .catchError((e) => pendidikan.value = []);
-    //   CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("20"))
-    //       .then((value) => pekerjaan.value = value)
-    //       .catchError((e) => pekerjaan.value = []);
-    //   return;
-    // }, []);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -76,10 +55,12 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: agamaState.maybeWhen(orElse: () => [], data: (data) => data),
+            values:
+                agamaState.maybeWhen(orElse: () => [], data: (data) => data),
             selectedValue: selectedValues["agama"],
             isDisabled: agamaState.isLoading,
-            placeHolder: agamaState.isLoading ? "Loading..." : "--Pilih agama--",
+            placeHolder:
+                agamaState.isLoading ? "Loading..." : "--Pilih agama--",
           ),
           const SizedBox(
             height: 20,
@@ -121,20 +102,6 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
               );
             },
           ),
-          // jenisKelamin.value.isEmpty
-          //     ? SizedBox(
-          //         height: 45,
-          //         child: Text(
-          //           'Loading...',
-          //           style: AppStyle.inputLabel.copyWith(
-          //             color: AppColors.textWhite,
-          //           ),
-          //         ),
-          //       )
-          //     : RadioInput(
-          //         values: jenisKelamin.value,
-          //         selectedValue: selectedValues["jenisKelamin"],
-          //       ),
           const SizedBox(
             height: 20,
           ),
@@ -146,10 +113,13 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: statusPerkawinanState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: statusPerkawinanState.maybeWhen(
+                orElse: () => [], data: (data) => data),
             isDisabled: statusPerkawinanState.isLoading,
             selectedValue: selectedValues["statusPerkawinan"],
-            placeHolder: statusPerkawinanState.isLoading ? "Loading..." : "--Pilih status perkawinan--",
+            placeHolder: statusPerkawinanState.isLoading
+                ? "Loading..."
+                : "--Pilih status perkawinan--",
           ),
           const SizedBox(
             height: 20,
@@ -162,10 +132,13 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pendidikanState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: pendidikanState.maybeWhen(
+                orElse: () => [], data: (data) => data),
             isDisabled: pendidikanState.isLoading,
             selectedValue: selectedValues["pendidikan"],
-            placeHolder: pendidikanState.isLoading ? "Loading..." : "--Pilih pendidikan--",
+            placeHolder: pendidikanState.isLoading
+                ? "Loading..."
+                : "--Pilih pendidikan--",
           ),
           const SizedBox(
             height: 20,
@@ -178,10 +151,12 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pekerjaanState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: pekerjaanState.maybeWhen(
+                orElse: () => [], data: (data) => data),
             isDisabled: pekerjaanState.isLoading,
             selectedValue: selectedValues["pekerjaan"],
-            placeHolder: pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
+            placeHolder:
+                pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
           ),
           const SizedBox(
             height: 40,
@@ -201,14 +176,16 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  if (selectedValues.values.any((element) => element.value == null)) {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  if (selectedValues.values
+                      .any((element) => element.value == null)) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Center(
-                          child: Text(
-                            "Semua data wajib diisi!",
-                          ),
-                        ),
+                        behavior: SnackBarBehavior.floating,
+                        dismissDirection: DismissDirection.startToEnd,
+                        showCloseIcon: true,
+                        content: Text('Mohon lengkapi data terlebih dahulu'),
+                        backgroundColor: Colors.red,
                       ),
                     );
                   } else {

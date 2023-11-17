@@ -1,14 +1,15 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 final List<ValueDropdown> dokterPengirim = [
   // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
@@ -63,10 +64,11 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
   final ValueNotifier<int> currIndexStepper;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedDokterPengirim = useState(null);
-    final selectedInstansiPengirim = useState(null);
-    final dateController = useTextEditingController();
-    final selectedDate = useState(DateTime.now());
+    final tanggalKunjunganController = useTextEditingController();
+    final pengambilSampelController = useTextEditingController();
+    final selectedDokterPengirim = useState<String?>(null);
+    final selectedInstansiPengirim = useState<String?>(null);
+    final selectedTanggalKunjungan = useState(DateTime.now());
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -90,8 +92,8 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
-            isRequired: true,
+          TextFormFieldInput(
+            controller: pengambilSampelController,
             placeHolder: 'Masukkan pengambil sampel',
           ),
           const SizedBox(
@@ -107,13 +109,13 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             isRequired: true,
-            placeHolder:
-                DateFormat('dd-MM-yyyy HH.mm').format(selectedDate.value),
+            placeHolder: DateFormat('dd-MM-yyyy HH.mm')
+                .format(selectedTanggalKunjungan.value),
             controller: DateFormat('dd-MM-yyyy HH.mm')
                     .format(DateTime.now())
                     .toString()
                     .isNotEmpty
-                ? dateController
+                ? tanggalKunjunganController
                 : null,
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
@@ -138,9 +140,9 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                     time.hour,
                     time.minute,
                   );
-                  dateController.text =
+                  tanggalKunjunganController.text =
                       DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
-                  selectedDate.value = dateTime;
+                  selectedTanggalKunjungan.value = dateTime;
                 }
               }
             },
@@ -192,6 +194,49 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
               StepperButton(
                 text: "Simpan",
                 buttonType: "next",
+                onPressed: () {
+                  if (pengambilSampelController.text.isNotEmpty &&
+                      tanggalKunjunganController.text.isNotEmpty) {
+                    if (selectedInstansiPengirim.value == null &&
+                        selectedDokterPengirim.value == null) {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          shape: Border.all(
+                            style: BorderStyle.none,
+                            color: AppColors.whiteColor,
+                          ),
+                          title: const Text('PERINGATAN!'),
+                          content: const Text(
+                            'Wajib memilih status pendaftaran!',
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text(
+                                'OK',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.blueAccent,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        dismissDirection: DismissDirection.startToEnd,
+                        showCloseIcon: true,
+                        content: Text('Mohon lengkapi data terlebih dahulu'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),
