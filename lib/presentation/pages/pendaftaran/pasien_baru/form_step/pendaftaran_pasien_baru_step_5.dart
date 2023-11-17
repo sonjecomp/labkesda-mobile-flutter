@@ -14,7 +14,13 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dateController = useTextEditingController();
+    final jenisSampelController = useTextEditingController();
+    final lokasiSampelController = useTextEditingController();
+    final wadahVolumeController = useTextEditingController();
+    final kondisiSaatDiterimaController = useTextEditingController();
+
     final selectedDate = useState(DateTime.now());
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -38,9 +44,9 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
-            isRequired: true,
+          TextFormFieldInput(
             placeHolder: 'Masukkan jenis sampel',
+            controller: jenisSampelController,
           ),
           const SizedBox(
             height: 20,
@@ -52,9 +58,9 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
-            isRequired: true,
+          TextFormFieldInput(
             placeHolder: 'Masukkan lokasi sampel',
+            controller: lokasiSampelController,
           ),
           const SizedBox(
             height: 20,
@@ -66,9 +72,9 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
-            isRequired: true,
+          TextFormFieldInput(
             placeHolder: 'Masukkan wadah/volume',
+            controller: wadahVolumeController,
           ),
           const SizedBox(
             height: 20,
@@ -80,9 +86,9 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
-            isRequired: true,
+          TextFormFieldInput(
             placeHolder: 'Masukkan kondisi saat diterima',
+            controller: kondisiSaatDiterimaController,
           ),
           const SizedBox(
             height: 20,
@@ -139,8 +145,25 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  if (jenisSampelController.value.text.isEmpty ||
+                      lokasiSampelController.value.text.isEmpty ||
+                      wadahVolumeController.value.text.isEmpty ||
+                      kondisiSaatDiterimaController.value.text.isEmpty ||
+                      dateController.value.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        dismissDirection: DismissDirection.startToEnd,
+                        showCloseIcon: true,
+                        content: Text('Mohon lengkapi data terlebih dahulu'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
+                  }
                 },
               ),
             ],

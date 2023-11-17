@@ -18,7 +18,10 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final golonganDarahState = ref.watch(golonganDarahProvider);
 
-    final selectedGolonganDarah = useState(null);
+    final selectedGolonganDarah = useState<String?>(null);
+    final alamatDomisiliController = useTextEditingController();
+    final nomorTeleponController = useTextEditingController();
+    final emailController = useTextEditingController();
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -43,7 +46,8 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: alamatDomisiliController,
             placeHolder: 'Masukkan alamat domisili',
           ),
           const SizedBox(
@@ -58,10 +62,13 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
           ),
           // Bikin radio button
           DropdownInput(
-            values: golonganDarahState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: golonganDarahState.maybeWhen(
+                orElse: () => [], data: (data) => data),
             selectedValue: selectedGolonganDarah,
             isDisabled: golonganDarahState.isLoading,
-            placeHolder: golonganDarahState.isLoading ? "Loading..." : "Pilih Golongan Darah",
+            placeHolder: golonganDarahState.isLoading
+                ? "Loading..."
+                : "Pilih Golongan Darah",
           ),
           const SizedBox(
             height: 20,
@@ -73,8 +80,9 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
             keyboardType: TextInputType.phone,
+            controller: nomorTeleponController,
             placeHolder: 'Masukkan nomor telepon/whatsapp',
           ),
           const SizedBox(
@@ -87,8 +95,9 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
             keyboardType: TextInputType.emailAddress,
+            controller: emailController,
             placeHolder: 'Masukkan email',
           ),
           const SizedBox(
@@ -109,8 +118,24 @@ class PendaftaranPasienBaruStep4 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  if (alamatDomisiliController.value.text.isEmpty ||
+                      selectedGolonganDarah.value == null ||
+                      nomorTeleponController.value.text.isEmpty ||
+                      emailController.value.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        dismissDirection: DismissDirection.startToEnd,
+                        showCloseIcon: true,
+                        content: Text('Mohon lengkapi data terlebih dahulu'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
+                  }
                 },
               ),
             ],
