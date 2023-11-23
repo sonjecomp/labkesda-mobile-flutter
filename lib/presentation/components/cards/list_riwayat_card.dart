@@ -53,20 +53,29 @@ class ListRiwayatCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: onPressed,
-                child: const Text(
-                  'Detail',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.underline,
-                    color: AppColors.linkedText,
-                  ),
+                child: const Row(
+                  children: [
+                    Text(
+                      'Lihat detail',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        color: AppColors.linkedText,
+                      ),
+                    ),
+                    Icon(
+                      Icons.chevron_right,
+                      color: AppColors.linkedText,
+                      size: 14,
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
           const Divider(
             color: Color(0xFF000000),
+            thickness: 1,
             height: 1,
           ),
           const SizedBox(
@@ -90,15 +99,12 @@ class ListRiwayatCard extends StatelessWidget {
           ),
           Row(
             children: [
-              const SizedBox(
-                width: 95,
-                child: Text(
-                  'Mendaftar Sebagai: ',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF000000),
-                    fontWeight: FontWeight.w400,
-                  ),
+              const Text(
+                'Mendaftar Sebagai: ',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF000000),
+                  fontWeight: FontWeight.w400,
                 ),
               ),
               Text(
@@ -113,15 +119,12 @@ class ListRiwayatCard extends StatelessWidget {
           ),
           Row(
             children: [
-              const SizedBox(
-                width: 95,
-                child: Text(
-                  'Mendaftar Sebagai: ',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF000000),
-                    fontWeight: FontWeight.w400,
-                  ),
+              const Text(
+                'Status Pembayaran: ',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF000000),
+                  fontWeight: FontWeight.w400,
                 ),
               ),
               Text(

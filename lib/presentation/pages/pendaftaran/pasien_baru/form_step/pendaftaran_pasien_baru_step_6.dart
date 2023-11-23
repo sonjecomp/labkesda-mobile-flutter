@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/controllers/dokter/dokter_provider.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
@@ -11,29 +12,29 @@ import 'package:labkesda_mobile/presentation/components/layouts/title_form_layou
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 
-final List<ValueDropdown> dokterPengirim = [
-  // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
-  ValueDropdown(
-    teks: 'Dr. A',
-    value: 'dr_a',
-  ),
-  ValueDropdown(
-    teks: 'Dr. B',
-    value: 'dr_b',
-  ),
-  ValueDropdown(
-    teks: 'Dr. C',
-    value: 'dr_c',
-  ),
-  ValueDropdown(
-    teks: 'Dr. D',
-    value: 'dr_d',
-  ),
-  ValueDropdown(
-    teks: 'Dr. E',
-    value: 'dr_e',
-  ),
-];
+// final List<ValueDropdown> dokterPengirim = [
+//   // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
+//   ValueDropdown(
+//     teks: 'Dr. A',
+//     value: 'dr_a',
+//   ),
+//   ValueDropdown(
+//     teks: 'Dr. B',
+//     value: 'dr_b',
+//   ),
+//   ValueDropdown(
+//     teks: 'Dr. C',
+//     value: 'dr_c',
+//   ),
+//   ValueDropdown(
+//     teks: 'Dr. D',
+//     value: 'dr_d',
+//   ),
+//   ValueDropdown(
+//     teks: 'Dr. E',
+//     value: 'dr_e',
+//   ),
+// ];
 
 final List<ValueDropdown> instansiPengirim = [
   // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
@@ -64,6 +65,8 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
   final ValueNotifier<int> currIndexStepper;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final dokterPengirimState = ref.watch(dokterProvider);
+
     final tanggalKunjunganController = useTextEditingController();
     final pengambilSampelController = useTextEditingController();
     final selectedDokterPengirim = useState<String?>(null);
@@ -158,9 +161,15 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: dokterPengirim,
+            values: dokterPengirimState.maybeWhen(
+              orElse: () => [],
+              data: (data) => data,
+            ),
+            isDisabled: dokterPengirimState.isLoading,
             selectedValue: selectedDokterPengirim,
-            placeHolder: "Pilih Dokter Pengirim",
+            placeHolder: dokterPengirimState.isLoading
+                ? "Loading..."
+                : "Pilih Dokter Pengirim",
           ),
           const SizedBox(
             height: 20,
