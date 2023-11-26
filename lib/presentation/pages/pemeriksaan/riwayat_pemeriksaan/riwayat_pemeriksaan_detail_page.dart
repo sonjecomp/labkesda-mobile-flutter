@@ -257,7 +257,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                               behavior: SnackBarBehavior.floating,
                               dismissDirection: DismissDirection.startToEnd,
                               showCloseIcon: true,
-                              content: Text('Memek'),
+                              content: Text('Cooming soon'),
                               backgroundColor: Colors.red,
                             ),
                           );
