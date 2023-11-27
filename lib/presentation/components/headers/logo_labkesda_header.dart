@@ -24,7 +24,7 @@ class LogoLabkesdaHeader extends StatelessWidget {
             color: AppColors.primary,
             height: 1,
           ),
-        )
+        ),
       ],
     );
   }

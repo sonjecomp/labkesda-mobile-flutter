@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/presentation/components/headers/logo_labkesda_header.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/header_layout.dart';
 
 class KontakKamiPage extends StatelessWidget {
   const KontakKamiPage({super.key});
@@ -16,183 +19,246 @@ class KontakKamiPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Image.asset(
-                //       AppAssets.lampungCoa,
-                //       height: 100,
-                //     ),
-                //     const SizedBox(
-                //       width: 10,
-                //     ),
-                //     const Text(
-                //       'Balai\nLaboratorium\nKesehatan',
-                //       style: TextStyle(
-                //         fontSize: 24,
-                //         fontWeight: FontWeight.bold,
-                //         color: AppColors.primary,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                const LogoLabkesdaHeader(),
+                const HeaderPages(),
                 const SizedBox(
                   height: 20,
                 ),
                 Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
+                  decoration: AppStyle.formContainerDecoration,
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                    right: 20,
+                    bottom: 40,
+                    left: 20,
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TitleForm(
+                        title: "Kontak\nKami",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Layanan Pemeriksaan Covid',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: AppColors.textWhite,
+                        ),
+                      ),
+                      Row(
                         children: [
-                          Text(
-                            'Layanan Pemeriksaan Covid',
+                          const Icon(
+                            Icons.phone,
+                            size: 14,
+                            color: AppColors.textWhite,
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          const Text(
+                            '0811 722 020',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 14,
                               color: AppColors.textWhite,
                             ),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                size: 18,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '0811 722 020',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          GestureDetector(
+                            child: const Icon(
+                              Icons.copy,
+                              size: 14,
+                              color: AppColors.textWhite,
+                            ),
+                            onTap: () async {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              await Clipboard.setData(
+                                const ClipboardData(
+                                  text: '0811722020',
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Layanan Pemeriksaan Lainnya',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                size: 18,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '0811 7839 532',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Layanan Melalui Surel',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.mail,
-                                size: 18,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'example@email.com',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Lokasi',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.room,
-                                size: 16,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              SizedBox(
-                                width: 250,
-                                child: Text(
-                                  'Jl. dr. Sam Ratulangi No. 103 Penengahan, Bandar Lampung. Kode Pos 35112.',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.textWhite,
+                              ).then(
+                                (value) =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Nomor telepon disalin di clipboard',
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        'Layanan Pemeriksaan Lainnya',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: AppColors.textWhite,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.phone,
+                            size: 14,
+                            color: AppColors.textWhite,
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          const Text(
+                            '0811 7839 532',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.textWhite,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          GestureDetector(
+                            child: const Icon(
+                              Icons.copy,
+                              size: 14,
+                              color: AppColors.textWhite,
+                            ),
+                            onTap: () async {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              await Clipboard.setData(
+                                const ClipboardData(
+                                  text: '08117839532',
+                                ),
+                              ).then(
+                                (value) =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Nomor telepon disalin di clipboard',
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        'Fax',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: AppColors.textWhite,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.mail,
+                            size: 14,
+                            color: AppColors.textWhite,
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          const Text(
+                            'example@email.com',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.textWhite,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          GestureDetector(
+                            child: const Icon(
+                              Icons.copy,
+                              size: 14,
+                              color: AppColors.textWhite,
+                            ),
+                            onTap: () async {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              await Clipboard.setData(
+                                const ClipboardData(
+                                  text: 'example@email.com',
+                                ),
+                              ).then(
+                                (value) =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Email disalin di clipboard',
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        'Lokasi',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: AppColors.textWhite,
+                        ),
+                      ),
+                      const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.room,
+                            size: 14,
+                            color: AppColors.textWhite,
                           ),
                           SizedBox(
-                            height: 30,
+                            width: 3,
                           ),
                           SizedBox(
-                            width: double.infinity,
+                            width: 250,
                             child: Text(
-                              '\u00A9 Laboratorium Kesehatan Daerah 2023',
-                              textAlign: TextAlign.center,
+                              'Jl. dr. Sam Ratulangi No. 103 Penengahan, Bandar Lampung. Kode Pos 35112.',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
+                                fontSize: 14,
                                 color: AppColors.textWhite,
-                                fontSize: 12,
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          '\u00A9 Laboratorium Kesehatan Daerah 2023',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.textWhite,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
