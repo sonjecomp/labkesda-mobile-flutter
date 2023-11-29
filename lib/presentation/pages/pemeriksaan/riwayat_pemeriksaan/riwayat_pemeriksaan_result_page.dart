@@ -85,16 +85,6 @@ class RiwayatPemeriksaanResultPage extends StatelessWidget {
                 kodePemeriksaan: riwayat['kodePemeriksaan'],
                 tanggalKunjungan: riwayat['tanggalKunjungan'],
                 onPressed: () {
-                  // ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     behavior: SnackBarBehavior.floating,
-                  //     dismissDirection: DismissDirection.startToEnd,
-                  //     showCloseIcon: true,
-                  //     content: Text('Coming Soon'),
-                  //     backgroundColor: Colors.red,
-                  //   ),
-                  // );
                   context.push(
                     '/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/detail-pemeriksaan',
                   );
