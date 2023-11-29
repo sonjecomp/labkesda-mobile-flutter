@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:labkesda_mobile/presentation/pages/layanan/daftar_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
@@ -92,6 +93,12 @@ final router = GoRouter(
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: "daftar-layanan",
+          builder: (context, state) {
+            return const DaftarLayanan();
+          },
         ),
       ],
     ),

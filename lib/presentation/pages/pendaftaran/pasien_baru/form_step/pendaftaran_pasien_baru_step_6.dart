@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/controllers/dokter/dokter_provider.dart';
+import 'package:labkesda_mobile/presentation/controllers/instansi/instansi_provider.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
@@ -66,6 +67,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dokterPengirimState = ref.watch(dokterProvider);
+    final instansiPengirimState = ref.watch(instansiProvider);
 
     final tanggalKunjunganController = useTextEditingController();
     final pengambilSampelController = useTextEditingController();
@@ -168,7 +170,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             isDisabled: dokterPengirimState.isLoading,
             selectedValue: selectedDokterPengirim,
             placeHolder: dokterPengirimState.isLoading
-                ? "Loading..."
+                ? "Memuat..."
                 : "Pilih Dokter Pengirim",
           ),
           const SizedBox(
@@ -182,9 +184,15 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: instansiPengirim,
+            values: instansiPengirimState.maybeWhen(
+              orElse: () => [],
+              data: (data) => data,
+            ),
+            isDisabled: instansiPengirimState.isLoading,
             selectedValue: selectedInstansiPengirim,
-            placeHolder: "Pilih Instansi Pengirim",
+            placeHolder: instansiPengirimState.isLoading
+                ? "Memuat..."
+                : "Pilih Instansi Pengirim",
           ),
           const SizedBox(
             height: 40,
@@ -204,47 +212,29 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                 text: "Simpan",
                 buttonType: "next",
                 onPressed: () {
-                  if (pengambilSampelController.text.isNotEmpty &&
-                      tanggalKunjunganController.text.isNotEmpty) {
-                    if (selectedInstansiPengirim.value == null &&
-                        selectedDokterPengirim.value == null) {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          shape: Border.all(
-                            style: BorderStyle.none,
-                            color: AppColors.whiteColor,
-                          ),
-                          title: const Text('PERINGATAN!'),
-                          content: const Text(
-                            'Wajib memilih status pendaftaran!',
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text(
-                                'OK',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.blueAccent,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        dismissDirection: DismissDirection.startToEnd,
-                        showCloseIcon: true,
-                        content: Text('Mohon lengkapi data terlebih dahulu'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
+                  // if (pengambilSampelController.text.isNotEmpty &&
+                  //     tanggalKunjunganController.text.isNotEmpty &&
+                  //     selectedInstansiPengirim.value == null &&
+                  //     selectedDokterPengirim.value == null) {
+                  //   showDialog<String>(
+                  //     context: context,
+                  //     builder: (BuildContext context) => const AlertDialog(
+                  //       title: Text(
+                  //         'PERINGATAN!',
+                  //         style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           fontSize: 16,
+                  //         ),
+                  //       ),
+                  //       content: Text(
+                  //         'Anda belum memilih Instansi Pengirim atau Dokter Pengirim, tetap lanjutkan pendaftaran?',
+                  //         style: TextStyle(
+                  //           fontSize: 14,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   );
+                  // }
                 },
               ),
             ],
