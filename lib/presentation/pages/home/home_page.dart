@@ -14,30 +14,40 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 const LogoLabkesdaHeader(),
-                const SizedBox(height: 20),
+                const SizedBox(
+                  height: 20,
+                ),
                 const WelcomeCard(),
-                const SizedBox(height: 30),
+                const SizedBox(
+                  height: 30,
+                ),
                 Text(
                   'Layanan Labkesda',
                   style: AppStyle.titleFeature,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(
+                  height: 5,
+                ),
                 const LayananCard(),
-                const SizedBox(height: 30),
+                const SizedBox(
+                  height: 30,
+                ),
                 Text(
                   'Penawaran Spesial',
                   style: AppStyle.titleFeature,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 const PromoCarousel(),
               ],

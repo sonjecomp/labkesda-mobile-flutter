@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/pages/home/home_page.dart';
-import 'package:labkesda_mobile/presentation/pages/pemeriksaan/cek_pemeriksaan_page.dart';
+import 'package:labkesda_mobile/presentation/pages/layanan/daftar_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/kontak_kami_page.dart';
 
 class BottomBarLayout extends StatefulWidget {
@@ -58,11 +58,11 @@ class BottomBarLayoutState extends State<BottomBarLayout> {
               ),
               NavigationDestination(
                 selectedIcon: Icon(
-                  Icons.qr_code_scanner,
+                  Icons.receipt_long,
                   color: AppColors.textWhite,
                 ),
-                icon: Icon(Icons.qr_code_scanner_outlined),
-                label: 'Cek Pemeriksaan',
+                icon: Icon(Icons.receipt_long_outlined),
+                label: 'Harga Layanan',
               ),
               NavigationDestination(
                 selectedIcon: Icon(
@@ -78,7 +78,7 @@ class BottomBarLayoutState extends State<BottomBarLayout> {
       ),
       body: [
         const HomePage(),
-        const CekPemeriksaanPage(),
+        const DaftarLayanan(),
         const KontakKamiPage(),
       ][currIndex],
     );

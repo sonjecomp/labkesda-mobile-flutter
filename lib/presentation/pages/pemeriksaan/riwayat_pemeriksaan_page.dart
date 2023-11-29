@@ -1,51 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:labkesda_mobile/presentation/components/cards/list_riwayat_card.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/header_layout.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 
-List<Map<String, dynamic>> riwayatPemeriksaan = [
-  {
-    'statusPembayaran': {'id': 1, 'text': 'Pembayaran Lunas'},
-    'kodePemeriksaan': 'P-20201121-0001',
-    'tanggalKunjungan': '21 November 2023',
-    'mendaftarSebagai': 'Instansi',
-  },
-  {
-    'statusPembayaran': {'id': 2, 'text': 'Pembayaran Hutang'},
-    'kodePemeriksaan': 'P-20201121-0002',
-    'tanggalKunjungan': '22 November 2023',
-    'mendaftarSebagai': 'Pribadi',
-  },
-  {
-    'statusPembayaran': {'id': 1, 'text': 'Pembayaran Lunas'},
-    'kodePemeriksaan': 'P-20201121-0010',
-    'tanggalKunjungan': '30 November 2023',
-    'mendaftarSebagai': 'Instansi',
-  }
-];
-
-class RiwayatPemeriksaanPage extends StatelessWidget {
-  const RiwayatPemeriksaanPage({Key? key}) : super(key: key);
+class RiwayatPemeriksaanPage extends HookConsumerWidget {
+  const RiwayatPemeriksaanPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final kodeIdentitasController = TextEditingController();
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'RIWAYAT PEMERIKSAAN',
+        forceMaterialTransparency: true,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: riwayatPemeriksaan.map((riwayat) {
-            return ListRiwayatCard(
-              kodePemeriksaan: riwayat['kodePemeriksaan'],
-              tanggalKunjungan: riwayat['tanggalKunjungan'],
-              onPressed: () {},
-              statusPendaftar: riwayat['mendaftarSebagai'],
-              statusPembayaranText: riwayat['statusPembayaran']['text'],
-              statusPembayaranId: riwayat['statusPembayaran']['id'],
-            );
-          }).toList(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const HeaderPages(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  width: double.infinity,
+                  decoration: AppStyle.formContainerDecoration,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TitleForm(
+                        title: 'Riwayat\nPemeriksaan',
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Kode Identitas/Kode Pendaftaran',
+                        style: AppStyle.inputLabel,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextFormFieldInput(
+                        keyboardType: TextInputType.number,
+                        controller: kodeIdentitasController,
+                        isRequired: true,
+                        placeHolder: 'Masukkan kode pendaftaran',
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      DirectButton(
+                        text: 'Cari',
+                        onPressed: () {
+                          if (kodeIdentitasController.text.isEmpty) {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                shape: Border.all(
+                                  color: Colors.black,
+                                ),
+                                title: const Text('Perhatian!'),
+                                content: const Text(
+                                  'Kode Identitas/Kode Pendaftaran tidak boleh kosong!',
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                            return;
+                          }
+                          context.push(
+                            '/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan',
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 120,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

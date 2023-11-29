@@ -1,202 +1,127 @@
 import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/presentation/components/headers/logo_labkesda_header.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/content_clipboard_button.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/header_layout.dart';
 
 class KontakKamiPage extends StatelessWidget {
   const KontakKamiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Image.asset(
-                //       AppAssets.lampungCoa,
-                //       height: 100,
-                //     ),
-                //     const SizedBox(
-                //       width: 10,
-                //     ),
-                //     const Text(
-                //       'Balai\nLaboratorium\nKesehatan',
-                //       style: TextStyle(
-                //         fontSize: 24,
-                //         fontWeight: FontWeight.bold,
-                //         color: AppColors.primary,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                const LogoLabkesdaHeader(),
-                const SizedBox(
-                  height: 20,
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: AppStyle.formContainerDecoration,
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  right: 20,
+                  bottom: 40,
+                  left: 20,
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    HeaderPages(
+                      textColor: AppColors.textWhite,
+                      mainAxisAlignment: MainAxisAlignment.center,
                     ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Layanan Pemeriksaan Covid',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                size: 18,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '0811 722 020',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Layanan Pemeriksaan Lainnya',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                size: 18,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '0811 7839 532',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Layanan Melalui Surel',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.mail,
-                                size: 18,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'example@email.com',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textWhite,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Lokasi',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.textWhite,
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.room,
-                                size: 16,
-                                color: AppColors.textWhite,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              SizedBox(
-                                width: 250,
-                                child: Text(
-                                  'Jl. dr. Sam Ratulangi No. 103 Penengahan, Bandar Lampung. Kode Pos 35112.',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.textWhite,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              '\u00A9 Laboratorium Kesehatan Daerah 2023',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: AppColors.textWhite,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TitleForm(
+                      title: "Informasi Kontak",
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ClipboardContent(
+                      title: 'Layanan Pemeriksaan Covid',
+                      content: '0811 722 020',
+                      icon: Icons.phone,
+                      copiedTextMessage: 'Nomor berhasil disalin',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ClipboardContent(
+                      title: 'Layanan Pemeriksaan Lainnya',
+                      content: '0811 7839 532',
+                      icon: Icons.phone,
+                      copiedTextMessage: 'Nomor telepon berhasil disalin.',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ClipboardContent(
+                      title: 'Layanan Email',
+                      content: 'email@email.com',
+                      icon: Icons.mail,
+                      copiedTextMessage: 'Email berhasil disalin.',
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Lokasi',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: AppColors.textWhite,
                       ),
                     ),
-                  ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.room,
+                          size: 14,
+                          color: AppColors.textWhite,
+                        ),
+                        SizedBox(
+                          width: 3,
+                        ),
+                        SizedBox(
+                          width: 250,
+                          child: Text(
+                            'Jl. dr. Sam Ratulangi No. 103 Penengahan, Bandar Lampung. Kode Pos 35112.',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.textWhite,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        '\u00A9 Laboratorium Kesehatan Daerah 2023',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.textWhite,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

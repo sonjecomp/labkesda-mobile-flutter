@@ -113,4 +113,22 @@ class AppEndpoints {
   /// Require params:
   /// * id (String)
   static String getCategoryById(String id) => '$_baseUrl/api/v1/category/$id';
+
+  // ====Dokter====
+  /// Get Dokter for dropdown
+  ///
+  /// Require method:
+  /// * GET
+  ///
+  static String getAllDokter = '$_baseUrl/api/v1/dokter';
+
+  // ====Instansi====
+  /// Get Instansi for dropdown
+  ///
+  /// Require method:
+  /// * GET
+  ///
+  /// Require params:
+  /// * No
+  static String getAllInstansi = '$_baseUrl/api/v1/instansi';
 }

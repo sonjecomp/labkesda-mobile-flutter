@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 
 class PendaftaranInstansiLama extends StatelessWidget {
   const PendaftaranInstansiLama({super.key});
@@ -11,11 +12,9 @@ class PendaftaranInstansiLama extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          'Kembali',
-          style: AppStyle.titleAppBar,
-        ),
+      appBar: const CustomAppBar(
+        title: 'Kembali',
+        forceMaterialTransparency: true,
       ),
       body: Center(
         child: Padding(
@@ -44,7 +43,7 @@ class PendaftaranInstansiLama extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'NIK/Kode Pendaftaran',
+                              'Kode Pendaftaran',
                               style: AppStyle.inputLabel,
                             ),
                             const SizedBox(
@@ -66,7 +65,7 @@ class PendaftaranInstansiLama extends StatelessWidget {
                                   horizontal: 16,
                                 ),
                                 fillColor: AppColors.whiteColor,
-                                hintText: "Masukkan NIK/Kode Pendaftaran",
+                                hintText: "Masukkan Kode Pendaftaran",
                               ),
                             ),
                             Text(
