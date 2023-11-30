@@ -2,7 +2,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/controllers/dokter/dokter_provider.dart';
 import 'package:labkesda_mobile/presentation/controllers/instansi/instansi_provider.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
@@ -114,12 +113,8 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             isRequired: true,
-            placeHolder: DateFormat('dd-MM-yyyy HH.mm')
-                .format(selectedTanggalKunjungan.value),
-            controller: DateFormat('dd-MM-yyyy HH.mm')
-                    .format(DateTime.now())
-                    .toString()
-                    .isNotEmpty
+            placeHolder: DateFormat('dd-MM-yyyy HH.mm').format(selectedTanggalKunjungan.value),
+            controller: DateFormat('dd-MM-yyyy HH.mm').format(DateTime.now()).toString().isNotEmpty
                 ? tanggalKunjunganController
                 : null,
             suffixIcon: const Icon(Icons.date_range),
@@ -145,8 +140,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                     time.hour,
                     time.minute,
                   );
-                  tanggalKunjunganController.text =
-                      DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
+                  tanggalKunjunganController.text = DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
                   selectedTanggalKunjungan.value = dateTime;
                 }
               }
@@ -169,9 +163,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             ),
             isDisabled: dokterPengirimState.isLoading,
             selectedValue: selectedDokterPengirim,
-            placeHolder: dokterPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Dokter Pengirim",
+            placeHolder: dokterPengirimState.isLoading ? "Memuat..." : "Pilih Dokter Pengirim",
           ),
           const SizedBox(
             height: 20,
@@ -190,9 +182,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             ),
             isDisabled: instansiPengirimState.isLoading,
             selectedValue: selectedInstansiPengirim,
-            placeHolder: instansiPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Instansi Pengirim",
+            placeHolder: instansiPengirimState.isLoading ? "Memuat..." : "Pilih Instansi Pengirim",
           ),
           const SizedBox(
             height: 40,
