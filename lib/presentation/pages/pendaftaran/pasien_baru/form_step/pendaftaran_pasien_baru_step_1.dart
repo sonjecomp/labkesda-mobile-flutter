@@ -11,9 +11,10 @@ import 'package:labkesda_mobile/presentation/components/layouts/title_form_layou
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 
 class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper});
+  const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper, required this.inputController});
 
   final ValueNotifier<int> currIndexStepper;
+  final List inputController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,6 +26,13 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
     final namaController = useTextEditingController();
     final nikController = useTextEditingController();
     final tempatLahirController = useTextEditingController();
+
+    useEffect(() {
+      print("ASDUHAUIDHAUIDSAHUI ${selectedKewarganegaraan.value}");
+      if (selectedKewarganegaraan.value != null) {
+        inputController[4].text = selectedKewarganegaraan.value!;
+      }
+    }, [selectedKewarganegaraan.value]);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -50,7 +58,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           TextFormFieldInput(
-            controller: namaController,
+            controller: inputController[0],
             placeHolder: 'Masukan nama lengkap',
           ),
           const SizedBox(
@@ -64,7 +72,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           TextFormFieldInput(
-            controller: nikController,
+            controller: inputController[1],
             keyboardType: TextInputType.number,
             placeHolder: 'Masukan NIK',
           ),
@@ -79,7 +87,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           TextFormFieldInput(
-            controller: tempatLahirController,
+            controller: inputController[2],
             placeHolder: 'Masukan tempat lahir',
           ),
           const SizedBox(
@@ -94,9 +102,8 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             readOnly: true,
-            controller: dateController,
-            placeHolder:
-                DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
+            controller: inputController[3],
+            placeHolder: DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
               final value = await showDatePicker(
@@ -107,8 +114,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
                 helpText: 'Pilih tanggal lahir',
               );
               if (value != null) {
-                dateController.text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
+                inputController[3].text = DateFormat('dd/MM/yyyy').format(value).toString();
                 selectedDate.value = value;
               }
             },
@@ -132,9 +138,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             ),
             isDisabled: kewarganegaraanState.isLoading,
             selectedValue: selectedKewarganegaraan,
-            placeHolder: kewarganegaraanState.isLoading
-                ? "Loading..."
-                : "--Pilih Kewarganegaraan--",
+            placeHolder: kewarganegaraanState.isLoading ? "Loading..." : "--Pilih Kewarganegaraan--",
           ),
           const SizedBox(
             height: 40,
