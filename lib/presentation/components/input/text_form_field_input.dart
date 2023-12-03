@@ -6,7 +6,7 @@ class TextFormFieldInput extends HookConsumerWidget {
   const TextFormFieldInput({
     super.key,
     this.placeHolder,
-    this.isRequired = true,
+    this.isRequired = false,
     this.readOnly = false,
     this.suffixIcon,
     this.onTap,

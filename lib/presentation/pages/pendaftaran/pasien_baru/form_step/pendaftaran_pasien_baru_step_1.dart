@@ -153,7 +153,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
                     behavior: SnackBarBehavior.floating,
                     dismissDirection: DismissDirection.startToEnd,
                     showCloseIcon: true,
-                    content: Text('Mohon lengkapi data terlebih dahulu'),
+                    content: Text('Mohon lengkapi data terlebih dahulu!'),
                     backgroundColor: Colors.red,
                   ),
                 );
