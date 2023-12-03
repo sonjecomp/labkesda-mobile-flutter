@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
@@ -22,16 +22,14 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
 
     final selectedKewarganegaraan = useState<String?>(null);
     final selectedDate = useState(DateTime.now());
-    final dateController = useTextEditingController();
-    final namaController = useTextEditingController();
-    final nikController = useTextEditingController();
-    final tempatLahirController = useTextEditingController();
 
     useEffect(() {
-      print("ASDUHAUIDHAUIDSAHUI ${selectedKewarganegaraan.value}");
+      // TODO: implement value for dropdown
       if (selectedKewarganegaraan.value != null) {
-        inputController[4].text = selectedKewarganegaraan.value!;
+        inputController[4].text = selectedKewarganegaraan.value;
       }
+
+      return () {};
     }, [selectedKewarganegaraan.value]);
 
     return Container(
@@ -147,11 +145,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             text: 'Lanjutkan',
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              if (dateController.value.text.isEmpty ||
-                  selectedKewarganegaraan.value == null ||
-                  namaController.value.text.isEmpty ||
-                  nikController.value.text.isEmpty ||
-                  tempatLahirController.value.text.isEmpty) {
+              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty)) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     behavior: SnackBarBehavior.floating,

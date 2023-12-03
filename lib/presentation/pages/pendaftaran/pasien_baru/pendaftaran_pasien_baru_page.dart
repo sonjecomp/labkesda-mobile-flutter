@@ -34,6 +34,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep2(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 1,
       ),

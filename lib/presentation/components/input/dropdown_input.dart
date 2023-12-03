@@ -14,7 +14,7 @@ class DropdownInput extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DropdownButtonFormField<String>(
-      value: selectedValue.value,
+      value: selectedValue.value != "" ? selectedValue.value : null,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         filled: true,
@@ -42,6 +42,7 @@ class DropdownInput extends HookConsumerWidget {
           ? null
           : (String? selectedItem) {
               selectedValue.value = selectedItem;
+              print("ABC ${selectedValue.value}");
             },
     );
   }

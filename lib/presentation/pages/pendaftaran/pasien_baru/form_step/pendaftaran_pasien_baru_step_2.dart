@@ -11,9 +11,10 @@ import 'package:labkesda_mobile/presentation/components/layouts/title_form_layou
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 
 class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep2({super.key, required this.currIndexStepper});
+  const PendaftaranPasienBaruStep2({super.key, required this.currIndexStepper, required this.inputController});
 
   final ValueNotifier<int> currIndexStepper;
+  final List inputController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -55,12 +56,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values:
-                agamaState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: agamaState.maybeWhen(orElse: () => [], data: (data) => data),
             selectedValue: selectedValues["agama"],
             isDisabled: agamaState.isLoading,
-            placeHolder:
-                agamaState.isLoading ? "Loading..." : "--Pilih agama--",
+            placeHolder: agamaState.isLoading ? "Loading..." : "--Pilih agama--",
           ),
           const SizedBox(
             height: 20,
@@ -113,13 +112,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: statusPerkawinanState.maybeWhen(
-                orElse: () => [], data: (data) => data),
+            values: statusPerkawinanState.maybeWhen(orElse: () => [], data: (data) => data),
             isDisabled: statusPerkawinanState.isLoading,
             selectedValue: selectedValues["statusPerkawinan"],
-            placeHolder: statusPerkawinanState.isLoading
-                ? "Loading..."
-                : "--Pilih status perkawinan--",
+            placeHolder: statusPerkawinanState.isLoading ? "Loading..." : "--Pilih status perkawinan--",
           ),
           const SizedBox(
             height: 20,
@@ -132,13 +128,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pendidikanState.maybeWhen(
-                orElse: () => [], data: (data) => data),
+            values: pendidikanState.maybeWhen(orElse: () => [], data: (data) => data),
             isDisabled: pendidikanState.isLoading,
             selectedValue: selectedValues["pendidikan"],
-            placeHolder: pendidikanState.isLoading
-                ? "Loading..."
-                : "--Pilih pendidikan--",
+            placeHolder: pendidikanState.isLoading ? "Loading..." : "--Pilih pendidikan--",
           ),
           const SizedBox(
             height: 20,
@@ -151,12 +144,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pekerjaanState.maybeWhen(
-                orElse: () => [], data: (data) => data),
+            values: pekerjaanState.maybeWhen(orElse: () => [], data: (data) => data),
             isDisabled: pekerjaanState.isLoading,
             selectedValue: selectedValues["pekerjaan"],
-            placeHolder:
-                pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
+            placeHolder: pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
           ),
           const SizedBox(
             height: 40,
@@ -177,8 +168,7 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
                 buttonType: "next",
                 onPressed: () {
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  if (selectedValues.values
-                      .any((element) => element.value == null)) {
+                  if (selectedValues.values.any((element) => element.value == null)) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         behavior: SnackBarBehavior.floating,
