@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
@@ -16,8 +17,16 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateController = useTextEditingController();
-    final selectedDate = useState(DateTime.now());
+    // controller for text input
+    final alamatInstansiController = useTextEditingController();
+    final emailInstansiController = useTextEditingController();
+    final nomorTeleponController = useTextEditingController();
+    final tanggalKunjunganController = useTextEditingController();
+    final namaPetugasController = useTextEditingController();
+
+    // selected value for date picker
+    final selectedTanggalKunjungan = useState(DateTime.now());
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -41,7 +50,9 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: alamatInstansiController,
             placeHolder: 'Masukkan alamat instansi',
           ),
           const SizedBox(
@@ -54,7 +65,9 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: emailInstansiController,
             keyboardType: TextInputType.emailAddress,
             placeHolder: 'Masukkan email instansi',
           ),
@@ -68,7 +81,9 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: nomorTeleponController,
             keyboardType: TextInputType.phone,
             placeHolder: 'Masukkan nomor telepon/whatsapp',
           ),
@@ -89,7 +104,7 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
                     .format(DateTime.now())
                     .toString()
                     .isNotEmpty
-                ? dateController
+                ? tanggalKunjunganController
                 : null,
             placeHolder:
                 DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
@@ -103,9 +118,9 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
                 helpText: 'Pilih tanggal lahir',
               );
               if (value != null) {
-                dateController.text =
+                tanggalKunjunganController.text =
                     DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
+                selectedTanggalKunjungan.value = value;
               }
             },
           ),
@@ -119,7 +134,9 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: namaPetugasController,
             placeHolder: 'Masukkan nama petugas',
           ),
           const SizedBox(
@@ -140,8 +157,19 @@ class PendaftaranInstansiBaruAdaMouStep2 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  if (alamatInstansiController.text.isEmpty ||
+                      emailInstansiController.text.isEmpty ||
+                      nomorTeleponController.text.isEmpty ||
+                      namaPetugasController.text.isEmpty) {
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Mohon lengkapi data terlebih dahulu!',
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
+                  }
                 },
               ),
             ],
