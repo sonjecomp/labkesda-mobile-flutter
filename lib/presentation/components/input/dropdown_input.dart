@@ -42,7 +42,6 @@ class DropdownInput extends HookConsumerWidget {
           ? null
           : (String? selectedItem) {
               selectedValue.value = selectedItem;
-              print("ABC ${selectedValue.value}");
             },
     );
   }

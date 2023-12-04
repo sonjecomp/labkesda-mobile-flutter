@@ -5,6 +5,7 @@ import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/input/radio_input.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
@@ -56,6 +57,8 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
       if (selectedValues["pekerjaan"].value != null) {
         inputController[9].text = selectedValues["pekerjaan"].value;
       }
+
+      return () {};
     }, [selectedValues]);
 
     return Container(
@@ -82,12 +85,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values:
-                agamaState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: agamaState.maybeWhen(orElse: () => [], data: (data) => data),
             selectedValue: selectedValues["agama"],
             isDisabled: agamaState.isLoading,
-            placeHolder:
-                agamaState.isLoading ? "Loading..." : "--Pilih agama--",
+            placeHolder: agamaState.isLoading ? "Loading..." : "--Pilih agama--",
           ),
           const SizedBox(
             height: 20,
@@ -140,13 +141,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: statusPerkawinanState.maybeWhen(
-                orElse: () => [], data: (data) => data),
+            values: statusPerkawinanState.maybeWhen(orElse: () => [], data: (data) => data),
             isDisabled: statusPerkawinanState.isLoading,
             selectedValue: selectedValues["statusPerkawinan"],
-            placeHolder: statusPerkawinanState.isLoading
-                ? "Loading..."
-                : "--Pilih status perkawinan--",
+            placeHolder: statusPerkawinanState.isLoading ? "Loading..." : "--Pilih status perkawinan--",
           ),
           const SizedBox(
             height: 20,
@@ -159,13 +157,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pendidikanState.maybeWhen(
-                orElse: () => [], data: (data) => data),
+            values: pendidikanState.maybeWhen(orElse: () => [], data: (data) => data),
             isDisabled: pendidikanState.isLoading,
             selectedValue: selectedValues["pendidikan"],
-            placeHolder: pendidikanState.isLoading
-                ? "Loading..."
-                : "--Pilih pendidikan--",
+            placeHolder: pendidikanState.isLoading ? "Loading..." : "--Pilih pendidikan--",
           ),
           const SizedBox(
             height: 20,
@@ -178,12 +173,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values: pekerjaanState.maybeWhen(
-                orElse: () => [], data: (data) => data),
+            values: pekerjaanState.maybeWhen(orElse: () => [], data: (data) => data),
             isDisabled: pekerjaanState.isLoading,
             selectedValue: selectedValues["pekerjaan"],
-            placeHolder:
-                pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
+            placeHolder: pekerjaanState.isLoading ? "Loading..." : "--Pilih pekerjaan--",
           ),
           const SizedBox(
             height: 40,
@@ -204,16 +197,10 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
                 buttonType: "next",
                 onPressed: () {
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  if (selectedValues.values
-                      .any((element) => element.value == null)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        dismissDirection: DismissDirection.startToEnd,
-                        showCloseIcon: true,
-                        content: Text('Mohon lengkapi data terlebih dahulu'),
-                        backgroundColor: Colors.red,
-                      ),
+                  if (inputController.sublist(5, 10).any((element) => element.text.isEmpty)) {
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Mohon lengkapi data terlebih dahulu!',
                     );
                   } else {
                     currIndexStepper.value++;

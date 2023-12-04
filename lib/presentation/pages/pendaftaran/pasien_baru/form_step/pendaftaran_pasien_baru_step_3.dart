@@ -8,6 +8,7 @@ import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dar
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/controllers/geo/geo_provider.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
@@ -41,9 +42,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
       try {
         final Dio dio = Dio();
         final Response response = await dio.get(url);
-        final List<ValueDropdown> data = (response.data as List)
-            .map((e) => ValueDropdown.fromJson(e))
-            .toList();
+        final List<ValueDropdown> data = (response.data as List).map((e) => ValueDropdown.fromJson(e)).toList();
         return data;
       } catch (e) {
         return [];
@@ -64,12 +63,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
         inputController[16].text = selectedValues["kelurahan"].value;
       }
       return;
-    }, [
-      selectedValues["provinsi"].value,
-      selectedValues["kabupaten"].value,
-      selectedValues["kecamatan"].value,
-      selectedValues["kelurahan"].value
-    ]);
+    }, [selectedValues]);
 
     useEffect(() {
       // useEffect for get data dropdown kabupaten
@@ -155,8 +149,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             ),
             selectedValue: selectedValues["provinsi"],
             isDisabled: provinsiState.isLoading,
-            placeHolder:
-                provinsiState.isLoading ? "Loading..." : "--Pilih Provinsi--",
+            placeHolder: provinsiState.isLoading ? "Loading..." : "--Pilih Provinsi--",
           ),
           const SizedBox(
             height: 20,
@@ -170,9 +163,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DropdownInput(
             isDisabled: selectedValues["provinsi"].value == null,
-            values: listKabupaten.value.isNotEmpty
-                ? listKabupaten.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: listKabupaten.value.isNotEmpty ? listKabupaten.value : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValues["kabupaten"],
             placeHolder: "--Pilih Kabupaten--",
           ),
@@ -188,9 +179,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DropdownInput(
             isDisabled: selectedValues["kabupaten"].value == null,
-            values: listKecamatan.value.isNotEmpty
-                ? listKecamatan.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: listKecamatan.value.isNotEmpty ? listKecamatan.value : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValues["kecamatan"],
             placeHolder: "--Pilih Kecamatan--",
           ),
@@ -206,9 +195,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           ),
           DropdownInput(
             isDisabled: selectedValues["kecamatan"].value == null,
-            values: listKelurahan.value.isNotEmpty
-                ? listKelurahan.value
-                : [ValueDropdown(teks: "?", value: "?")],
+            values: listKelurahan.value.isNotEmpty ? listKelurahan.value : [ValueDropdown(teks: "?", value: "?")],
             selectedValue: selectedValues["kelurahan"],
             placeHolder: "--Pilih Kelurahan--",
           ),
@@ -245,26 +232,16 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  for (var i = 13; i <= 17; i++) {
-                    print(
-                        "inputController[$i].text = ${inputController[i].text}");
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  if (inputController.sublist(13, 18).any((element) => element.text.isEmpty)) {
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Mohon lengkapi data terlebih dahulu!',
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
                   }
-                  // if (selectedValues.values
-                  //         .any((element) => element.value == null) ||
-                  //     kodePosController.value.text.isEmpty) {
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     const SnackBar(
-                  //       behavior: SnackBarBehavior.floating,
-                  //       dismissDirection: DismissDirection.startToEnd,
-                  //       showCloseIcon: true,
-                  //       content: Text('Mohon lengkapi data terlebih dahulu'),
-                  //       backgroundColor: Colors.red,
-                  //     ),
-                  //   );
-                  // } else {
-                  //   currIndexStepper.value++;
-                  //   stepScrollController.jumpTo(0);
-                  // }
                 },
               ),
             ],

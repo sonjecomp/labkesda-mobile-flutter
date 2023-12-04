@@ -72,12 +72,8 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             isRequired: true,
-            placeHolder: DateFormat('dd-MM-yyyy HH.mm')
-                .format(selectedTanggalKunjungan.value),
-            controller: DateFormat('dd-MM-yyyy HH.mm')
-                    .format(DateTime.now())
-                    .toString()
-                    .isNotEmpty
+            placeHolder: DateFormat('dd-MM-yyyy HH.mm').format(selectedTanggalKunjungan.value),
+            controller: DateFormat('dd-MM-yyyy HH.mm').format(DateTime.now()).toString().isNotEmpty
                 ? tanggalKunjunganController
                 : null,
             suffixIcon: const Icon(Icons.date_range),
@@ -103,8 +99,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                     time.hour,
                     time.minute,
                   );
-                  tanggalKunjunganController.text =
-                      DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
+                  tanggalKunjunganController.text = DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
                   selectedTanggalKunjungan.value = dateTime;
                 }
               }
@@ -127,9 +122,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             ),
             isDisabled: dokterPengirimState.isLoading,
             selectedValue: selectedDokterPengirim,
-            placeHolder: dokterPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Dokter Pengirim",
+            placeHolder: dokterPengirimState.isLoading ? "Memuat..." : "Pilih Dokter Pengirim",
           ),
           const SizedBox(
             height: 20,
@@ -148,9 +141,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             ),
             isDisabled: instansiPengirimState.isLoading,
             selectedValue: selectedInstansiPengirim,
-            placeHolder: instansiPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Instansi Pengirim",
+            placeHolder: instansiPengirimState.isLoading ? "Memuat..." : "Pilih Instansi Pengirim",
           ),
           const SizedBox(
             height: 40,
@@ -170,9 +161,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                 text: "Simpan",
                 buttonType: "next",
                 onPressed: () {
-                  print(
-                    selectedTanggalKunjungan.value,
-                  );
+                  PemeriksaanController().createPemeriksaanBaru(inputController);
                   // PemeriksaanController()
                   //     .createPemeriksaanBaru(inputController);
                   // if (pengambilSampelController.text.isNotEmpty &&

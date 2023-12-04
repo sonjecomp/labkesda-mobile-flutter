@@ -108,8 +108,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             controller: inputController[3],
-            placeHolder:
-                DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
+            placeHolder: "Pilih tanggal Lahir",
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
               final value = await showDatePicker(
@@ -120,8 +119,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
                 helpText: 'Pilih tanggal lahir',
               );
               if (value != null) {
-                inputController[3].text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
+                inputController[3].text = DateFormat('dd/MM/yyyy').format(value).toString();
                 selectedDate.value = value;
               }
             },
@@ -145,9 +143,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             ),
             isDisabled: kewarganegaraanState.isLoading,
             selectedValue: selectedKewarganegaraan,
-            placeHolder: kewarganegaraanState.isLoading
-                ? "Loading..."
-                : "--Pilih Kewarganegaraan--",
+            placeHolder: kewarganegaraanState.isLoading ? "Loading..." : "--Pilih Kewarganegaraan--",
           ),
           const SizedBox(
             height: 40,
@@ -156,9 +152,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             text: 'Lanjutkan',
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              if (inputController
-                  .sublist(0, 5)
-                  .any((element) => element.text.isEmpty)) {
+              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty)) {
                 WarningSnackbar.show(
                   context,
                   text: 'Mohon lengkapi data terlebih dahulu!',

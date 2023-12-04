@@ -20,33 +20,31 @@ class PemeriksaanController {
             "pendidikan_id": data[8].text,
             "pekerjaan": data[9].text,
             "alamat_domisili": data[10].text,
-            "golongan_darah_id": int.parse(data[11].text),
+            "golongan_darah_id": data[11].text,
             "noHP": data[12].text,
-            "provinsi_id": int.parse(data[13].text),
-            "kotaKabupaten_id": int.parse(data[14].text),
-            "kecamatan_id": int.parse(data[15].text),
-            "kelurahan_id": int.parse(data[16].text),
+            "provinsi_id": data[13].text,
+            "kotaKabupaten_id": data[14].text,
+            "kecamatan_id": data[15].text,
+            "kelurahan_id": data[16].text,
             "kode_pos": data[17].text,
             "email": data[18].text,
           },
           "pemeriksaan": {
-            "dokter_id": int.parse(data[19].text),
+            "dokter_id": data[19].text,
             "sample_lokasi": data[20].text,
             "sample_jenis": data[21].text,
             "sample_wadah": data[22].text,
             "sample_pengambil": data[23].text,
             "sample_waktu": data[24].text,
             "sample_kondisi": data[25].text,
-            "instansi_id": int.parse(data[26].text),
+            "instansi_id": data[26].text,
             "waktu_kunjungan": data[27].text,
           }
         },
       );
-
-      print(formData.fields[4]);
-
       return "Berhasil membuat pemeriksaan baru";
     } catch (e) {
+      print(e.toString());
       return e.toString();
     }
   }
