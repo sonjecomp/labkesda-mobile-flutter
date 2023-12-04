@@ -1,12 +1,12 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
 
 class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
   const PendaftaranIsntansiBaruTanpaMouStep3(
@@ -16,8 +16,16 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateController = useTextEditingController();
-    final selectedDate = useState(DateTime.now());
+    // controller for text input
+    final jenisSampelController = useTextEditingController();
+    final tanggalPengambilanSampelController = useTextEditingController();
+    final wadahVolumeController = useTextEditingController();
+    final lokasiSampelController = useTextEditingController();
+    final pengambilSampelController = useTextEditingController();
+
+    // selected value tanggal pengambilan sampel for post
+    final selectedTanggalPengambilanSampel = useState(DateTime.now());
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -35,20 +43,21 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
             height: 20,
           ),
           Text(
-            'Jenis Sampel',
+            'Jenis Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: jenisSampelController,
             placeHolder: 'Masukkan jenis sampel',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Tanggal Pengambilan Sampel',
+            'Tanggal Pengambilan Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -56,15 +65,12 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             readOnly: true,
-            isRequired: true,
-            controller: DateFormat('dd/MM/yyyy')
-                    .format(DateTime.now())
-                    .toString()
-                    .isNotEmpty
-                ? dateController
-                : null,
-            placeHolder:
-                DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
+            controller: tanggalPengambilanSampelController,
+            placeHolder: DateFormat('dd/MM/yyyy')
+                .format(
+                  DateTime.now(),
+                )
+                .toString(),
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
               final value = await showDatePicker(
@@ -75,9 +81,9 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
                 helpText: 'Pilih tanggal pengambilan sampel',
               );
               if (value != null) {
-                dateController.text =
+                tanggalPengambilanSampelController.text =
                     DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
+                selectedTanggalPengambilanSampel.value = value;
               }
             },
           ),
@@ -85,39 +91,42 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
             height: 20,
           ),
           Text(
-            'Wadah/Volume',
+            'Wadah/Volume (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: wadahVolumeController,
             placeHolder: 'Masukkan wadah/volume',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Lokasi Sampel',
+            'Lokasi Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: lokasiSampelController,
             placeHolder: 'Masukkan lokasi sampel',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Pengambil Sampel',
+            'Pengambil Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: pengambilSampelController,
             placeHolder: 'Masukkan pengambil sampel',
           ),
           const SizedBox(
@@ -138,8 +147,11 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
+                  // currIndexStepper.value++;
+                  // stepScrollController.jumpTo(0);
+                  print(
+                    'Jenis Sampel: ${jenisSampelController.text}\nTanggal Pengambilan Sampel: ${selectedTanggalPengambilanSampel.value}\nWadah/Volume: ${wadahVolumeController.text}\nLokasi Sampel: ${lokasiSampelController.text}\nPengambil Sampel: ${pengambilSampelController.text}',
+                  );
                 },
               ),
             ],

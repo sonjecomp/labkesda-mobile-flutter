@@ -13,8 +13,13 @@ import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/penda
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep3({super.key, required this.currIndexStepper});
+  const PendaftaranPasienBaruStep3({
+    super.key,
+    required this.currIndexStepper,
+    required this.inputController,
+  });
 
+  final List inputController;
   final ValueNotifier<int> currIndexStepper;
 
   @override
@@ -27,9 +32,6 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
       "kecamatan": useState<String?>(null),
       "kelurahan": useState<String?>(null),
     };
-
-    final kodePosController = useTextEditingController();
-
     // List data dropdown
     final listKabupaten = useState<List<ValueDropdown>>([]);
     final listKecamatan = useState<List<ValueDropdown>>([]);
@@ -47,6 +49,27 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
         return [];
       }
     }
+
+    useEffect(() {
+      if (selectedValues["provinsi"].value != null) {
+        inputController[13].text = selectedValues["provinsi"].value;
+      }
+      if (selectedValues["kabupaten"].value != null) {
+        inputController[14].text = selectedValues["kabupaten"].value;
+      }
+      if (selectedValues["kecamatan"].value != null) {
+        inputController[15].text = selectedValues["kecamatan"].value;
+      }
+      if (selectedValues["kelurahan"].value != null) {
+        inputController[16].text = selectedValues["kelurahan"].value;
+      }
+      return;
+    }, [
+      selectedValues["provinsi"].value,
+      selectedValues["kabupaten"].value,
+      selectedValues["kecamatan"].value,
+      selectedValues["kelurahan"].value
+    ]);
 
     useEffect(() {
       // useEffect for get data dropdown kabupaten
@@ -126,8 +149,10 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            values:
-                provinsiState.maybeWhen(orElse: () => [], data: (data) => data),
+            values: provinsiState.maybeWhen(
+              orElse: () => [],
+              data: (data) => data,
+            ),
             selectedValue: selectedValues["provinsi"],
             isDisabled: provinsiState.isLoading,
             placeHolder:
@@ -200,7 +225,7 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
           TextFormFieldInput(
             keyboardType: TextInputType.number,
             placeHolder: 'Masukan kode pos',
-            controller: kodePosController,
+            controller: inputController[17],
           ),
           const SizedBox(
             height: 40,
@@ -218,25 +243,29 @@ class PendaftaranPasienBaruStep3 extends HookConsumerWidget {
               ),
               StepperButton(
                 text: "Lanjutkan",
-                onPressed: () {
-                  if (selectedValues.values
-                          .any((element) => element.value == null) ||
-                      kodePosController.value.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        dismissDirection: DismissDirection.startToEnd,
-                        showCloseIcon: true,
-                        content: Text('Mohon lengkapi data terlebih dahulu'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  } else {
-                    currIndexStepper.value++;
-                    stepScrollController.jumpTo(0);
-                  }
-                },
                 buttonType: "next",
+                onPressed: () {
+                  for (var i = 13; i <= 17; i++) {
+                    print(
+                        "inputController[$i].text = ${inputController[i].text}");
+                  }
+                  // if (selectedValues.values
+                  //         .any((element) => element.value == null) ||
+                  //     kodePosController.value.text.isEmpty) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(
+                  //       behavior: SnackBarBehavior.floating,
+                  //       dismissDirection: DismissDirection.startToEnd,
+                  //       showCloseIcon: true,
+                  //       content: Text('Mohon lengkapi data terlebih dahulu'),
+                  //       backgroundColor: Colors.red,
+                  //     ),
+                  //   );
+                  // } else {
+                  //   currIndexStepper.value++;
+                  //   stepScrollController.jumpTo(0);
+                  // }
+                },
               ),
             ],
           ),

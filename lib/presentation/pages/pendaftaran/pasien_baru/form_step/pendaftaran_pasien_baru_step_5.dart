@@ -1,25 +1,26 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 
 class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep5({super.key, required this.currIndexStepper});
+  const PendaftaranPasienBaruStep5({
+    super.key,
+    required this.currIndexStepper,
+    required this.inputController,
+  });
+
+  final List inputController;
   final ValueNotifier<int> currIndexStepper;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateController = useTextEditingController();
-    final jenisSampelController = useTextEditingController();
-    final lokasiSampelController = useTextEditingController();
-    final wadahVolumeController = useTextEditingController();
-    final kondisiSaatDiterimaController = useTextEditingController();
-
-    final selectedDate = useState(DateTime.now());
+    final tanggalPengambilanSampelController = useTextEditingController();
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -38,21 +39,21 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
             height: 20,
           ),
           Text(
-            'Jenis Sampel',
+            'Jenis Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
           TextFormFieldInput(
+            controller: inputController[21],
             placeHolder: 'Masukkan jenis sampel',
-            controller: jenisSampelController,
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Lokasi Sampel',
+            'Lokasi Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -60,13 +61,13 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             placeHolder: 'Masukkan lokasi sampel',
-            controller: lokasiSampelController,
+            controller: inputController[20],
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Wadah/Volume',
+            'Wadah/Volume Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -74,13 +75,13 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             placeHolder: 'Masukkan wadah/volume',
-            controller: wadahVolumeController,
+            controller: inputController[22],
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Kondisi Saat Diterima',
+            'Kondisi Saat Diterima (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -88,13 +89,13 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             placeHolder: 'Masukkan kondisi saat diterima',
-            controller: kondisiSaatDiterimaController,
+            controller: inputController[25],
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Tanggal Pengambilan Sampel',
+            'Tanggal Pengambilan Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -103,12 +104,7 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             isRequired: true,
-            controller: DateFormat('dd/MM/yyyy')
-                    .format(DateTime.now())
-                    .toString()
-                    .isNotEmpty
-                ? dateController
-                : null,
+            controller: tanggalPengambilanSampelController,
             placeHolder:
                 DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
             suffixIcon: const Icon(Icons.date_range),
@@ -121,9 +117,9 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
                 helpText: 'Pilih Tanggal Pengambilan Sampel',
               );
               if (value != null) {
-                dateController.text =
+                inputController[24].text = value.toString();
+                tanggalPengambilanSampelController.text =
                     DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
               }
             },
           ),
@@ -146,20 +142,13 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
                 buttonType: "next",
                 onPressed: () {
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  if (jenisSampelController.value.text.isEmpty ||
-                      lokasiSampelController.value.text.isEmpty ||
-                      wadahVolumeController.value.text.isEmpty ||
-                      kondisiSaatDiterimaController.value.text.isEmpty ||
-                      dateController.value.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        dismissDirection: DismissDirection.startToEnd,
-                        showCloseIcon: true,
-                        content: Text('Mohon lengkapi data terlebih dahulu'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                  if (inputController[20].text.isEmpty ||
+                      inputController[21].text.isEmpty ||
+                      inputController[22].text.isEmpty ||
+                      inputController[24].text.isEmpty ||
+                      inputController[25].text.isEmpty) {
+                    WarningSnackbar.show(context,
+                        text: 'Mohon lengkapi data terlebih dahulu!');
                   } else {
                     currIndexStepper.value++;
                     stepScrollController.jumpTo(0);
