@@ -32,6 +32,28 @@ class PendaftaranPasienBaruStep2 extends HookConsumerWidget {
       "pekerjaan": useState<String?>(null),
     };
 
+    useEffect(() {
+      if (selectedValues["agama"].value != null) {
+        inputController[5].text = selectedValues["agama"].value;
+      }
+
+      if (selectedValues["jenisKelamin"].value != null) {
+        inputController[6].text = selectedValues["jenisKelamin"].value;
+      }
+
+      if (selectedValues["statusPerkawinan"].value != null) {
+        inputController[7].text = selectedValues["statusPerkawinan"].value;
+      }
+
+      if (selectedValues["pendidikan"].value != null) {
+        inputController[8].text = selectedValues["pendidikan"].value;
+      }
+
+      if (selectedValues["pekerjaan"].value != null) {
+        inputController[9].text = selectedValues["pekerjaan"].value;
+      }
+    }, [selectedValues]);
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
