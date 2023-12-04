@@ -13,4 +13,5 @@ class AppColors {
   static const Color shdadowColor = Color(0xFFDCDCDC);
   static const Color orangeColor = Color(0xFFFF725E);
   static const Color buttonColor = Color(0xFF197EA3);
+  static const Color greenColor = Color(0xFF24B300);
 }

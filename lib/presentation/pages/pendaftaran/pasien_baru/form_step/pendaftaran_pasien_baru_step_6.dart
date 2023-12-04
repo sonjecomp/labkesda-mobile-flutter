@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
@@ -11,6 +13,7 @@ import 'package:labkesda_mobile/presentation/controllers/instansi/instansi_provi
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/controllers/pemeriksaan/pemeriksaan_controller.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
   const PendaftaranPasienBaruStep6({
@@ -161,32 +164,57 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                 text: "Simpan",
                 buttonType: "next",
                 onPressed: () {
-                  PemeriksaanController().createPemeriksaanBaru(inputController);
-                  // PemeriksaanController()
-                  //     .createPemeriksaanBaru(inputController);
-                  // if (pengambilSampelController.text.isNotEmpty &&
-                  //     tanggalKunjunganController.text.isNotEmpty &&
-                  //     selectedInstansiPengirim.value == null &&
-                  //     selectedDokterPengirim.value == null) {
-                  //   showDialog<String>(
-                  //     context: context,
-                  //     builder: (BuildContext context) => const AlertDialog(
-                  //       title: Text(
-                  //         'PERINGATAN!',
-                  //         style: TextStyle(
-                  //           fontWeight: FontWeight.bold,
-                  //           fontSize: 16,
-                  //         ),
-                  //       ),
-                  //       content: Text(
-                  //         'Anda belum memilih Instansi Pengirim atau Dokter Pengirim, tetap lanjutkan pendaftaran?',
-                  //         style: TextStyle(
-                  //           fontSize: 14,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   );
-                  // }
+                  // show dialog
+                  showDialog(
+                    context: context,
+                    builder: (contextDialog) => AlertDialog(
+                      title: const Text("Konfirmasi"),
+                      content: const Text("Apakah anda yakin semua data anda sudah benar?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(contextDialog).pop();
+                          },
+                          child: const Text("Batal"),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            contextDialog.pop();
+                            context.loaderOverlay.show();
+                            final res = await PemeriksaanController().createPemeriksaanBaru(inputController);
+                            if (context.mounted) {
+                              context.loaderOverlay.hide();
+
+                              if (res == "Berhasil membuat pemeriksaan baru") {
+                                context.push("/");
+                              }
+
+                              final bool resBool = res == "Berhasil membuat pemeriksaan baru";
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    res,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  backgroundColor: resBool ? AppColors.greenColor : AppColors.orangeColor,
+                                  behavior: SnackBarBehavior.floating,
+                                  dismissDirection: DismissDirection.up,
+                                  margin: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.height - 150,
+                                    left: 10,
+                                    right: 10,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text("Ya"),
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
             ],

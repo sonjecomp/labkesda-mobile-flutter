@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:labkesda_mobile/constants/endpoints.dart';
 import 'package:labkesda_mobile/presentation/controllers/dio/dio_provider.dart';
 
 class PemeriksaanController {
@@ -42,7 +43,13 @@ class PemeriksaanController {
           }
         },
       );
+
+      await dioPrivate.post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
+
       return "Berhasil membuat pemeriksaan baru";
+    } on DioException catch (e) {
+      print(e.toString());
+      return e.response?.data["message"] ?? e.toString();
     } catch (e) {
       print(e.toString());
       return e.toString();
