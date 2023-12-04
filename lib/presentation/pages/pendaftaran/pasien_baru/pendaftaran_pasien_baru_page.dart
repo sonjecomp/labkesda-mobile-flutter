@@ -19,7 +19,8 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currIndex = useState<int>(0);
 
-    final List inputController = List.generate(29, (index) => useTextEditingController());
+    final List inputController =
+        List.generate(29, (index) => useTextEditingController());
 
     final List<Step> steps = [
       Step(
@@ -42,6 +43,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep3(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 2,
       ),
@@ -49,6 +51,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep4(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 3,
       ),
@@ -56,6 +59,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep5(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 4,
       ),

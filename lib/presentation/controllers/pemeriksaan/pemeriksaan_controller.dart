@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/presentation/controllers/dio/dio_provider.dart';
@@ -20,26 +19,26 @@ class PemeriksaanController {
             "status_perkawinan_id": data[7].text,
             "pendidikan_id": data[8].text,
             "pekerjaan": data[9].text,
-            "alamat_domisili": "string",
-            "golongan_darah_id": 0,
-            "noHP": "string",
-            "provinsi_id": 0,
-            "kotaKabupaten_id": 0,
-            "kecamatan_id": 0,
-            "kelurahan_id": 0,
-            "kode_pos": "string",
-            "email": "string"
+            "alamat_domisili": data[10].text,
+            "golongan_darah_id": int.parse(data[11].text),
+            "noHP": data[12].text,
+            "provinsi_id": int.parse(data[13].text),
+            "kotaKabupaten_id": int.parse(data[14].text),
+            "kecamatan_id": int.parse(data[15].text),
+            "kelurahan_id": int.parse(data[16].text),
+            "kode_pos": data[17].text,
+            "email": data[18].text,
           },
           "pemeriksaan": {
-            "dokter_id": 0,
-            "sample_lokasi": "string",
-            "sample_jenis": "string",
-            "sample_wadah": "string",
-            "sample_pengambil": "string",
-            "sample_waktu": "2023-12-03T20:35:04.290Z",
-            "sample_kondisi": "string",
-            "instansi_id": 0,
-            "waktu_kunjungan": "2023-12-03T20:35:04.290Z"
+            "dokter_id": int.parse(data[19].text),
+            "sample_lokasi": data[20].text,
+            "sample_jenis": data[21].text,
+            "sample_wadah": data[22].text,
+            "sample_pengambil": data[23].text,
+            "sample_waktu": data[24].text,
+            "sample_kondisi": data[25].text,
+            "instansi_id": int.parse(data[26].text),
+            "waktu_kunjungan": data[27].text,
           }
         },
       );
