@@ -13,4 +13,6 @@ class AppColors {
   static const Color shdadowColor = Color(0xFFDCDCDC);
   static const Color orangeColor = Color(0xFFFF725E);
   static const Color buttonColor = Color(0xFF197EA3);
+  static const Color attentionContainer = Color(0xFFFFF3CD);
+  static const Color attentionText = Color(0xFF664D03);
 }

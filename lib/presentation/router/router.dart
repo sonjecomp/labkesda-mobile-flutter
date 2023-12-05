@@ -5,6 +5,7 @@ import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layou
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_detail_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_result_page.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/hasil_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pilih_status_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
@@ -30,6 +31,10 @@ final router = GoRouter(
         GoRoute(
           path: "hasil-pemeriksaan",
           builder: (context, state) => const HasilPemeriksaanPage(),
+        ),
+        GoRoute(
+          path: "hasil-pendaftaran",
+          builder: (context, state) => const HasilPendafataranPage(),
         ),
         GoRoute(
           path: "riwayat-pemeriksaan",

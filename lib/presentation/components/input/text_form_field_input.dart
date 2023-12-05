@@ -44,6 +44,7 @@ class TextFormFieldInput extends HookConsumerWidget {
         hintText: placeHolder ?? 'Placeholder',
         suffixIcon: suffixIcon,
       ),
+      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
     );
   }
 }

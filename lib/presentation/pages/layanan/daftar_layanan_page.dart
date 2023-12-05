@@ -59,7 +59,7 @@ class DaftarLayanan extends HookConsumerWidget {
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.buttonColor,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Center(
                           child: Text(
@@ -85,7 +85,7 @@ class DaftarLayanan extends HookConsumerWidget {
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.buttonColor,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Center(
                           child: Text(
@@ -111,7 +111,7 @@ class DaftarLayanan extends HookConsumerWidget {
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.buttonColor,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Center(
                           child: Text(
@@ -142,12 +142,17 @@ class DaftarLayanan extends HookConsumerWidget {
                   children: numbers.map((e) {
                     return Container(
                       decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(5),
+                        color: AppColors.secondary,
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        right: 10,
+                        bottom: 20,
+                        left: 10,
+                      ),
                       width: 150,
-                      height: 100,
+                      height: 120,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,8 +187,8 @@ class DaftarLayanan extends HookConsumerWidget {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: AppColors.buttonColor,
-                              borderRadius: BorderRadius.circular(5),
+                              color: const Color(0xFFED8F27),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,
@@ -193,7 +198,7 @@ class DaftarLayanan extends HookConsumerWidget {
                               child: Text(
                                 'Detail',
                                 style: TextStyle(
-                                  color: AppColors.textWhite,
+                                  color: AppColors.textBrown,
                                   fontSize: 12,
                                 ),
                               ),
