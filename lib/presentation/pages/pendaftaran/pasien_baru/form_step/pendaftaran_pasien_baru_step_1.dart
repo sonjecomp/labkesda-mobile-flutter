@@ -26,7 +26,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
     final kewarganegaraanState = ref.watch(kewarganegaraanProvider);
 
     final selectedKewarganegaraan = useState<String?>(null);
-    final selectedDate = useState(DateTime.now());
+    final tanggalLahirController = useTextEditingController();
 
     useEffect(() {
       if (selectedKewarganegaraan.value != null) {
@@ -76,6 +76,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             isRequired: true,
+            isNik: true,
             controller: inputController[1],
             keyboardType: TextInputType.number,
             placeHolder: 'Masukan NIK',
@@ -107,20 +108,21 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             readOnly: true,
-            controller: inputController[3],
+            controller: tanggalLahirController,
             placeHolder: "Pilih tanggal Lahir",
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
               final value = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: DateTime(1999),
+                firstDate: DateTime(1900),
                 lastDate: DateTime(2030),
                 helpText: 'Pilih tanggal lahir',
               );
               if (value != null) {
-                inputController[3].text = DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
+                // inputController[3].text = DateFormat('dd/MM/yyyy').format(value).toString();
+                inputController[3].text = value.toIso8601String();
+                tanggalLahirController.text = DateFormat('dd/MM/yyyy').format(value).toString();
               }
             },
           ),
@@ -152,6 +154,15 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             text: 'Lanjutkan',
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+              if (inputController[1].text.length < 16) {
+                WarningSnackbar.show(
+                  context,
+                  text: 'NIK harus 16 digit!',
+                );
+                return;
+              }
+
               if (inputController.sublist(0, 5).any((element) => element.text.isEmpty)) {
                 WarningSnackbar.show(
                   context,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
@@ -25,16 +26,59 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
 
   final List inputController;
 
+  void handleSubmit(BuildContext context) async {
+    context.loaderOverlay.show();
+    final res = await PemeriksaanController().createPemeriksaanBaru(inputController);
+    if (context.mounted) {
+      context.loaderOverlay.hide();
+
+      if (res == "Berhasil membuat pemeriksaan baru") {
+        context.push("/");
+      }
+
+      final bool resBool = res == "Berhasil membuat pemeriksaan baru";
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            res,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          backgroundColor: resBool ? AppColors.greenColor : AppColors.orangeColor,
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.up,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 150,
+            left: 10,
+            right: 10,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dokterPengirimState = ref.watch(dokterProvider);
     final instansiPengirimState = ref.watch(instansiProvider);
 
     final tanggalKunjunganController = useTextEditingController();
-    final pengambilSampelController = useTextEditingController();
     final selectedDokterPengirim = useState<String?>(null);
     final selectedInstansiPengirim = useState<String?>(null);
-    final selectedTanggalKunjungan = useState(DateTime.now());
+
+    useEffect(() {
+      if (selectedDokterPengirim.value != null) {
+        inputController[19].text = selectedDokterPengirim.value;
+      }
+
+      if (selectedInstansiPengirim.value != null) {
+        inputController[26].text = selectedInstansiPengirim.value;
+      }
+
+      return () {};
+    }, [selectedDokterPengirim.value, selectedInstansiPengirim.value]);
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -75,10 +119,8 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             isRequired: true,
-            placeHolder: DateFormat('dd-MM-yyyy HH.mm').format(selectedTanggalKunjungan.value),
-            controller: DateFormat('dd-MM-yyyy HH.mm').format(DateTime.now()).toString().isNotEmpty
-                ? tanggalKunjunganController
-                : null,
+            placeHolder: "Pilih Tanggal Kunjungan Ke Lab",
+            controller: tanggalKunjunganController,
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
               final DateTime? value = await showDatePicker(
@@ -102,8 +144,10 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                     time.hour,
                     time.minute,
                   );
+
+                  print(dateTime.toIso8601String());
                   tanggalKunjunganController.text = DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
-                  selectedTanggalKunjungan.value = dateTime;
+                  inputController[27].text = dateTime.toIso8601String();
                 }
               }
             },
@@ -164,6 +208,15 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                 text: "Simpan",
                 buttonType: "next",
                 onPressed: () {
+                  if (inputController[27].text.isEmpty) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Mohon lengkapi data terlebih dahulu!',
+                    );
+                    return;
+                  }
+
                   // show dialog
                   showDialog(
                     context: context,
@@ -180,35 +233,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                         TextButton(
                           onPressed: () async {
                             contextDialog.pop();
-                            context.loaderOverlay.show();
-                            final res = await PemeriksaanController().createPemeriksaanBaru(inputController);
-                            if (context.mounted) {
-                              context.loaderOverlay.hide();
-
-                              if (res == "Berhasil membuat pemeriksaan baru") {
-                                context.push("/");
-                              }
-
-                              final bool resBool = res == "Berhasil membuat pemeriksaan baru";
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    res,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  backgroundColor: resBool ? AppColors.greenColor : AppColors.orangeColor,
-                                  behavior: SnackBarBehavior.floating,
-                                  dismissDirection: DismissDirection.up,
-                                  margin: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context).size.height - 150,
-                                    left: 10,
-                                    right: 10,
-                                  ),
-                                ),
-                              );
-                            }
+                            handleSubmit(context);
                           },
                           child: const Text("Ya"),
                         ),
