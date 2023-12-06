@@ -20,6 +20,7 @@ dependencies:
   riverpod_annotation:
   intl: ^0.18.1
   dio: ^5.3.3
+  skeletonizer: ^0.8.0
 
   cupertino_icons: ^1.0.2
   loader_overlay: ^3.0.2

@@ -24,6 +24,16 @@ class AppStyle {
     color: AppColors.textWhite,
     fontWeight: FontWeight.normal,
   );
+  static TextStyle contentDescTextTitle = const TextStyle(
+    fontSize: 12,
+    color: AppColors.primary,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle contentDescText = const TextStyle(
+    fontSize: 12,
+    color: AppColors.primary,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle inputLabel = const TextStyle(
     fontSize: 12,
     color: AppColors.whiteColor,
