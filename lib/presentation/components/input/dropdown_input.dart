@@ -4,11 +4,7 @@ import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 
 class DropdownInput extends HookConsumerWidget {
   const DropdownInput(
-      {super.key,
-      required this.values,
-      required this.selectedValue,
-      this.isDisabled,
-      this.placeHolder});
+      {super.key, required this.values, required this.selectedValue, this.isDisabled, this.placeHolder});
 
   final List<ValueDropdown> values;
   final ValueNotifier selectedValue;
@@ -18,7 +14,7 @@ class DropdownInput extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DropdownButtonFormField<String>(
-      value: selectedValue.value != "" ? selectedValue.value : null,
+      value: selectedValue.value,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         filled: true,
@@ -32,7 +28,13 @@ class DropdownInput extends HookConsumerWidget {
               (e) {
                 return DropdownMenuItem<String>(
                   value: e.value,
-                  child: Text(e.teks, style: const TextStyle(fontSize: 12)),
+                  child: Text(
+                    e.teks,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 );
               },
             ).toList()

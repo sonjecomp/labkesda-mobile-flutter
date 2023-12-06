@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
@@ -28,26 +29,24 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
 
   void handleSubmit(BuildContext context) async {
     context.loaderOverlay.show();
-    final res =
-        await PemeriksaanController().createPemeriksaanBaru(inputController);
+    final res = await PemeriksaanController().createPemeriksaanBaru(inputController);
     if (context.mounted) {
       context.loaderOverlay.hide();
 
-      if (res == "Berhasil membuat pemeriksaan baru") {
-        context.push('/hasil-pendaftaran');
+      if (res is Pemeriksaan) {
+        context.push('/hasil-pendaftaran', extra: res);
       }
 
-      final bool resBool = res == "Berhasil membuat pemeriksaan baru";
+      final bool resBool = res is Pemeriksaan;
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            res,
+            resBool ? 'Pendaftaran berhasil!' : 'Terjadi kesalahan, silahkan coba lagi',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          backgroundColor:
-              resBool ? AppColors.greenColor : AppColors.orangeColor,
+          backgroundColor: resBool ? AppColors.greenColor : AppColors.orangeColor,
           behavior: SnackBarBehavior.floating,
           dismissDirection: DismissDirection.up,
           margin: EdgeInsets.only(
@@ -147,8 +146,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                     time.minute,
                   );
 
-                  tanggalKunjunganController.text =
-                      DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
+                  tanggalKunjunganController.text = DateFormat('dd/MM/yyyy HH.mm').format(dateTime);
                   inputController[27].text = dateTime.toIso8601String();
                 }
               }
@@ -171,9 +169,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             ),
             isDisabled: dokterPengirimState.isLoading,
             selectedValue: selectedDokterPengirim,
-            placeHolder: dokterPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Dokter Pengirim",
+            placeHolder: dokterPengirimState.isLoading ? "Memuat..." : "Pilih Dokter Pengirim",
           ),
           const SizedBox(
             height: 20,
@@ -192,9 +188,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
             ),
             isDisabled: instansiPengirimState.isLoading,
             selectedValue: selectedInstansiPengirim,
-            placeHolder: instansiPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Instansi Pengirim",
+            placeHolder: instansiPengirimState.isLoading ? "Memuat..." : "Pilih Instansi Pengirim",
           ),
           const SizedBox(
             height: 40,
@@ -228,8 +222,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
                     context: context,
                     builder: (contextDialog) => AlertDialog(
                       title: const Text("Konfirmasi"),
-                      content: const Text(
-                          "Apakah anda yakin semua data anda sudah benar?"),
+                      content: const Text("Apakah anda yakin semua data anda sudah benar?"),
                       actions: [
                         TextButton(
                           onPressed: () {

@@ -25,7 +25,7 @@ class AppStyle {
     fontWeight: FontWeight.normal,
   );
   static TextStyle contentDescTextTitle = const TextStyle(
-    fontSize: 12,
+    fontSize: 16,
     color: AppColors.primary,
     fontWeight: FontWeight.bold,
   );
@@ -50,9 +50,7 @@ class AppStyle {
       Radius.circular(20),
     ),
   );
-  static InputDecoration inputTextFormDecoration(
-          {required String hintText, Widget? suffixIcon}) =>
-      InputDecoration(
+  static InputDecoration inputTextFormDecoration({required String hintText, Widget? suffixIcon}) => InputDecoration(
         filled: true,
         fillColor: AppColors.whiteColor,
         suffixIcon: suffixIcon,

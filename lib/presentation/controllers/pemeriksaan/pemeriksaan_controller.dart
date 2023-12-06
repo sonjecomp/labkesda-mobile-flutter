@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:labkesda_mobile/constants/endpoints.dart';
+import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/controllers/dio/dio_provider.dart';
 
 class PemeriksaanController {
@@ -25,7 +26,7 @@ class PemeriksaanController {
     return int.parse(value);
   }
 
-  Future<String> createPemeriksaanBaru(List data) async {
+  FutureOr<Pemeriksaan?> createPemeriksaanBaru(List data) async {
     print("ABCCC ${data[26].text}");
 
     try {
@@ -67,16 +68,15 @@ class PemeriksaanController {
 
       // throw Exception("Error");
 
-      await dioPrivate.post(AppEndpoints.createPemeriksaanPasienBaru,
-          data: formData);
+      final Response res = await dioPrivate.post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
 
-      return "Berhasil membuat pemeriksaan baru";
+      return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
       print(e.toString());
       return e.response?.data["message"] ?? e.toString();
     } catch (e, s) {
       print(s.toString());
-      return e.toString();
+      return null;
     }
   }
 }

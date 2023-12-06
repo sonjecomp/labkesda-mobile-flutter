@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:labkesda_mobile/constants/assets.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/constants/doubles.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
@@ -14,10 +15,8 @@ class SliderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final promoStartDate =
-        DateFormat('dd', 'id_ID').format(DateTime.parse(detailPromo.startDate));
-    final promoDueDate = DateFormat('dd MM yyyy', 'id_ID')
-        .format(DateTime.parse(detailPromo.dueDate));
+    final promoStartDate = DateFormat('dd', 'id_ID').format(DateTime.parse(detailPromo.startDate));
+    final promoDueDate = DateFormat('dd MM yyyy', 'id_ID').format(DateTime.parse(detailPromo.dueDate));
 
     return GestureDetector(
       onTap: () {
@@ -50,8 +49,19 @@ class SliderCard extends StatelessWidget {
               width: double.infinity,
               child: AspectRatio(
                 aspectRatio: 16 / 4.5,
-                child: Image.network(
-                  detailPromo.coverImage,
+                child: FadeInImage(
+                  image: NetworkImage(detailPromo.coverImage),
+                  placeholder: const AssetImage(
+                    AppAssets.carouselDump,
+                  ),
+                  imageErrorBuilder: (context, error, stackTrace) => const Image(
+                    image: AssetImage(
+                      AppAssets.carouselDump,
+                    ),
+                    fit: BoxFit.cover,
+                    height: 90,
+                    alignment: Alignment.center,
+                  ),
                   fit: BoxFit.cover,
                   height: 90,
                   alignment: Alignment.center,

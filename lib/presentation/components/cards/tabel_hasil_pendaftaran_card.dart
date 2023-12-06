@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class TabelHasilPendaftaranCard extends HookConsumerWidget {
-  final Map data;
   const TabelHasilPendaftaranCard({
     Key? key,
     required this.data,
   }) : super(key: key);
 
+  final Pemeriksaan data;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final kodePelanggan = data['kode_pelanggan'];
-    final namaPelanggan = data['nama'];
-    final tglLahirPelanggan = data['tanggal_lahir'];
-    final noTelpPelanggan = data['no_hp'];
-    final phoneVerified = data['phone_verified'];
-    final emailPelanggan = data['email'];
-    final emailVerified = data['email_verified'];
-    final alamatPelanggan = data['alamat'];
-    final waktuKunjungan = data['waktu_kunjungan'];
-    final nomorAntrian = data['nomor_antrian'];
-
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(1),
@@ -45,7 +37,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                kodePelanggan,
+                data.user.kodePendaftaran,
                 style: AppStyle.cellsStyle,
               ),
             ),
@@ -67,7 +59,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                namaPelanggan,
+                data.user.name,
                 style: AppStyle.cellsStyle,
               ),
             ),
@@ -89,7 +81,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                tglLahirPelanggan,
+                DateFormat('dd/MM/yyyy').format(data.user.tanggalLahir),
                 style: AppStyle.cellsStyle,
               ),
             ),
@@ -113,15 +105,13 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
               child: Wrap(
                 children: [
                   Text(
-                    noTelpPelanggan,
+                    data.user.noHP,
                     style: AppStyle.cellsStyle,
                   ),
                   Text(
-                    phoneVerified
-                        ? '(Sudah Terverifikasi)'
-                        : '(Belum Terverifikasi)',
+                    data.user.statusVerifNoPhone ? '(Sudah Terverifikasi)' : '(Belum Terverifikasi)',
                     style: TextStyle(
-                      color: phoneVerified ? Colors.green : Colors.red,
+                      color: data.user.statusVerifNoPhone ? Colors.green : Colors.red,
                       fontSize: 10,
                     ),
                   ),
@@ -148,15 +138,13 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
               child: Wrap(
                 children: [
                   Text(
-                    emailPelanggan,
+                    data.user.email,
                     style: AppStyle.cellsStyle,
                   ),
                   Text(
-                    emailVerified
-                        ? '(Sudah Terverifikasi)'
-                        : '(Belum Terverifikasi)',
+                    data.user.statusVerifEmail ? '(Sudah Terverifikasi)' : '(Belum Terverifikasi)',
                     style: TextStyle(
-                      color: emailVerified ? Colors.green : Colors.red,
+                      color: data.user.statusVerifEmail ? Colors.green : Colors.red,
                       fontSize: 10,
                     ),
                   ),
@@ -181,7 +169,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                alamatPelanggan,
+                data.user.alamatDomisili,
                 style: AppStyle.cellsStyle,
               ),
             ),
@@ -203,7 +191,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                waktuKunjungan,
+                DateFormat('dd/MM/yyyy').format(data.antrianPasien.waktuKunjungan),
                 style: AppStyle.cellsStyle,
               ),
             ),
@@ -225,7 +213,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                nomorAntrian,
+                data.antrianPasien.noAntrian.toString(),
                 style: AppStyle.cellsStyle,
               ),
             ),

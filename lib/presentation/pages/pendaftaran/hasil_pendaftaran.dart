@@ -2,30 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/cards/anchored_text_card.dart';
 import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/components/cards/tabel_hasil_pendaftaran_card.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/download_pendaftaran_button.dart';
-
-final Map dataPendaftaran = {
-  'qr_code':
-      'https://avatars.githubusercontent.com/u/97578440?s=400&u=2a648e5589a1d9860a985bf88dab4440644319ef&v=4',
-  'kode_pelanggan': '23113885911565',
-  'nama': 'John Doe',
-  'tanggal_lahir': 'Kamis, 19 Mei 1989',
-  'no_hp': '08123456789',
-  'phone_verified': true,
-  'email': 'johndoe@email.com',
-  'email_verified': true,
-  'alamat': 'Jl. Raya Bogor No. 1, Jakarta Timur',
-  'waktu_kunjungan': 'Selasa, 14 November 2023',
-  'nomor_antrian': '1',
-};
+import 'package:qr_flutter/qr_flutter.dart';
 
 class HasilPendafataranPage extends HookConsumerWidget {
-  const HasilPendafataranPage({super.key});
+  const HasilPendafataranPage({super.key, required this.pemeriksaan});
+
+  final Pemeriksaan pemeriksaan;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -86,9 +76,13 @@ class HasilPendafataranPage extends HookConsumerWidget {
                 ),
                 child: AspectRatio(
                   aspectRatio: 1 / 1,
-                  child: Image.network(
-                    dataPendaftaran['qr_code'],
-                    fit: BoxFit.cover,
+                  // child: Image.network(
+                  //   dataPendaftaran['qr_code'],
+                  //   fit: BoxFit.cover,
+                  // ),
+                  child: QrImageView(
+                    data: pemeriksaan.user.kodePendaftaran,
+                    version: QrVersions.auto,
                   ),
                 ),
               ),
@@ -103,7 +97,7 @@ class HasilPendafataranPage extends HookConsumerWidget {
                 height: 20,
               ),
               TabelHasilPendaftaranCard(
-                data: dataPendaftaran,
+                data: pemeriksaan,
               ),
               const SizedBox(
                 height: 10,
