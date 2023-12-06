@@ -5,6 +5,7 @@ import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layou
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_detail_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_result_page.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/hasil_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pilih_status_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
@@ -13,6 +14,7 @@ import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/pen
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/pendaftaran_instansi_baru_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
+import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 
 final router = GoRouter(
   initialLocation: "/on-board",
@@ -32,21 +34,33 @@ final router = GoRouter(
           builder: (context, state) => const HasilPemeriksaanPage(),
         ),
         GoRoute(
+          path: "hasil-pendaftaran",
+          builder: (context, state) => const HasilPendafataranPage(),
+        ),
+        GoRoute(
           path: "riwayat-pemeriksaan",
           builder: (context, state) => const RiwayatPemeriksaanPage(),
           routes: [
             GoRoute(
-                path: "hasil-pencarian-riwayat-pemeriksaan",
-                builder: (context, state) =>
-                    const RiwayatPemeriksaanResultPage(),
-                routes: [
-                  GoRoute(
-                    path: "detail-pemeriksaan",
-                    builder: (context, state) =>
-                        const RiwayatPemeriksaanDetailPage(),
-                  ),
-                ]),
+              path: "hasil-pencarian-riwayat-pemeriksaan",
+              builder: (context, state) => const RiwayatPemeriksaanResultPage(),
+              routes: [
+                GoRoute(
+                  path: "detail-pemeriksaan",
+                  builder: (context, state) =>
+                      const RiwayatPemeriksaanDetailPage(),
+                ),
+              ],
+            ),
           ],
+        ),
+        GoRoute(
+          path: "detail-promo/:promoId",
+          builder: (context, state) {
+            return const DetailPenawaranPromo(
+              promoId: "promoId",
+            );
+          },
         ),
         GoRoute(
           path: "pilih-status-pendaftaran",

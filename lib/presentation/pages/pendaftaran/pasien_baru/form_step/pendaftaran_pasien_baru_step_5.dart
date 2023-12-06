@@ -1,11 +1,10 @@
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
-import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
@@ -118,7 +117,8 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
               );
               if (value != null) {
                 inputController[24].text = value.toIso8601String();
-                tanggalPengambilanSampelController.text = DateFormat('dd/MM/yyyy').format(value).toString();
+                tanggalPengambilanSampelController.text =
+                    DateFormat('dd/MM/yyyy').format(value).toString();
               }
             },
           ),
@@ -150,7 +150,8 @@ class PendaftaranPasienBaruStep5 extends HookConsumerWidget {
                       context: context,
                       builder: (contextDialog) => AlertDialog(
                         title: const Text("Data tidak lengkap"),
-                        content: const Text("Apakah anda yakin untuk melanjutkan?"),
+                        content:
+                            const Text("Apakah anda yakin untuk melanjutkan?"),
                         actions: [
                           TextButton(
                             onPressed: () {
