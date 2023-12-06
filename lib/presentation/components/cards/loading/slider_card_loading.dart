@@ -1,31 +1,17 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/constants/doubles.dart';
-import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-class SliderCard extends StatelessWidget {
-  final PromoModels detailPromo;
-  const SliderCard({
+class SliderCardLoading extends StatelessWidget {
+  const SliderCardLoading({
     super.key,
-    required this.detailPromo,
   });
 
   @override
   Widget build(BuildContext context) {
-    final promoStartDate =
-        DateFormat('dd', 'id_ID').format(DateTime.parse(detailPromo.startDate));
-    final promoDueDate = DateFormat('dd MM yyyy', 'id_ID')
-        .format(DateTime.parse(detailPromo.dueDate));
-
-    return GestureDetector(
-      onTap: () {
-        context.push(
-          '/detail-promo',
-          extra: detailPromo,
-        );
-      },
+    return Skeletonizer(
+      enabled: true,
       child: Container(
         margin: const EdgeInsets.only(bottom: 11, right: 10),
         clipBehavior: Clip.antiAlias,
@@ -44,17 +30,23 @@ class SliderCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              color: AppColors.secondary,
-              alignment: Alignment.bottomLeft,
-              width: double.infinity,
-              child: AspectRatio(
-                aspectRatio: 16 / 4.5,
-                child: Image.network(
-                  detailPromo.coverImage,
-                  fit: BoxFit.cover,
-                  height: 90,
-                  alignment: Alignment.center,
+            Skeleton.leaf(
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: const BoxDecoration(
+                  color: AppColors.secondary,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(AppDoubles.borderRadiusContainer),
+                    topRight: Radius.circular(AppDoubles.borderRadiusContainer),
+                  ),
+                ),
+                alignment: Alignment.bottomLeft,
+                width: double.infinity,
+                child: AspectRatio(
+                  aspectRatio: 16 / 4.5,
+                  child: Container(
+                    color: AppColors.secondary,
+                  ),
                 ),
               ),
             ),
@@ -64,21 +56,21 @@ class SliderCard extends StatelessWidget {
                 vertical: 5,
                 horizontal: 10,
               ),
-              child: Column(
+              child: const Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    detailPromo.title,
-                    style: const TextStyle(
+                    'jladslkfa;sdf;lasdk',
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary,
                     ),
                   ),
                   Text(
-                    'Berlaku hingga $promoStartDate - $promoDueDate',
-                    style: const TextStyle(
+                    'jasdlfja;skdjf;aksldfkad',
+                    style: TextStyle(
                       fontSize: 12,
                       color: AppColors.primary,
                     ),

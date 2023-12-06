@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/components/cards/loading/slider_card_loading.dart';
 import 'package:labkesda_mobile/presentation/components/cards/slider_card.dart';
 import 'package:labkesda_mobile/presentation/controllers/promo/promo_provider.dart';
 
@@ -41,22 +42,21 @@ class PromoCarousel extends HookConsumerWidget {
                   itemBuilder: (BuildContext context, int itemIndex,
                           int pageViewIndex) =>
                       SliderCard(
-                    id: datas[itemIndex].id,
-                    title: datas[itemIndex].title,
-                    startDate: DateTime.parse(datas[itemIndex].startDate),
-                    dueDate: DateTime.parse(datas[itemIndex].dueDate),
+                    detailPromo: datas[itemIndex],
                   ),
                 );
         },
         loading: () {
-          return const SizedBox(
-            width: double.infinity,
-            height: 180,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ),
+          return CarouselSlider.builder(
+            options: CarouselOptions(
+              viewportFraction: 0.9,
+              aspectRatio: 16 / 9,
+              autoPlay: true,
             ),
+            itemCount: 3,
+            itemBuilder:
+                (BuildContext context, int itemIndex, int pageViewIndex) =>
+                    const SliderCardLoading(),
           );
         },
         error: (e, s) {

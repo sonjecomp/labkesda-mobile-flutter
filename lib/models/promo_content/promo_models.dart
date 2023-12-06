@@ -1,6 +1,6 @@
 class PromoModels {
-  final int id;
-  final String title,
+  final String id,
+      title,
       description,
       termsAndConditions,
       coverImage,
