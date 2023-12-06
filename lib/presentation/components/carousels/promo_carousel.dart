@@ -1,42 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/components/cards/slider_card.dart';
+import 'package:labkesda_mobile/presentation/controllers/promo/promo_provider.dart';
 
-final List<Map> promoContent = [
-  {
-    'id': 1,
-    'title': 'Hari Pahlawan',
-    'date': 'Berlaku hingga 01-23 Nov 2023',
-    'image': 'assets/images/carousel-dump.png',
-  },
-  {
-    'id': 2,
-    'title': 'Hari Pahlawan',
-    'date': 'Berlaku hingga 01-23 Nov 2023',
-    'image': 'assets/images/carousel-dump.png',
-  },
-  {
-    'id': 3,
-    'title': 'Hari Pahlawan',
-    'date': 'Berlaku hingga 01-23 Nov 2023',
-    'image': 'assets/images/carousel-dump.png',
-  },
-];
-
-class PromoCarousel extends StatelessWidget {
+class PromoCarousel extends HookConsumerWidget {
   const PromoCarousel({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      options: CarouselOptions(
-        viewportFraction: 0.9,
-        aspectRatio: 16 / 9,
-        autoPlay: true,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final promoData = ref.watch(promoProvider);
+    return SizedBox(
+      width: double.infinity,
+      height: 180,
+      child: promoData.when(
+        data: (datas) {
+          return datas.isEmpty
+              ? const SizedBox(
+                  width: double.infinity,
+                  height: 180,
+                  child: Center(
+                    child: Text(
+                      'Promo sedang tidak tersedia',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                )
+              : CarouselSlider.builder(
+                  options: CarouselOptions(
+                    viewportFraction: 0.9,
+                    aspectRatio: 16 / 9,
+                    autoPlay: true,
+                  ),
+                  itemCount: datas.length,
+                  itemBuilder: (BuildContext context, int itemIndex,
+                          int pageViewIndex) =>
+                      SliderCard(
+                    id: datas[itemIndex].id,
+                    title: datas[itemIndex].title,
+                    startDate: DateTime.parse(datas[itemIndex].startDate),
+                    dueDate: DateTime.parse(datas[itemIndex].dueDate),
+                  ),
+                );
+        },
+        loading: () {
+          return const SizedBox(
+            width: double.infinity,
+            height: 180,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primary,
+              ),
+            ),
+          );
+        },
+        error: (e, s) {
+          return const SizedBox(
+            width: double.infinity,
+            height: 180,
+            child: Center(
+              child: Text(
+                'Promo sedang tidak tersedia',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primary,
+                ),
+              ),
+            ),
+          );
+        },
       ),
-      itemCount: 3,
-      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-          const SliderCard(),
     );
   }
 }
