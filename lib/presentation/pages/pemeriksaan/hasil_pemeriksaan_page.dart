@@ -54,6 +54,7 @@ class HasilPemeriksaanPage extends HookConsumerWidget {
                         height: 5,
                       ),
                       TextFormFieldInput(
+                        isNik: true,
                         keyboardType: TextInputType.number,
                         controller: kodeIdentitasController,
                         isRequired: true,

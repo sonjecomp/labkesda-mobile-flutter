@@ -15,9 +15,9 @@ class PaketPemeriksaanPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final promoStartDate =
-        DateFormat('dd', 'id_ID').format(DateTime.parse(detailPaket.startDate));
-    final promoDueDate = DateFormat('dd MM yyyy', 'id_ID')
-        .format(DateTime.parse(detailPaket.dueDate));
+        DateFormat.yMMMd('id_ID').format(DateTime.parse(detailPaket.startDate));
+    final promoDueDate =
+        DateFormat.yMMMd('id_ID').format(DateTime.parse(detailPaket.dueDate));
     final price = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
@@ -76,7 +76,7 @@ class PaketPemeriksaanPage extends HookConsumerWidget {
                     style: const TextStyle(
                       fontSize: 12,
                       color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                     ),
                     children: [
                       TextSpan(
@@ -84,17 +84,40 @@ class PaketPemeriksaanPage extends HookConsumerWidget {
                         style: const TextStyle(
                           fontSize: 16,
                           color: AppColors.primary,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
                 ),
-                Text(
-                  'Berlaku hingga $promoStartDate-$promoDueDate',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.primary,
+                RichText(
+                  text: TextSpan(
+                    text: 'Berlaku mulai ',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.primary,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: promoStartDate,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const TextSpan(
+                        text: ' hingga ',
+                      ),
+                      TextSpan(
+                        text: promoDueDate,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

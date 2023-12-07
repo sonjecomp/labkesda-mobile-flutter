@@ -26,7 +26,7 @@ class PaketLayananCard extends HookConsumerWidget {
       ),
       padding: const EdgeInsets.all(10),
       width: 160,
-      height: 130,
+      height: 110,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
