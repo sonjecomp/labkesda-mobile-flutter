@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:labkesda_mobile/models/paket_content/paket_models.dart';
 import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/presentation/pages/layanan/daftar_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/paket_pemeriksaan/paket_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_detail_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_result_page.dart';
@@ -51,7 +53,8 @@ final router = GoRouter(
               routes: [
                 GoRoute(
                   path: "detail-pemeriksaan",
-                  builder: (context, state) => const RiwayatPemeriksaanDetailPage(),
+                  builder: (context, state) =>
+                      const RiwayatPemeriksaanDetailPage(),
                 ),
               ],
             ),
@@ -117,6 +120,17 @@ final router = GoRouter(
           builder: (context, state) {
             return const DaftarLayanan();
           },
+          routes: [
+            GoRoute(
+              path: "detail-paket-pemeriksaan",
+              builder: (context, state) {
+                final PaketModels detailPaket = state.extra as PaketModels;
+                return PaketPemeriksaanPage(
+                  detailPaket: detailPaket,
+                );
+              },
+            ),
+          ],
         ),
       ],
     ),

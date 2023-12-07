@@ -15,4 +15,5 @@ class AppColors {
   static const Color attentionContainer = Color(0xFFFFF3CD);
   static const Color attentionText = Color(0xFF664D03);
   static const Color greenColor = Color(0xFF24B300);
+  static const Color yellowCyanColor = Color(0xFFED8F27);
 }

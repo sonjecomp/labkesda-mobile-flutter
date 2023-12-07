@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/components/cards/loading/paket_layanan_card_loading.dart';
+import 'package:labkesda_mobile/presentation/components/cards/paket_layanan_card.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/controllers/paket/paket_provider.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class DaftarLayanan extends HookConsumerWidget {
   const DaftarLayanan({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List numbers = [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-    ];
+    final paketState = ref.watch(paketProvider);
     return Scaffold(
       body: ListView(
         children: [
@@ -139,75 +131,27 @@ class DaftarLayanan extends HookConsumerWidget {
                 child: Wrap(
                   spacing: 20,
                   runSpacing: 20,
-                  children: numbers.map((e) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.secondary,
-                        borderRadius: BorderRadius.circular(15),
+                  children: paketState.when(
+                    data: (data) {
+                      return data.map((e) {
+                        return PaketLayananCard(
+                          detailPaket: e,
+                        );
+                      }).toList();
+                    },
+                    error: (error, stackTrace) => [
+                      Center(
+                        child: Text(
+                          'Konten gagal dimuat, silahkan coba lagi',
+                          style: AppStyle.contentDescText,
+                        ),
                       ),
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                        right: 10,
-                        bottom: 20,
-                        left: 10,
-                      ),
-                      width: 150,
-                      height: 120,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Paket $e',
-                                    style: const TextStyle(
-                                      color: AppColors.textWhite,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: double.infinity,
-                                    child: Text(
-                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                                      style: TextStyle(
-                                        color: AppColors.textWhite,
-                                        fontSize: 10,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFED8F27),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 5,
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Detail',
-                                style: TextStyle(
-                                  color: AppColors.textBrown,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                    ],
+                    loading: () => [
+                      for (int i = 0; i < 10; i++)
+                        const PaketLayananCardLoading(),
+                    ],
+                  ),
                 ),
               ),
             ],
