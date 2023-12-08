@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/models/jenis_layanan/jenis_layanan.dart';
 import 'package:labkesda_mobile/models/layanan/layanan.dart';
+import 'package:labkesda_mobile/presentation/controllers/jenis_layanan/jenis_layanan_controller.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class LayananTesCard extends HookConsumerWidget {
@@ -12,6 +14,25 @@ class LayananTesCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final jenisLayanan = ref.watch(jenisLayananControllerProvider);
+
+    String getJenisLayananName(String id) {
+      final JenisLayanan? data = jenisLayanan.maybeWhen(
+        data: (data) {
+          if (data.isEmpty) {
+            return null;
+          }
+
+          return data.firstWhere(
+            (element) => element.id == id,
+          );
+        },
+        orElse: () => null,
+      );
+
+      return data?.name ?? '';
+    }
+
     return Material(
       child: InkWell(
         onTap: () {},
@@ -30,19 +51,23 @@ class LayananTesCard extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    layanan.name,
-                    style: const TextStyle(
-                      color: AppColors.textWhite,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      layanan.name,
+                      maxLines: 2,
+                      style: const TextStyle(
+                        color: AppColors.textWhite,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
-                    layanan.jenisTindakanId == "" ? "Tindakan" : "Paket",
+                    layanan.jenisTindakanId != "" ? getJenisLayananName(layanan.jenisTindakanId!) : 'Layanan',
                     style: const TextStyle(
                       color: AppColors.textWhite,
                       fontSize: 12,

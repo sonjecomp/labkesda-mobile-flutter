@@ -35,7 +35,7 @@ class FitureButton extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
               height: 1,
-              color: AppColors.textBrown,
+              color: AppColors.textWhite,
             ),
           ),
         ],

@@ -171,4 +171,5 @@ class AppEndpoints {
 
   static String getAllPaketLayanan = '$_baseUrl/api/v1/paket-layanan';
   static String getAllLayanan = '$_baseUrl/api/v1/layanan';
+  static String getAllJenisLayanan = '$_baseUrl/api/v1/jenis-layanan';
 }

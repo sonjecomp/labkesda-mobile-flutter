@@ -17,7 +17,7 @@ class PaketLayananCardLoading extends HookConsumerWidget {
             AppStyle.boxShadow,
           ],
         ),
-        width: 160,
+        width: 150,
         height: 130,
         child: Column(
           children: [

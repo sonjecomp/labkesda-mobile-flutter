@@ -19,7 +19,7 @@ class PaketLayananCard extends HookConsumerWidget {
         ],
       ),
       clipBehavior: Clip.antiAlias,
-      width: 160,
+      width: 150,
       height: 130,
       child: Material(
         color: Colors.transparent,
