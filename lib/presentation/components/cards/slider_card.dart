@@ -15,8 +15,10 @@ class SliderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final promoStartDate = DateFormat('dd', 'id_ID').format(DateTime.parse(detailPromo.startDate));
-    final promoDueDate = DateFormat('dd MM yyyy', 'id_ID').format(DateTime.parse(detailPromo.dueDate));
+    final promoStartDate =
+        DateFormat('dd', 'id_ID').format(DateTime.parse(detailPromo.startDate));
+    final promoDueDate = DateFormat('dd MM yyyy', 'id_ID')
+        .format(DateTime.parse(detailPromo.dueDate));
 
     return GestureDetector(
       onTap: () {
@@ -54,7 +56,8 @@ class SliderCard extends StatelessWidget {
                   placeholder: const AssetImage(
                     AppAssets.carouselDump,
                   ),
-                  imageErrorBuilder: (context, error, stackTrace) => const Image(
+                  imageErrorBuilder: (context, error, stackTrace) =>
+                      const Image(
                     image: AssetImage(
                       AppAssets.carouselDump,
                     ),
@@ -80,10 +83,12 @@ class SliderCard extends StatelessWidget {
                 children: [
                   Text(
                     detailPromo.title,
+                    maxLines: 1,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Text(

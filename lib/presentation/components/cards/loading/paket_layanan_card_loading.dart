@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class PaketLayananCardLoading extends HookConsumerWidget {
@@ -11,55 +12,57 @@ class PaketLayananCardLoading extends HookConsumerWidget {
       enabled: true,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.shdadowColor,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            AppStyle.boxShadow,
+          ],
         ),
-        padding: const EdgeInsets.all(10),
-        width: 160,
-        height: 130,
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        width: 100,
+        height: 100,
+        child: Column(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'kjsdlfkjalsdkjflaksjdakjhfkjahsdfkhjask',
-                  maxLines: 2,
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: AppColors.shdadowColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'lkjlkkjfasdfllkjdfalsdfas',
+                  maxLines: 3,
                   style: TextStyle(
                     color: AppColors.textWhite,
-                    fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.ellipsis,
+                    fontSize: 12,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    'ajdfjasdfljahsdf',
-                    style: TextStyle(
-                      color: AppColors.textWhite,
-                      fontSize: 10,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
-              ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ABCDEFGH',
-                  style: TextStyle(
-                    color: AppColors.textWhite,
-                    fontSize: 26,
-                  ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: AppColors.shdadowColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
                 ),
-              ],
-            )
+              ),
+              child: const Text(
+                'jkljflasdjflkasd',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: AppColors.textWhite,
+                ),
+              ),
+            ),
           ],
         ),
       ),

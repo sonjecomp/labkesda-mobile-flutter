@@ -27,8 +27,6 @@ class PemeriksaanController {
   }
 
   FutureOr<Pemeriksaan?> createPemeriksaanBaru(List data) async {
-    print("ABCCC ${data[26].text}");
-
     try {
       final Map<String, dynamic> formData = {
         "user": {
@@ -68,7 +66,8 @@ class PemeriksaanController {
 
       // throw Exception("Error");
 
-      final Response res = await dioPrivate.post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
+      final Response res = await dioPrivate
+          .post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
 
       return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {

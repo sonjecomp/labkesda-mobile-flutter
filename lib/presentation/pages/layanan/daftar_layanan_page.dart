@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/presentation/components/cards/layanan_tes_card.dart';
 import 'package:labkesda_mobile/presentation/components/cards/loading/paket_layanan_card_loading.dart';
 import 'package:labkesda_mobile/presentation/components/cards/paket_layanan_card.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
@@ -121,19 +122,60 @@ class DaftarLayanan extends HookConsumerWidget {
               ],
             ),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Paket Layanan',
+                        style: AppStyle.contentDescTextTitle,
+                      ),
+                      SizedBox(
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 0,
+                              vertical: 0,
+                            ),
+                          ),
+                          child: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Lihat Semua',
+                                style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                                size: 12,
+                                color: AppColors.primary,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Wrap(
+                Wrap(
                   spacing: 20,
                   runSpacing: 20,
+                  verticalDirection: VerticalDirection.down,
                   children: paketState.when(
                     data: (data) {
-                      return data.map((e) {
+                      return data.take(6).map((e) {
                         return PaketLayananCard(
                           detailPaket: e,
                         );
@@ -153,8 +195,65 @@ class DaftarLayanan extends HookConsumerWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 0,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Layanan Tes',
+                        style: AppStyle.contentDescTextTitle,
+                      ),
+                      SizedBox(
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 0,
+                              vertical: 0,
+                            ),
+                          ),
+                          child: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Lihat Semua',
+                                style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                                size: 12,
+                                color: AppColors.primary,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  children: [
+                    for (int i = 0; i < 5; i++) const LayananTesCard(),
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),
