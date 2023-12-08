@@ -14,15 +14,14 @@ class PaketPemeriksaanPage extends HookConsumerWidget {
   final PaketModels detailPaket;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final promoStartDate =
-        DateFormat.yMMMd('id_ID').format(DateTime.parse(detailPaket.startDate));
-    final promoDueDate =
-        DateFormat.yMMMd('id_ID').format(DateTime.parse(detailPaket.dueDate));
+    final promoStartDate = DateFormat.yMMMd('id_ID').format(DateTime.parse(detailPaket.startDate));
+    final promoDueDate = DateFormat.yMMMd('id_ID').format(DateTime.parse(detailPaket.dueDate));
     final price = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
       decimalDigits: 0,
     ).format(detailPaket.price);
+
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Detail Paket Layanan',

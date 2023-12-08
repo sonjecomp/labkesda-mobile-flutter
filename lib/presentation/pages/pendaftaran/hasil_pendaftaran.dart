@@ -43,94 +43,96 @@ class HasilPendafataranPage extends HookConsumerWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
-        ),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.only(
-            top: 20,
-            right: 20,
-            bottom: 40,
-            left: 20,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 20,
           ),
-          decoration: AppStyle.formContainerDecoration,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const TitleForm(
-                title: 'Bukti Pendaftaran',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 220,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppColors.whiteColor,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(
+              top: 20,
+              right: 20,
+              bottom: 40,
+              left: 20,
+            ),
+            decoration: AppStyle.formContainerDecoration,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const TitleForm(
+                  title: 'Bukti Pendaftaran',
                 ),
-                child: AspectRatio(
-                  aspectRatio: 1 / 1,
-                  // child: Image.network(
-                  //   dataPendaftaran['qr_code'],
-                  //   fit: BoxFit.cover,
-                  // ),
-                  child: QrImageView(
-                    data: pemeriksaan.user.kodePendaftaran,
-                    version: QrVersions.auto,
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 220,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: AppColors.whiteColor,
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 1 / 1,
+                    // child: Image.network(
+                    //   dataPendaftaran['qr_code'],
+                    //   fit: BoxFit.cover,
+                    // ),
+                    child: QrImageView(
+                      data: pemeriksaan.user.kodePendaftaran,
+                      version: QrVersions.auto,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Berikut bukti pendaftaran secara daring, Silahkan unduh dan simpan bukti pendaftaran untuk melakukan verifikasi pada petugas.',
-                style: AppStyle.contentText,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TabelHasilPendaftaranCard(
-                data: pemeriksaan,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              DownLoadPendaftaranButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  WarningSnackbar.show(
-                    context,
-                    text: 'Coming soon',
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              AnchoredTextCard(
-                onTap: () {
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  WarningSnackbar.show(
-                    context,
-                    text: 'Coming soon',
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Hasil pemeriksaan akan dikirim ke email atau nomor telepon yang telah Anda daftarkan. Silahkan cek email secara berkala untuk menerima hasil pemeriksaan.',
-                style: AppStyle.contentText,
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Berikut bukti pendaftaran secara daring, Silahkan unduh dan simpan bukti pendaftaran untuk melakukan verifikasi pada petugas.',
+                  style: AppStyle.contentText,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TabelHasilPendaftaranCard(
+                  data: pemeriksaan,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                DownLoadPendaftaranButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Coming soon',
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                AnchoredTextCard(
+                  onTap: () {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Coming soon',
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Hasil pemeriksaan akan dikirim ke email atau nomor telepon yang telah Anda daftarkan. Silahkan cek email secara berkala untuk menerima hasil pemeriksaan.',
+                  style: AppStyle.contentText,
+                ),
+              ],
+            ),
           ),
         ),
       ),

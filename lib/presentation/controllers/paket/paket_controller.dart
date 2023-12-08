@@ -6,10 +6,8 @@ class PaketController {
   static Future<List<PaketModels>> getData() async {
     try {
       final Dio dio = Dio();
-      final Response response =
-          await dio.get(AppEndpoints.getAllPaketPemeriksaan);
-      final List<PaketModels> data =
-          (response.data as List).map((e) => PaketModels.fromJson(e)).toList();
+      final Response response = await dio.get(AppEndpoints.getAllPaketPemeriksaan);
+      final List<PaketModels> data = (response.data as List).map((e) => PaketModels.fromJson(e)).toList();
       return data;
     } catch (e) {
       return [];

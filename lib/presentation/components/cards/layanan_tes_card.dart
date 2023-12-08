@@ -1,22 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/models/layanan/layanan.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class LayananTesCard extends HookConsumerWidget {
-  const LayananTesCard({super.key});
+  const LayananTesCard({super.key, required this.layanan});
+
+  final Layanan layanan;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      height: 50,
-      width: 340,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.yellowCyanColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          AppStyle.boxShadow,
-        ],
+    return Material(
+      child: InkWell(
+        onTap: () {},
+        child: Stack(
+          children: [
+            Ink(
+              width: double.infinity,
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.secondary,
+                boxShadow: [
+                  AppStyle.boxShadow,
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    layanan.name,
+                    style: const TextStyle(
+                      color: AppColors.textWhite,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    layanan.jenisTindakanId == "" ? "Tindakan" : "Paket",
+                    style: const TextStyle(
+                      color: AppColors.textWhite,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: AppColors.yellowCyanColor,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  NumberFormat.currency(
+                    locale: 'id_ID',
+                    symbol: 'Rp ',
+                    decimalDigits: 0,
+                  ).format(
+                    num.parse(layanan.harga),
+                  ),
+                  style: const TextStyle(
+                    color: AppColors.textWhite,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
