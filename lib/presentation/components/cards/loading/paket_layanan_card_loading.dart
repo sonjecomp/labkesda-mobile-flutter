@@ -12,12 +12,12 @@ class PaketLayananCardLoading extends HookConsumerWidget {
       enabled: true,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             AppStyle.boxShadow,
           ],
         ),
-        width: 150,
+        width: 165,
         height: 130,
         child: Column(
           children: [

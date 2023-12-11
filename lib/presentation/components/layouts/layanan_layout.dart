@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/components/cards/layanan_tes_card.dart';
 import 'package:labkesda_mobile/presentation/controllers/layanan/layanan_controller.dart';
+import 'package:labkesda_mobile/presentation/components/cards/konten_tidak_tersedia_card.dart';
 
 class LayananLayout extends HookConsumerWidget {
   const LayananLayout({super.key});
@@ -13,10 +14,8 @@ class LayananLayout extends HookConsumerWidget {
     return layananState.when(
       data: (data) {
         if (data.isEmpty) {
-          return const Center(
-            child: Text(
-              'Tidak ada layanan',
-            ),
+          return const KontenTidakTersediaCard(
+            text: 'Layanan sedang tidak tersedia',
           );
         }
 

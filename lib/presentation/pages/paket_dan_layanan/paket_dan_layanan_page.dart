@@ -6,8 +6,8 @@ import 'package:labkesda_mobile/presentation/components/input/text_form_field_in
 import 'package:labkesda_mobile/presentation/components/layouts/layanan_layout.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/paket_layanan_layout.dart';
 
-class DaftarLayanan extends HookConsumerWidget {
-  const DaftarLayanan({super.key});
+class PaketDanLayananPage extends HookConsumerWidget {
+  const PaketDanLayananPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -20,7 +20,9 @@ class DaftarLayanan extends HookConsumerWidget {
               bottom: 15,
               left: 20,
             ),
-            decoration: const BoxDecoration(color: AppColors.primary),
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
+            ),
             child: Column(
               children: [
                 TextFormFieldInput(
@@ -46,7 +48,7 @@ class DaftarLayanan extends HookConsumerWidget {
               children: [
                 SubHeaderDaftarLayanan(
                   title: 'Paket Layanan',
-                  href: '',
+                  href: '/daftar-paket',
                 ),
                 PaketLayananLayout(),
               ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 
 class SubHeaderDaftarLayanan extends StatelessWidget {
-  const SubHeaderDaftarLayanan({super.key, required this.title, this.subtitle, required this.href});
+  const SubHeaderDaftarLayanan(
+      {super.key, required this.title, this.subtitle, required this.href});
 
   final String title;
   final String? subtitle;
@@ -22,7 +24,11 @@ class SubHeaderDaftarLayanan extends StatelessWidget {
           ),
           SizedBox(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(
+                  href,
+                );
+              },
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 0,

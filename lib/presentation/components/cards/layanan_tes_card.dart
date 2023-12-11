@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/models/jenis_layanan/jenis_layanan.dart';
 import 'package:labkesda_mobile/models/layanan/layanan.dart';
-import 'package:labkesda_mobile/presentation/controllers/jenis_layanan/jenis_layanan_controller.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/models/jenis_layanan/jenis_layanan.dart';
+import 'package:labkesda_mobile/presentation/controllers/jenis_layanan/jenis_layanan_controller.dart';
 
 class LayananTesCard extends HookConsumerWidget {
   const LayananTesCard({super.key, required this.layanan});
@@ -67,7 +66,9 @@ class LayananTesCard extends HookConsumerWidget {
                     height: 5,
                   ),
                   Text(
-                    layanan.jenisTindakanId != "" ? getJenisLayananName(layanan.jenisTindakanId!) : 'Layanan',
+                    layanan.jenisTindakanId != ""
+                        ? getJenisLayananName(layanan.jenisTindakanId!)
+                        : 'Layanan',
                     style: const TextStyle(
                       color: AppColors.textWhite,
                       fontSize: 12,
@@ -88,13 +89,7 @@ class LayananTesCard extends HookConsumerWidget {
                   ),
                 ),
                 child: Text(
-                  NumberFormat.currency(
-                    locale: 'id_ID',
-                    symbol: 'Rp ',
-                    decimalDigits: 0,
-                  ).format(
-                    num.parse(layanan.harga),
-                  ),
+                  layanan.harga,
                   style: const TextStyle(
                     color: AppColors.textWhite,
                     fontSize: 16,

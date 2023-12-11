@@ -149,9 +149,6 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
                 onPressed: () {
                   // currIndexStepper.value++;
                   // stepScrollController.jumpTo(0);
-                  print(
-                    'Jenis Sampel: ${jenisSampelController.text}\nTanggal Pengambilan Sampel: ${selectedTanggalPengambilanSampel.value}\nWadah/Volume: ${wadahVolumeController.text}\nLokasi Sampel: ${lokasiSampelController.text}\nPengambil Sampel: ${pengambilSampelController.text}',
-                  );
                 },
               ),
             ],

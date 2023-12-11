@@ -165,11 +165,7 @@ class PendaftaranInstansiBaruAdaMouStep3 extends HookConsumerWidget {
               StepperButton(
                 text: "Lanjutkan",
                 buttonType: "next",
-                onPressed: () {
-                  print(
-                    'jenisSampleController: ${jenisSampleController.text}, \n wadahVolumeController: ${wadahVolumeController.text}, \n lokasiSampelController: ${lokasiSampelController.text}, \n pengambilSampelController: ${pengambilSampelController.text}, \n kondisiSaatDiterimaController: ${kondisiSaatDiterimaController.text}, \n dateController: ${dateController.text}, \n selectedDate: ${selectedDate.value} \n',
-                  );
-                },
+                onPressed: () {},
               ),
             ],
           ),
