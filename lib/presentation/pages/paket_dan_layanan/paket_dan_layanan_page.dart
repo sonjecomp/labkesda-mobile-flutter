@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/presentation/components/headers/subheader_daftar_layanan.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/layanan_layout.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/paket_layanan_layout.dart';
+import 'package:labkesda_mobile/presentation/components/headers/subheader_daftar_layanan.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/manipulation_search_button.dart';
 
 class PaketDanLayananPage extends HookConsumerWidget {
   const PaketDanLayananPage({super.key});
@@ -12,34 +11,12 @@ class PaketDanLayananPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: ListView(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(
-              top: 30,
-              right: 20,
-              bottom: 15,
-              left: 20,
-            ),
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
-            ),
-            child: Column(
-              children: [
-                TextFormFieldInput(
-                  readOnly: true,
-                  onTap: () {},
-                  placeHolder: 'Cari paket/layanan',
-                  suffixIcon: const Icon(
-                    Icons.search,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
+        children: const [
+          ManipulationSearchButton(
+            placeHolder: 'Cari paket atau layanan',
+            href: '/search-paket-dan-layanan',
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 10,
@@ -54,7 +31,7 @@ class PaketDanLayananPage extends HookConsumerWidget {
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 0,
@@ -63,10 +40,12 @@ class PaketDanLayananPage extends HookConsumerWidget {
               children: [
                 SubHeaderDaftarLayanan(
                   title: 'Layanan',
-                  href: '',
+                  href: '/daftar-layanan',
                 ),
                 LayananLayout(),
-                SizedBox(height: 20),
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),

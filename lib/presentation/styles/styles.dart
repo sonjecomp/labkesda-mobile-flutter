@@ -51,8 +51,9 @@ class AppStyle {
     ),
   );
   static InputDecoration inputTextFormDecoration(
-          {required String hintText, Widget? suffixIcon}) =>
+          {required String hintText, Widget? suffixIcon, Widget? prefixIcon}) =>
       InputDecoration(
+        prefixIcon: prefixIcon,
         filled: true,
         fillColor: AppColors.whiteColor,
         suffixIcon: suffixIcon,

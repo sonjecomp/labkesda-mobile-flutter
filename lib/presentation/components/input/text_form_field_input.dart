@@ -9,7 +9,9 @@ class TextFormFieldInput extends HookConsumerWidget {
     this.placeHolder,
     this.isRequired = false,
     this.readOnly = false,
+    this.autofocus = false,
     this.suffixIcon,
+    this.prefixIcon,
     this.onTap,
     this.onChanged,
     this.keyboardType = TextInputType.text,
@@ -22,8 +24,9 @@ class TextFormFieldInput extends HookConsumerWidget {
   final String? placeHolder;
   final bool? isRequired;
   final bool? isNik;
+  final bool? autofocus;
   final bool readOnly;
-  final Widget? suffixIcon;
+  final Widget? suffixIcon, prefixIcon;
   final Function()? onTap;
   final TextInputType keyboardType;
 
@@ -37,6 +40,7 @@ class TextFormFieldInput extends HookConsumerWidget {
             ]
           : null,
       controller: controller,
+      autofocus: autofocus ?? false,
       onChanged: onChanged,
       keyboardType: keyboardType,
       onTap: onTap,
@@ -52,6 +56,7 @@ class TextFormFieldInput extends HookConsumerWidget {
       decoration: AppStyle.inputTextFormDecoration(
         hintText: placeHolder ?? 'Placeholder',
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
       ),
       style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
     );

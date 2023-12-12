@@ -4,13 +4,17 @@ import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
 import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
+import 'package:labkesda_mobile/presentation/pages/search/search_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/hasil_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/search/search_paket_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/detail_paket_page.dart';
 import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/daftar_paket_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pilih_status_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
+import 'package:labkesda_mobile/presentation/pages/search/search_paket_dan_layanan_page.dart';
+import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/daftar_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/pendaftaran_pasien_lama_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/pendaftaran_instansi_lama_page.dart';
@@ -133,6 +137,30 @@ final router = GoRouter(
               },
             )
           ],
+        ),
+        GoRoute(
+          path: "daftar-layanan",
+          builder: (context, state) {
+            return const DaftarLayananPage();
+          },
+        ),
+        GoRoute(
+          path: "search-paket-dan-layanan",
+          builder: (context, state) {
+            return const SearchPaketDanLayananPage();
+          },
+        ),
+        GoRoute(
+          path: "search-paket-layanan",
+          builder: (context, state) {
+            return const SearchPaketLayananPage();
+          },
+        ),
+        GoRoute(
+          path: "search-layanan",
+          builder: (context, state) {
+            return const SearchLayananPage();
+          },
         ),
       ],
     ),
