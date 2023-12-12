@@ -1,12 +1,12 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 
 class PendaftaranInstansiBaruAdaMouStep3 extends HookConsumerWidget {
   const PendaftaranInstansiBaruAdaMouStep3(
@@ -16,6 +16,13 @@ class PendaftaranInstansiBaruAdaMouStep3 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // controller for text input
+    final jenisSampleController = useTextEditingController();
+    final wadahVolumeController = useTextEditingController();
+    final lokasiSampelController = useTextEditingController();
+    final pengambilSampelController = useTextEditingController();
+    final kondisiSaatDiterimaController = useTextEditingController();
+
     final dateController = useTextEditingController();
     final selectedDate = useState(DateTime.now());
     return Container(
@@ -35,20 +42,21 @@ class PendaftaranInstansiBaruAdaMouStep3 extends HookConsumerWidget {
             height: 20,
           ),
           Text(
-            'Jenis Sampel',
+            'Jenis Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: jenisSampleController,
             placeHolder: 'Masukkan jenis sampel',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Tanggal Pengambilan Sampel',
+            'Tanggal Pengambilan Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -85,52 +93,59 @@ class PendaftaranInstansiBaruAdaMouStep3 extends HookConsumerWidget {
             height: 20,
           ),
           Text(
-            'Wadah/Volume',
+            'Wadah/Volume (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: wadahVolumeController,
+            onChanged: (value) {
+              value.isEmpty ? null : null;
+            },
             placeHolder: 'Masukkan wadah/volume',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Lokasi Sampel',
+            'Lokasi Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: lokasiSampelController,
             placeHolder: 'Masukkan lokasi sampel',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Pengambil Sampel',
+            'Pengambil Sampel (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: pengambilSampelController,
             placeHolder: 'Masukkan pengambil sampel',
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Kondisi Saat Diterima',
+            'Kondisi Saat Diterima (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: kondisiSaatDiterimaController,
             placeHolder: 'Masukkan kondisi saat diterima',
           ),
           const SizedBox(
@@ -150,6 +165,7 @@ class PendaftaranInstansiBaruAdaMouStep3 extends HookConsumerWidget {
               StepperButton(
                 text: "Lanjutkan",
                 buttonType: "next",
+                onPressed: () {},
               ),
             ],
           ),

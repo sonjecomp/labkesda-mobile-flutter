@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
+import 'package:labkesda_mobile/presentation/controllers/pemeriksaan/pemeriksaan_controller.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_1.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_2.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/form_step/pendaftaran_pasien_baru_step_3.dart';
@@ -18,11 +19,15 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currIndex = useState<int>(0);
 
+    final List inputController =
+        List.generate(29, (index) => useTextEditingController());
+
     final List<Step> steps = [
       Step(
         title: const Text(""),
         content: PendaftaranPasienBaruStep1(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 0,
       ),
@@ -30,6 +35,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep2(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 1,
       ),
@@ -37,6 +43,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep3(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 2,
       ),
@@ -44,6 +51,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep4(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 3,
       ),
@@ -51,6 +59,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep5(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 4,
       ),
@@ -58,6 +67,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         title: const Text(""),
         content: PendaftaranPasienBaruStep6(
           currIndexStepper: currIndex,
+          inputController: inputController,
         ),
         isActive: currIndex.value >= 5,
       ),
@@ -78,6 +88,8 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
         onStepContinue: () {
           if (currIndex.value < steps.length - 1) {
             currIndex.value++;
+          } else {
+            PemeriksaanController().createPemeriksaanBaru(inputController);
           }
         },
         onStepCancel: () {

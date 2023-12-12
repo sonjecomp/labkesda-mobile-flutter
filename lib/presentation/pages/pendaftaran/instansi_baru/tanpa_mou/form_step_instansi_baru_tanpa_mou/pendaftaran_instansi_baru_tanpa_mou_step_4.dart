@@ -1,59 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
+import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/controllers/dokter/dokter_provider.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/controllers/instansi/instansi_provider.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
-
-final List<ValueDropdown> dokterPengirim = [
-  ValueDropdown(
-    teks: 'Dr. A',
-    value: 'dr_a',
-  ),
-  ValueDropdown(
-    teks: 'Dr. B',
-    value: 'dr_b',
-  ),
-  ValueDropdown(
-    teks: 'Dr. C',
-    value: 'dr_c',
-  ),
-  ValueDropdown(
-    teks: 'Dr. D',
-    value: 'dr_d',
-  ),
-  ValueDropdown(
-    teks: 'Dr. E',
-    value: 'dr_e',
-  ),
-];
-
-final List<ValueDropdown> instansiPengirim = [
-  ValueDropdown(
-    teks: 'Instansi A',
-    value: 'instansi_a',
-  ),
-  ValueDropdown(
-    teks: 'Instansi B',
-    value: 'instansi_b',
-  ),
-  ValueDropdown(
-    teks: 'Instansi C',
-    value: 'instansi_c',
-  ),
-  ValueDropdown(
-    teks: 'Instansi D',
-    value: 'instansi_d',
-  ),
-  ValueDropdown(
-    teks: 'Instansi E',
-    value: 'instansi_e',
-  ),
-];
 
 class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
   const PendaftaranIsntansiBaruTanpaMouStep4(
@@ -63,8 +18,18 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedValueDokterPengirim = useState<String?>(null);
-    final selectedValueInstansiPengirim = useState<String?>(null);
+    // data for dropdown dokter & instansi pengirim
+    final dokterPengirimState = ref.watch(dokterProvider);
+    final instansiPengirimState = ref.watch(instansiProvider);
+
+    // controller for input text
+    final namaPetugasController = useTextEditingController();
+    final kondisiSaatDiterimaController = useTextEditingController();
+
+    // selected value for dokter & instansi pengirim
+    final selectedValueDokterPengirim = useState<int?>(null);
+    final selectedValueInstansiPengirim = useState<int?>(null);
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -88,7 +53,8 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: namaPetugasController,
             placeHolder: 'Masukkan nama petugas',
           ),
           const SizedBox(
@@ -101,7 +67,8 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            controller: kondisiSaatDiterimaController,
             placeHolder: 'Masukkan kondisi saat diterima',
           ),
           const SizedBox(
@@ -115,8 +82,16 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            placeHolder: '-- Pilih Dokter Pengirim --',
-            values: dokterPengirim,
+            values: dokterPengirimState.maybeWhen(
+              orElse: () => [],
+              data: (data) {
+                return data;
+              },
+            ),
+            isDisabled: dokterPengirimState.isLoading,
+            placeHolder: dokterPengirimState.isLoading
+                ? 'Memuat...'
+                : '-- Pilih Dokter Pengirim --',
             selectedValue: selectedValueDokterPengirim,
           ),
           const SizedBox(
@@ -130,8 +105,19 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
             height: 5,
           ),
           DropdownInput(
-            placeHolder: '-- Pilih Instansi Pengirim --',
-            values: instansiPengirim,
+            // placeHolder: '-- Pilih Instansi Pengirim --',
+            // values: instansiPengirim,
+            // selectedValue: selectedValueInstansiPengirim,
+            values: instansiPengirimState.maybeWhen(
+              orElse: () => [],
+              data: (data) {
+                return data;
+              },
+            ),
+            isDisabled: instansiPengirimState.isLoading,
+            placeHolder: instansiPengirimState.isLoading
+                ? 'Memuat...'
+                : '-- Pilih Instansi Pengirim --',
             selectedValue: selectedValueInstansiPengirim,
           ),
           const SizedBox(
@@ -151,6 +137,7 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
               StepperButton(
                 text: "Lanjutkan",
                 buttonType: "next",
+                onPressed: () {},
               ),
             ],
           ),

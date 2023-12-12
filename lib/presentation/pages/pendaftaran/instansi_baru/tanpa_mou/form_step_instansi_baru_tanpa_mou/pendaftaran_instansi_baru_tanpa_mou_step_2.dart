@@ -1,12 +1,13 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
 
 class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
   const PendaftaranIsntansiBaruTanpaMouStep2(
@@ -16,8 +17,15 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateController = useTextEditingController();
-    final selectedDate = useState(DateTime.now());
+    // controller for text input
+    final alamatInstansiController = useTextEditingController();
+    final emailInstansiController = useTextEditingController();
+    final nomorTeleponController = useTextEditingController();
+    final tanggalKunjunganController = useTextEditingController();
+
+    // selected tanggal kunjungan for post
+    final selectedTanggalKunjungan = useState(DateTime.now());
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -41,7 +49,9 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: alamatInstansiController,
             placeHolder: 'Masukkan alamat instansi',
           ),
           const SizedBox(
@@ -54,8 +64,10 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
             keyboardType: TextInputType.emailAddress,
+            controller: emailInstansiController,
             placeHolder: 'Masukkan email instansi',
           ),
           const SizedBox(
@@ -68,8 +80,10 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
             keyboardType: TextInputType.phone,
+            controller: nomorTeleponController,
             placeHolder: 'Masukkan nomor telepon/whatsapp',
           ),
           const SizedBox(
@@ -85,12 +99,7 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
           TextFormFieldInput(
             readOnly: true,
             isRequired: true,
-            controller: DateFormat('dd/MM/yyyy')
-                    .format(DateTime.now())
-                    .toString()
-                    .isNotEmpty
-                ? dateController
-                : null,
+            controller: tanggalKunjunganController,
             placeHolder:
                 DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
             suffixIcon: const Icon(Icons.date_range),
@@ -103,25 +112,15 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
                 helpText: 'Pilih tanggal kunjungan',
               );
               if (value != null) {
-                dateController.text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
+                tanggalKunjunganController.text =
+                    DateFormat('dd/MM/yyy').format(value).toString();
+                selectedTanggalKunjungan.value = value;
               }
             },
           ),
           const SizedBox(
             height: 20,
           ),
-          // Text(
-          //   'Nama Petugas',
-          //   style: AppStyle.inputLabel,
-          // ),
-          // const SizedBox(
-          //   height: 5,
-          // ),
-          // const TextFormFieldInput(
-          //   placeHolder: 'Masukkan nama petugas',
-          // ),
           const SizedBox(
             height: 40,
           ),
@@ -140,8 +139,18 @@ class PendaftaranIsntansiBaruTanpaMouStep2 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  currIndexStepper.value++;
-                  stepScrollController.jumpTo(0);
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  if (alamatInstansiController.text.isEmpty ||
+                      emailInstansiController.text.isEmpty ||
+                      nomorTeleponController.text.isEmpty) {
+                    WarningSnackbar.show(
+                      context,
+                      text: 'Mohon lengkapi data terlebih dahulu!',
+                    );
+                  } else {
+                    currIndexStepper.value++;
+                    stepScrollController.jumpTo(0);
+                  }
                 },
               ),
             ],

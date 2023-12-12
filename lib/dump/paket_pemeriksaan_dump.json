@@ -1,0 +1,208 @@
+[
+    {
+        "id": "P001",
+        "name": "Paket Pemeriksaan Dasar",
+        "harga": "300000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T001",
+                "name": "Tes Darah Lengkap",
+                "harga": "150000",
+                "jenis_tindakan_id": "JD001"
+            },
+            {
+                "id": "T002",
+                "name": "Tes Gula Darah",
+                "harga": "75000",
+                "jenis_tindakan_id": "JD002"
+            }
+        ]
+    },
+    {
+        "id": "P002",
+        "name": "Paket Pemeriksaan Jantung",
+        "harga": "500000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T003",
+                "name": "Tes Kolesterol",
+                "harga": "100000",
+                "jenis_tindakan_id": "JD003"
+            },
+            {
+                "id": "T004",
+                "name": "Tes Asam Urat",
+                "harga": "80000",
+                "jenis_tindakan_id": "JD004"
+            }
+        ]
+    },
+    {
+        "id": "P003",
+        "name": "Paket Pemeriksaan Ginjal",
+        "harga": "450000",
+        "sampel_jenis_default": "Urin",
+        "layanan": [
+            {
+                "id": "T005",
+                "name": "Tes Fungsi Hati",
+                "harga": "120000",
+                "jenis_tindakan_id": "JD005"
+            },
+            {
+                "id": "T006",
+                "name": "Tes Fungsi Ginjal",
+                "harga": "130000",
+                "jenis_tindakan_id": "JD006"
+            }
+        ]
+    },
+    {
+        "id": "P004",
+        "name": "Paket Pemeriksaan Elektrolit",
+        "harga": "350000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T007",
+                "name": "Tes Elektrolit",
+                "harga": "90000",
+                "jenis_tindakan_id": "JD007"
+            },
+            {
+                "id": "T008",
+                "name": "Tes Hemoglobin",
+                "harga": "70000",
+                "jenis_tindakan_id": "JD008"
+            }
+        ]
+    },
+    {
+        "id": "P005",
+        "name": "Paket Pemeriksaan Imunologi",
+        "harga": "600000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T009",
+                "name": "Tes HIV",
+                "harga": "200000",
+                "jenis_tindakan_id": "JD009"
+            },
+            {
+                "id": "T010",
+                "name": "Tes Hepatitis",
+                "harga": "250000",
+                "jenis_tindakan_id": "JD010"
+            }
+        ]
+    },
+    {
+        "id": "P006",
+        "name": "Paket Pemeriksaan Hormon",
+        "harga": "550000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T001",
+                "name": "Tes Darah Lengkap",
+                "harga": "150000",
+                "jenis_tindakan_id": "JD001"
+            },
+            {
+                "id": "T003",
+                "name": "Tes Kolesterol",
+                "harga": "100000",
+                "jenis_tindakan_id": "JD003"
+            }
+        ]
+    },
+    {
+        "id": "P007",
+        "name": "Paket Pemeriksaan Metabolisme",
+        "harga": "400000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T002",
+                "name": "Tes Gula Darah",
+                "harga": "75000",
+                "jenis_tindakan_id": "JD002"
+            },
+            {
+                "id": "T004",
+                "name": "Tes Asam Urat",
+                "harga": "80000",
+                "jenis_tindakan_id": "JD004"
+            }
+        ]
+    },
+    {
+        "id": "P008",
+        "name": "Paket Pemeriksaan Prenatal",
+        "harga": "700000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T005",
+                "name": "Tes Fungsi Hati",
+                "harga": "120000",
+                "jenis_tindakan_id": "JD005"
+            },
+            {
+                "id": "T007",
+                "name": "Tes Elektrolit",
+                "harga": "90000",
+                "jenis_tindakan_id": "JD007"
+            }
+        ]
+    },
+    {
+        "id": "P009",
+        "name": "Paket Pemeriksaan Lanjut Usia",
+        "harga": "650000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T006",
+                "name": "Tes Fungsi Ginjal",
+                "harga": "130000",
+                "jenis_tindakan_id": "JD006"
+            },
+            {
+                "id": "T008",
+                "name": "Tes Hemoglobin",
+                "harga": "70000",
+                "jenis_tindakan_id": "JD008"
+            }
+        ]
+    },
+    {
+        "id": "P010",
+        "name": "Paket Pemeriksaan Komprehensif",
+        "harga": "800000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T009",
+                "name": "Tes HIV",
+                "harga": "200000",
+                "jenis_tindakan_id": "JD009"
+            },
+            {
+                "id": "T010",
+                "name": "Tes Hepatitis",
+                "harga": "250000",
+                "jenis_tindakan_id": "JD010"
+            },
+            {
+                "id": "T001",
+                "name": "Tes Darah Lengkap",
+                "harga": "150000",
+                "jenis_tindakan_id": "JD001"
+            }
+        ]
+    }
+]

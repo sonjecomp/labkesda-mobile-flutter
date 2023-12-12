@@ -28,7 +28,13 @@ class DropdownInput extends HookConsumerWidget {
               (e) {
                 return DropdownMenuItem<String>(
                   value: e.value,
-                  child: Text(e.teks, style: const TextStyle(fontSize: 12)),
+                  child: Text(
+                    e.teks,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 );
               },
             ).toList()

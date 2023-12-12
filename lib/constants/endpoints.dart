@@ -5,7 +5,7 @@ class AppEndpoints {
   const AppEndpoints._();
 
   // Base URL
-  // static const String _baseUrl = 'http://192.168.7.48:3001';
+  // static const String _baseUrl = 'http://10.0.2.2:3001';
   static const String _baseUrl = 'https://relieved-cheaply-drum.ngrok-free.app';
 
   // ====Provinsi====
@@ -131,4 +131,44 @@ class AppEndpoints {
   /// Require params:
   /// * No
   static String getAllInstansi = '$_baseUrl/api/v1/instansi';
+
+  // ====Pemeriksaan====
+  /// Create Pemeriksaan Pasien Baru
+  ///
+  /// Require method:
+  /// * POST
+  ///
+  /// Require params:
+  /// * Body (Json)
+  static String createPemeriksaanPasienBaru =
+      '$_baseUrl/api/v1/pemeriksaan/create-pemeriksaan-pasien-baru';
+
+  // ====Promo====
+  /// Get Promo
+  ///
+  /// Require method:
+  /// * GET
+  ///
+  /// Require params:
+  /// * No
+  // static String getAllPromo =
+  static String getAllPromo = '$_baseUrl/api/v1/promo';
+  // ====Paket Pemeriksaan====
+  /// Get Paket Layanan
+  ///
+  /// Require method:
+  /// * GET
+  ///
+  /// Require params:
+  /// * No
+  static String getAllPaketLayanan = '$_baseUrl/api/v1/paket-layanan';
+  static String getAllLayanan = '$_baseUrl/api/v1/layanan';
+  static String getAllJenisLayanan = '$_baseUrl/api/v1/jenis-layanan';
+
+  // dummy paket pemeriksaan
+  static String getAllDummyPaketPemeriksaan =
+      'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/paket-pemeriksaan.json';
+  // dummy for layanan
+  static String getAllDummyLayanan =
+      'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/layanan.json';
 }

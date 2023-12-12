@@ -1,0 +1,65 @@
+[
+    {
+        "id": 0,
+        "title": "Hari Pahlawan",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    },
+    {
+        "id": 1,
+        "title": "Hari Ibu",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    },
+    {
+        "id": 2,
+        "title": "Hari Ayah",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Donec blandit feugiat ligula. Donec hendrerit, felis et imperdiet euismod, purus ipsum pretium metus, in lacinia nulla nisl eget sapien. Donec ut est in lectus consequat consequat. Etiam eget dui. Aliquam erat volutpat. Sed at lorem in nunc porta tristique.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    },
+    {
+        "id": 3,
+        "title": "Hari Kemerdekaan",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Integer tincidunt. Cras dapibus.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    },
+    {
+        "id": 4,
+        "title": "Hari Natal",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Vivamus ac leo pretium faucibus. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    },
+    {
+        "id": 5,
+        "title": "Hari Raya Idul Fitri",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    },
+    {
+        "id": 6,
+        "title": "Hari Raya Idul Adha",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+        "terms_andc_conditions": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+        "start_date": "2023-12-05T00:00:00.000Z",
+        "due_date": "2023-12-08T00:00:00.000Z",
+        "cover_image": "https://avatars.githubusercontent.com/u/97578440?v=4"
+    }
+]

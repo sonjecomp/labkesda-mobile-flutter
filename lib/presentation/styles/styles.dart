@@ -5,24 +5,44 @@ class AppStyle {
   const AppStyle._();
 
   static BoxShadow boxShadow = const BoxShadow(
-    color: AppColors.shdadowColor,
     blurRadius: 10,
+    color: AppColors.shdadowColor,
     offset: Offset(0, 4),
   );
   static TextStyle titleAppBar = const TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.bold,
     color: Color(0xFF093545),
+    fontWeight: FontWeight.bold,
   );
   static TextStyle titleFeature = const TextStyle(
-    color: AppColors.primary,
     fontSize: 18,
+    color: AppColors.primary,
     fontWeight: FontWeight.bold,
   );
-  static TextStyle inputLabel = const TextStyle(
-    fontSize: 14,
+  static TextStyle contentText = const TextStyle(
+    fontSize: 10,
+    color: AppColors.textWhite,
+    fontWeight: FontWeight.normal,
+  );
+  static TextStyle contentDescTextTitle = const TextStyle(
+    fontSize: 16,
+    color: AppColors.primary,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle contentDescText = const TextStyle(
+    fontSize: 12,
+    color: AppColors.primary,
     fontWeight: FontWeight.w500,
+  );
+  static TextStyle inputLabel = const TextStyle(
+    fontSize: 12,
     color: AppColors.whiteColor,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle cellsStyle = const TextStyle(
+    fontSize: 10,
+    color: AppColors.textWhite,
+    fontWeight: FontWeight.w500,
   );
   static BoxDecoration formContainerDecoration = const BoxDecoration(
     color: AppColors.primary,
@@ -44,5 +64,13 @@ class AppStyle {
           horizontal: 16,
         ),
         hintText: hintText,
+        hintStyle: const TextStyle(
+          fontSize: 12,
+        ),
       );
+  static TextStyle contentEmpty = const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.shdadowColor,
+  );
 }

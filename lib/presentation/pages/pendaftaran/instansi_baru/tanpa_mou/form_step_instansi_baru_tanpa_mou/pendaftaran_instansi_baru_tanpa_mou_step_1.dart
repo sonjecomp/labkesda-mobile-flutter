@@ -1,48 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
-import 'package:labkesda_mobile/presentation/components/input/radio_input.dart';
-import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
-
-final List<ValueDropdown> instansiMou = [
-  // Nanti di command atau di hapus saja kalau sudah integrasi dengan API
-  ValueDropdown(
-    teks: 'Instansi A',
-    value: 'instansi_a',
-  ),
-  ValueDropdown(
-    teks: 'Instansi B',
-    value: 'instansi_b',
-  ),
-  ValueDropdown(
-    teks: 'Instansi C',
-    value: 'instansi_c',
-  ),
-  ValueDropdown(
-    teks: 'Instansi D',
-    value: 'instansi_d',
-  ),
-  ValueDropdown(
-    teks: 'Instansi E',
-    value: 'instansi_e',
-  ),
-];
-
-final List<ValueDropdown> jenisKelamin = [
-  ValueDropdown(
-    teks: 'Laki-laki',
-    value: 'laki_laki',
-  ),
-  ValueDropdown(
-    teks: 'Perempuan',
-    value: 'perempuan',
-  ),
-];
+import 'package:labkesda_mobile/presentation/components/input/radio_input.dart';
+import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
+import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
+import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 
 class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
   const PendaftaranIsntansiBaruTanpaMouStep1(
@@ -52,7 +19,18 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // data for jenis kelamin
+    final jenisKelaminState = ref.watch(jenisKelaminProvider);
+
+    // controller for text input
+    final namaInstansiController = useTextEditingController();
+    final namaPelangganController = useTextEditingController();
+    final nikPelangganController = useTextEditingController();
+    final umurPelangganController = useTextEditingController();
+
+    // selected value for jenis kelamin
     final selectedvalueJenisKelamin = useState<String?>(null);
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -76,7 +54,9 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: namaInstansiController,
             placeHolder: 'Masukkan nama instansi',
           ),
           const SizedBox(
@@ -89,7 +69,9 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: namaPelangganController,
             placeHolder: 'Masukkan nama pelanggan',
           ),
           const SizedBox(
@@ -102,7 +84,9 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: nikPelangganController,
             keyboardType: TextInputType.number,
             placeHolder: 'Masukkan NIK pelanggan',
           ),
@@ -116,9 +100,35 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          RadioInput(
-            values: jenisKelamin,
-            selectedValue: selectedvalueJenisKelamin,
+          jenisKelaminState.when(
+            data: (data) {
+              return RadioInput(
+                values: data,
+                selectedValue: selectedvalueJenisKelamin,
+              );
+            },
+            loading: () {
+              return SizedBox(
+                height: 45,
+                child: Text(
+                  'Memuat...',
+                  style: AppStyle.inputLabel.copyWith(
+                    color: AppColors.textWhite,
+                  ),
+                ),
+              );
+            },
+            error: (error, stackTrace) {
+              return SizedBox(
+                height: 45,
+                child: Text(
+                  'Error',
+                  style: AppStyle.inputLabel.copyWith(
+                    color: AppColors.textWhite,
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 20,
@@ -130,7 +140,9 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           const SizedBox(
             height: 5,
           ),
-          const TextFormFieldInput(
+          TextFormFieldInput(
+            isRequired: true,
+            controller: umurPelangganController,
             keyboardType: TextInputType.number,
             placeHolder: 'Masukkan umur pelanggan',
           ),
@@ -140,8 +152,20 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
           DirectButton(
             text: 'Lanjutkan',
             onPressed: () {
-              currIndexStepper.value++;
-              stepScrollController.jumpTo(0);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              if (namaInstansiController.text.isEmpty ||
+                  namaPelangganController.text.isEmpty ||
+                  nikPelangganController.text.isEmpty ||
+                  selectedvalueJenisKelamin.value == null ||
+                  umurPelangganController.text.isEmpty) {
+                WarningSnackbar.show(
+                  context,
+                  text: 'Mohon lengkapi data terlebih dahulu!',
+                );
+              } else {
+                currIndexStepper.value++;
+                stepScrollController.jumpTo(0);
+              }
             },
           ),
           const SizedBox(

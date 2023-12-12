@@ -20,13 +20,17 @@ dependencies:
   riverpod_annotation:
   intl: ^0.18.1
   dio: ^5.3.3
+  skeletonizer: ^0.8.0
+  qr_flutter: ^4.1.0
 
   cupertino_icons: ^1.0.2
+  loader_overlay: ^3.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   riverpod_generator: ^2.3.6
+  build_runner:
 
   flutter_lints: ^2.0.0
 

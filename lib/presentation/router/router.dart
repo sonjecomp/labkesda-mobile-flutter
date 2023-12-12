@@ -1,16 +1,22 @@
 import 'package:go_router/go_router.dart';
-import 'package:labkesda_mobile/presentation/pages/layanan/daftar_layanan_page.dart';
+import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
+import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
+import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
+import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/hasil_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
-import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_detail_page.dart';
-import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_result_page.dart';
+import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/detail_paket_page.dart';
+import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/daftar_paket_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pilih_status_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/pendaftaran_pasien_lama_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/pendaftaran_instansi_lama_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/pendaftaran_instansi_baru_page.dart';
+import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_detail_page.dart';
+import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_result_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
 
@@ -26,32 +32,48 @@ final router = GoRouter(
       builder: (context, state) {
         return const BottomBarLayout();
       },
-      routes: [
+      routes: <RouteBase>[
         GoRoute(
           path: "hasil-pemeriksaan",
           builder: (context, state) => const HasilPemeriksaanPage(),
+        ),
+        GoRoute(
+          path: "hasil-pendaftaran",
+          builder: (context, state) => HasilPendafataranPage(
+            pemeriksaan: state.extra as Pemeriksaan,
+          ),
         ),
         GoRoute(
           path: "riwayat-pemeriksaan",
           builder: (context, state) => const RiwayatPemeriksaanPage(),
           routes: [
             GoRoute(
-                path: "hasil-pencarian-riwayat-pemeriksaan",
-                builder: (context, state) =>
-                    const RiwayatPemeriksaanResultPage(),
-                routes: [
-                  GoRoute(
-                    path: "detail-pemeriksaan",
-                    builder: (context, state) =>
-                        const RiwayatPemeriksaanDetailPage(),
-                  ),
-                ]),
+              path: "hasil-pencarian-riwayat-pemeriksaan",
+              builder: (context, state) => const RiwayatPemeriksaanResultPage(),
+              routes: [
+                GoRoute(
+                  path: "detail-pemeriksaan",
+                  builder: (context, state) =>
+                      const RiwayatPemeriksaanDetailPage(),
+                ),
+              ],
+            ),
           ],
+        ),
+        GoRoute(
+          path: "detail-promo",
+          builder: (context, state) {
+            final PromoModels detailPromo = state.extra as PromoModels;
+            return DetailPenawaranPromo(
+              detailPromo: detailPromo,
+            );
+          },
         ),
         GoRoute(
           path: "pilih-status-pendaftaran",
           builder: (context, state) {
             return const PilihStatusPendaftaran();
+            // return const OtpPage();
           },
           routes: [
             GoRoute(
@@ -95,10 +117,22 @@ final router = GoRouter(
           ],
         ),
         GoRoute(
-          path: "daftar-layanan",
+          path: "daftar-paket",
           builder: (context, state) {
-            return const DaftarLayanan();
+            return const DaftarPaketPage();
           },
+          routes: [
+            GoRoute(
+              path: "detail-paket",
+              builder: (context, state) {
+                final PaketLayanan detailPaketLayanan =
+                    state.extra as PaketLayanan;
+                return DetailPaketPemeriksaanPage(
+                  detailPaketLayanan: detailPaketLayanan,
+                );
+              },
+            )
+          ],
         ),
       ],
     ),

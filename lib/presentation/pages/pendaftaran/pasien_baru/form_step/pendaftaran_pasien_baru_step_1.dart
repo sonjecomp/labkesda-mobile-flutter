@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/controllers/categories/category_provider.dart';
-import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
@@ -11,20 +12,29 @@ import 'package:labkesda_mobile/presentation/components/layouts/title_form_layou
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
 
 class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
-  const PendaftaranPasienBaruStep1({super.key, required this.currIndexStepper});
+  const PendaftaranPasienBaruStep1({
+    super.key,
+    required this.currIndexStepper,
+    required this.inputController,
+  });
 
   final ValueNotifier<int> currIndexStepper;
+  final List inputController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final kewarganegaraanState = ref.watch(kewarganegaraanProvider);
 
     final selectedKewarganegaraan = useState<String?>(null);
-    final selectedDate = useState(DateTime.now());
-    final dateController = useTextEditingController();
-    final namaController = useTextEditingController();
-    final nikController = useTextEditingController();
-    final tempatLahirController = useTextEditingController();
+    final tanggalLahirController = useTextEditingController();
+
+    useEffect(() {
+      if (selectedKewarganegaraan.value != null) {
+        inputController[4].text = selectedKewarganegaraan.value;
+      }
+
+      return () {};
+    }, [selectedKewarganegaraan.value]);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -50,7 +60,8 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           TextFormFieldInput(
-            controller: namaController,
+            isRequired: true,
+            controller: inputController[0],
             placeHolder: 'Masukan nama lengkap',
           ),
           const SizedBox(
@@ -64,7 +75,9 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           TextFormFieldInput(
-            controller: nikController,
+            isRequired: true,
+            isNik: true,
+            controller: inputController[1],
             keyboardType: TextInputType.number,
             placeHolder: 'Masukan NIK',
           ),
@@ -79,7 +92,8 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             height: 5,
           ),
           TextFormFieldInput(
-            controller: tempatLahirController,
+            isRequired: true,
+            controller: inputController[2],
             placeHolder: 'Masukan tempat lahir',
           ),
           const SizedBox(
@@ -94,22 +108,21 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
           ),
           TextFormFieldInput(
             readOnly: true,
-            controller: dateController,
-            placeHolder:
-                DateFormat('dd/MM/yyyy').format(DateTime.now()).toString(),
+            controller: tanggalLahirController,
+            placeHolder: "Pilih tanggal Lahir",
             suffixIcon: const Icon(Icons.date_range),
             onTap: () async {
               final value = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: DateTime(1999),
+                firstDate: DateTime(1900),
                 lastDate: DateTime(2030),
                 helpText: 'Pilih tanggal lahir',
               );
               if (value != null) {
-                dateController.text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
-                selectedDate.value = value;
+                // inputController[3].text = DateFormat('dd/MM/yyyy').format(value).toString();
+                inputController[3].text = value.toIso8601String();
+                tanggalLahirController.text = DateFormat('dd/MM/yyyy').format(value).toString();
               }
             },
           ),
@@ -132,9 +145,7 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             ),
             isDisabled: kewarganegaraanState.isLoading,
             selectedValue: selectedKewarganegaraan,
-            placeHolder: kewarganegaraanState.isLoading
-                ? "Loading..."
-                : "--Pilih Kewarganegaraan--",
+            placeHolder: kewarganegaraanState.isLoading ? "Loading..." : "--Pilih Kewarganegaraan--",
           ),
           const SizedBox(
             height: 40,
@@ -143,19 +154,19 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
             text: 'Lanjutkan',
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              if (dateController.value.text.isEmpty ||
-                  selectedKewarganegaraan.value == null ||
-                  namaController.value.text.isEmpty ||
-                  nikController.value.text.isEmpty ||
-                  tempatLahirController.value.text.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    behavior: SnackBarBehavior.floating,
-                    dismissDirection: DismissDirection.startToEnd,
-                    showCloseIcon: true,
-                    content: Text('Mohon lengkapi data terlebih dahulu'),
-                    backgroundColor: Colors.red,
-                  ),
+
+              if (inputController[1].text.length < 16) {
+                WarningSnackbar.show(
+                  context,
+                  text: 'NIK harus 16 digit!',
+                );
+                return;
+              }
+
+              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty)) {
+                WarningSnackbar.show(
+                  context,
+                  text: 'Mohon lengkapi data terlebih dahulu!',
                 );
               } else {
                 currIndexStepper.value++;
