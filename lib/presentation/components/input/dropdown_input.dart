@@ -4,7 +4,11 @@ import 'package:labkesda_mobile/models/value_dropdown/value_dropdown.dart';
 
 class DropdownInput extends HookConsumerWidget {
   const DropdownInput(
-      {super.key, required this.values, required this.selectedValue, this.isDisabled, this.placeHolder});
+      {super.key,
+      required this.values,
+      required this.selectedValue,
+      this.isDisabled,
+      this.placeHolder});
 
   final List<ValueDropdown> values;
   final ValueNotifier selectedValue;
@@ -16,7 +20,11 @@ class DropdownInput extends HookConsumerWidget {
     return DropdownButtonFormField<String>(
       value: selectedValue.value,
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+        ),
         filled: true,
         fillColor: const Color(0xFFF7F7F7),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
