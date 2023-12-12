@@ -137,11 +137,7 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
               StepperButton(
                 text: "Lanjutkan",
                 buttonType: "next",
-                onPressed: () {
-                  print(
-                    selectedValueDokterPengirim.value,
-                  );
-                },
+                onPressed: () {},
               ),
             ],
           ),

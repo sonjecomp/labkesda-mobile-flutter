@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:labkesda_mobile/presentation/components/cards/loading/paket_layanan_card_loading.dart';
-import 'package:labkesda_mobile/presentation/components/cards/paket_layanan_card.dart';
-import 'package:labkesda_mobile/presentation/controllers/paket_layanan/paket_layanan_controller.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/components/cards/paket_layanan_card.dart';
+import 'package:labkesda_mobile/presentation/components/cards/konten_tidak_tersedia_card.dart';
+import 'package:labkesda_mobile/presentation/controllers/paket_layanan/paket_layanan_controller.dart';
+import 'package:labkesda_mobile/presentation/components/cards/loading/paket_layanan_card_loading.dart';
 
 class PaketLayananLayout extends HookConsumerWidget {
   const PaketLayananLayout({super.key});
@@ -19,10 +20,10 @@ class PaketLayananLayout extends HookConsumerWidget {
         data: (data) {
           if (data.isEmpty) {
             return [
-              Center(
-                child: Text(
-                  'Tidak ada paket layanan',
-                  style: AppStyle.contentDescText,
+              const SizedBox(
+                height: 280,
+                child: KontenTidakTersediaCard(
+                  text: 'Paket layanan sedang tidak tersedia',
                 ),
               ),
             ];

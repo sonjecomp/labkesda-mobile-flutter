@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Layanan {
   final String id, name, harga;
   final String? jenisTindakanId;
@@ -13,7 +15,16 @@ class Layanan {
     return Layanan(
       id: json['id'],
       name: json['name'],
-      harga: json['harga'],
+      // harga: json['harga'],
+      harga: NumberFormat.currency(
+        locale: 'id_ID',
+        symbol: 'Rp.',
+        decimalDigits: 0,
+      ).format(
+        num.parse(
+          json['harga'],
+        ),
+      ),
       jenisTindakanId: json['jenis_tindakan_id'] ?? "",
     );
   }

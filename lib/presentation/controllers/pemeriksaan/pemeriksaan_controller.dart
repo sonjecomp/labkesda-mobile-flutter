@@ -71,10 +71,8 @@ class PemeriksaanController {
 
       return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
-      print(e.toString());
       return e.response?.data["message"] ?? e.toString();
-    } catch (e, s) {
-      print(s.toString());
+    } catch (e) {
       return null;
     }
   }

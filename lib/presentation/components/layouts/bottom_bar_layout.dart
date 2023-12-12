@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/pages/home/home_page.dart';
-import 'package:labkesda_mobile/presentation/pages/layanan/daftar_layanan_page.dart';
+import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/paket_dan_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/kontak_kami_page.dart';
 
 class BottomBarLayout extends StatefulWidget {
@@ -78,7 +78,7 @@ class BottomBarLayoutState extends State<BottomBarLayout> {
       ),
       body: [
         const HomePage(),
-        const DaftarLayanan(),
+        const PaketDanLayananPage(),
         const KontakKamiPage(),
       ][currIndex],
     );

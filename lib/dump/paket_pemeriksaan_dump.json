@@ -1,112 +1,208 @@
 [
     {
-        "id": 0,
-        "title": "Paket Pemeriksaan Darah Lengkap",
-        "description": "Meliputi tes darah lengkap untuk menilai berbagai komponen darah dan fungsi organ.",
-        "terms_and_conditions": "Paket ini harus digunakan dalam waktu 6 bulan setelah pembelian.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 300000,
-        "create_at": "2023-12-01T10:00:00.000Z",
-        "update_at": "2023-12-05T15:00:00.000Z"
+        "id": "P001",
+        "name": "Paket Pemeriksaan Dasar",
+        "harga": "300000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T001",
+                "name": "Tes Darah Lengkap",
+                "harga": "150000",
+                "jenis_tindakan_id": "JD001"
+            },
+            {
+                "id": "T002",
+                "name": "Tes Gula Darah",
+                "harga": "75000",
+                "jenis_tindakan_id": "JD002"
+            }
+        ]
     },
     {
-        "id": 1,
-        "title": "Paket Skrining Diabetes",
-        "description": "Paket ini termasuk tes gula darah puasa, HbA1c, dan konsultasi dengan ahli endokrinologi.",
-        "terms_and_conditions": "Konsultasi pra-tes diperlukan.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 250000,
-        "create_at": "2023-12-02T09:30:00.000Z",
-        "update_at": "2023-12-05T16:00:00.000Z"
+        "id": "P002",
+        "name": "Paket Pemeriksaan Jantung",
+        "harga": "500000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T003",
+                "name": "Tes Kolesterol",
+                "harga": "100000",
+                "jenis_tindakan_id": "JD003"
+            },
+            {
+                "id": "T004",
+                "name": "Tes Asam Urat",
+                "harga": "80000",
+                "jenis_tindakan_id": "JD004"
+            }
+        ]
     },
     {
-        "id": 2,
-        "title": "Paket Kesehatan Jantung",
-        "description": "Termasuk EKG, tes stres, dan analisis risiko penyakit jantung.",
-        "terms_and_conditions": "Paket tidak dapat dikembalikan setelah pembelian.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 450000,
-        "create_at": "2023-12-03T11:00:00.000Z",
-        "update_at": "2023-12-05T17:00:00.000Z"
+        "id": "P003",
+        "name": "Paket Pemeriksaan Ginjal",
+        "harga": "450000",
+        "sampel_jenis_default": "Urin",
+        "layanan": [
+            {
+                "id": "T005",
+                "name": "Tes Fungsi Hati",
+                "harga": "120000",
+                "jenis_tindakan_id": "JD005"
+            },
+            {
+                "id": "T006",
+                "name": "Tes Fungsi Ginjal",
+                "harga": "130000",
+                "jenis_tindakan_id": "JD006"
+            }
+        ]
     },
     {
-        "id": 3,
-        "title": "Paket Deteksi Dini Kanker",
-        "description": "Paket screening kanker termasuk tes darah tumor marker dan konsultasi onkologi.",
-        "terms_and_conditions": "Harus ada rujukan dokter.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 600000,
-        "create_at": "2023-12-03T12:00:00.000Z",
-        "update_at": "2023-12-05T18:00:00.000Z"
+        "id": "P004",
+        "name": "Paket Pemeriksaan Elektrolit",
+        "harga": "350000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T007",
+                "name": "Tes Elektrolit",
+                "harga": "90000",
+                "jenis_tindakan_id": "JD007"
+            },
+            {
+                "id": "T008",
+                "name": "Tes Hemoglobin",
+                "harga": "70000",
+                "jenis_tindakan_id": "JD008"
+            }
+        ]
     },
     {
-        "id": 4,
-        "title": "Paket Nutrisi dan Metabolisme",
-        "description": "Analisis komprehensif nutrisi dan metabolisme tubuh untuk diet sehat.",
-        "terms_and_conditions": "Konsultasi nutrisi termasuk dalam paket.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 350000,
-        "create_at": "2023-12-04T08:00:00.000Z",
-        "update_at": "2023-12-05T19:00:00.000Z"
+        "id": "P005",
+        "name": "Paket Pemeriksaan Imunologi",
+        "harga": "600000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T009",
+                "name": "Tes HIV",
+                "harga": "200000",
+                "jenis_tindakan_id": "JD009"
+            },
+            {
+                "id": "T010",
+                "name": "Tes Hepatitis",
+                "harga": "250000",
+                "jenis_tindakan_id": "JD010"
+            }
+        ]
     },
     {
-        "id": 5,
-        "title": "Paket Pemeriksaan Hormon",
-        "description": "Tes hormon untuk menilai fungsi kelenjar endokrin dan keseimbangan hormon.",
-        "terms_and_conditions": "Pemeriksaan dilakukan di pagi hari.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 400000,
-        "create_at": "2023-12-04T09:00:00.000Z",
-        "update_at": "2023-12-05T20:00:00.000Z"
+        "id": "P006",
+        "name": "Paket Pemeriksaan Hormon",
+        "harga": "550000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T001",
+                "name": "Tes Darah Lengkap",
+                "harga": "150000",
+                "jenis_tindakan_id": "JD001"
+            },
+            {
+                "id": "T003",
+                "name": "Tes Kolesterol",
+                "harga": "100000",
+                "jenis_tindakan_id": "JD003"
+            }
+        ]
     },
     {
-        "id": 6,
-        "title": "Paket Kesehatan Reproduksi",
-        "description": "Paket ini mencakup pemeriksaan kesehatan reproduksi dan konsultasi dengan spesialis.",
-        "terms_and_conditions": "Paket hanya untuk pasien di atas 18 tahun.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 500000,
-        "create_at": "2023-12-04T10:00:00.000Z",
-        "update_at": "2023-12-05T21:00:00.000Z"
+        "id": "P007",
+        "name": "Paket Pemeriksaan Metabolisme",
+        "harga": "400000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T002",
+                "name": "Tes Gula Darah",
+                "harga": "75000",
+                "jenis_tindakan_id": "JD002"
+            },
+            {
+                "id": "T004",
+                "name": "Tes Asam Urat",
+                "harga": "80000",
+                "jenis_tindakan_id": "JD004"
+            }
+        ]
     },
     {
-        "id": 7,
-        "title": "Paket Pemeriksaan Kulit dan Alergi",
-        "description": "Tes alergi dan pemeriksaan dermatologi untuk deteksi dini kondisi kulit.",
-        "terms_and_conditions": "Termasuk konsultasi dengan dokter spesialis kulit.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 450000,
-        "create_at": "2023-12-04T11:00:00.000Z",
-        "update_at": "2023-12-05T22:00:00.000Z"
+        "id": "P008",
+        "name": "Paket Pemeriksaan Prenatal",
+        "harga": "700000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T005",
+                "name": "Tes Fungsi Hati",
+                "harga": "120000",
+                "jenis_tindakan_id": "JD005"
+            },
+            {
+                "id": "T007",
+                "name": "Tes Elektrolit",
+                "harga": "90000",
+                "jenis_tindakan_id": "JD007"
+            }
+        ]
     },
     {
-        "id": 8,
-        "title": "Paket Pemeriksaan Mata",
-        "description": "Paket komprehensif untuk pemeriksaan kesehatan mata termasuk tes penglihatan dan tekanan bola mata.",
-        "terms_and_conditions": "Pemeriksaan dilakukan oleh dokter spesialis mata.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 300000,
-        "create_at": "2023-12-04T12:00:00.000Z",
-        "update_at": "2023-12-05T23:00:00.000Z"
+        "id": "P009",
+        "name": "Paket Pemeriksaan Lanjut Usia",
+        "harga": "650000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T006",
+                "name": "Tes Fungsi Ginjal",
+                "harga": "130000",
+                "jenis_tindakan_id": "JD006"
+            },
+            {
+                "id": "T008",
+                "name": "Tes Hemoglobin",
+                "harga": "70000",
+                "jenis_tindakan_id": "JD008"
+            }
+        ]
     },
     {
-        "id": 9,
-        "title": "Paket Pemeriksaan Gigi dan Mulut",
-        "description": "Paket ini termasuk pemeriksaan gigi, pembersihan karang gigi, dan konsultasi dengan dokter gigi.",
-        "terms_and_conditions": "Paket tidak termasuk perawatan lanjutan seperti penambalan atau pencabutan.",
-        "start_date": "2023-12-06T00:00:00.000Z",
-        "due_date": "2024-06-06T00:00:00.000Z",
-        "price": 250000,
-        "create_at": "2023-12-04T13:00:00.000Z",
-        "update_at": "2023-12-06T00:00:00.000Z"
+        "id": "P010",
+        "name": "Paket Pemeriksaan Komprehensif",
+        "harga": "800000",
+        "sampel_jenis_default": "Darah",
+        "layanan": [
+            {
+                "id": "T009",
+                "name": "Tes HIV",
+                "harga": "200000",
+                "jenis_tindakan_id": "JD009"
+            },
+            {
+                "id": "T010",
+                "name": "Tes Hepatitis",
+                "harga": "250000",
+                "jenis_tindakan_id": "JD010"
+            },
+            {
+                "id": "T001",
+                "name": "Tes Darah Lengkap",
+                "harga": "150000",
+                "jenis_tindakan_id": "JD001"
+            }
+        ]
     }
 ]

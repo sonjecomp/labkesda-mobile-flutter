@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
 
 class PaketLayananCard extends HookConsumerWidget {
-  const PaketLayananCard({super.key, required this.detailPaket});
+  const PaketLayananCard({
+    super.key,
+    required this.detailPaket,
+  });
   final PaketLayanan detailPaket;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
         color: AppColors.secondary,
         boxShadow: [
           AppStyle.boxShadow,
         ],
       ),
       clipBehavior: Clip.antiAlias,
-      width: 150,
+      width: 165,
       height: 130,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            print('Paket Layanan Card Clicked');
+            context.push(
+              "/daftar-paket/detail-paket",
+              extra: detailPaket,
+            );
           },
           child: Ink(
             child: Column(
@@ -71,13 +77,7 @@ class PaketLayananCard extends HookConsumerWidget {
                     color: AppColors.yellowCyanColor,
                   ),
                   child: Text(
-                    NumberFormat.currency(
-                      locale: 'id_ID',
-                      symbol: 'Rp ',
-                      decimalDigits: 0,
-                    ).format(
-                      num.parse(detailPaket.harga),
-                    ),
+                    detailPaket.harga,
                     textAlign: TextAlign.right,
                     style: const TextStyle(
                       fontSize: 14,

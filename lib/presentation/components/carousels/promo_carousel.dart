@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/presentation/components/cards/loading/slider_card_loading.dart';
 import 'package:labkesda_mobile/presentation/components/cards/slider_card.dart';
 import 'package:labkesda_mobile/presentation/controllers/promo/promo_provider.dart';
+import 'package:labkesda_mobile/presentation/components/cards/konten_tidak_tersedia_card.dart';
+import 'package:labkesda_mobile/presentation/components/cards/loading/slider_card_loading.dart';
 
 class PromoCarousel extends HookConsumerWidget {
   const PromoCarousel({super.key});
@@ -18,19 +19,8 @@ class PromoCarousel extends HookConsumerWidget {
       child: promoData.when(
         data: (datas) {
           return datas.isEmpty
-              ? const SizedBox(
-                  width: double.infinity,
-                  height: 180,
-                  child: Center(
-                    child: Text(
-                      'Promo sedang tidak tersedia',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ),
+              ? const KontenTidakTersediaCard(
+                  text: 'Promo sedang tidak tersedia',
                 )
               : CarouselSlider.builder(
                   options: CarouselOptions(

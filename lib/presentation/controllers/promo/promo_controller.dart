@@ -10,8 +10,7 @@ class PromoController {
       final List<PromoModels> data =
           (response.data as List).map((e) => PromoModels.fromJson(e)).toList();
       return data;
-    } catch (e, s) {
-      print([e, s]);
+    } catch (e) {
       return [];
     }
   }

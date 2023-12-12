@@ -26,7 +26,8 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * id (String)
-  static String getAllKabupatenByProvinsiId(String id) => '$_baseUrl/api/v1/geo/kabupaten?provinsi_id=$id';
+  static String getAllKabupatenByProvinsiId(String id) =>
+      '$_baseUrl/api/v1/geo/kabupaten?provinsi_id=$id';
 
   // ====Kecamatan====
   /// Get All Kecamatan By Kabupaten Id
@@ -36,7 +37,8 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * id (String)
-  static String getAllKecamatanByKabupatenId(String id) => '$_baseUrl/api/v1/geo/kecamatan?kabupaten_id=$id';
+  static String getAllKecamatanByKabupatenId(String id) =>
+      '$_baseUrl/api/v1/geo/kecamatan?kabupaten_id=$id';
 
   // ====Kelurahan====
   /// Get Kelurahan By Id
@@ -46,7 +48,8 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * id (String)
-  static String getAllKelurahanByKecamatanId(String id) => '$_baseUrl/api/v1/geo/kelurahan?kecamatan_id=$id';
+  static String getAllKelurahanByKecamatanId(String id) =>
+      '$_baseUrl/api/v1/geo/kelurahan?kecamatan_id=$id';
 
   // ====Pemeriksaan====
   /// Get All Pemeriksaan By Pendaftaran Id
@@ -56,7 +59,8 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * No
-  static String getAllPemeriksaanByPendaftaranId(String id) => '$_baseUrl/api/v1/pemeriksaan';
+  static String getAllPemeriksaanByPendaftaranId(String id) =>
+      '$_baseUrl/api/v1/pemeriksaan';
 
   // ====User Pasien====
   /// Get All User Pasien
@@ -97,7 +101,8 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * id (String)
-  static String getAntrianPasienById(String id) => '$_baseUrl/api/v1/antrian-pasien/$id';
+  static String getAntrianPasienById(String id) =>
+      '$_baseUrl/api/v1/antrian-pasien/$id';
 
   // ====Categories====
   /// Get Category for dropdown
@@ -135,7 +140,8 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * Body (Json)
-  static String createPemeriksaanPasienBaru = '$_baseUrl/api/v1/pemeriksaan/create-pemeriksaan-pasien-baru';
+  static String createPemeriksaanPasienBaru =
+      '$_baseUrl/api/v1/pemeriksaan/create-pemeriksaan-pasien-baru';
 
   // ====Promo====
   /// Get Promo
@@ -146,19 +152,7 @@ class AppEndpoints {
   /// Require params:
   /// * No
   // static String getAllPromo =
-  //     'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/promo.json';
   static String getAllPromo = '$_baseUrl/api/v1/promo';
-
-  /// Get Promo By Id
-  ///
-  /// Require method:
-  /// * GET
-  ///
-  /// Require params:
-  /// * id (String)
-  static String getPromoById(String? promoId) =>
-      'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/promo/$promoId.json';
-
   // ====Paket Pemeriksaan====
   /// Get Paket Layanan
   ///
@@ -167,9 +161,14 @@ class AppEndpoints {
   ///
   /// Require params:
   /// * No
-  static String getAllPaketPemeriksaan = 'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/paket_pemeriksaan.json';
-
   static String getAllPaketLayanan = '$_baseUrl/api/v1/paket-layanan';
   static String getAllLayanan = '$_baseUrl/api/v1/layanan';
   static String getAllJenisLayanan = '$_baseUrl/api/v1/jenis-layanan';
+
+  // dummy paket pemeriksaan
+  static String getAllDummyPaketPemeriksaan =
+      'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/paket-pemeriksaan.json';
+  // dummy for layanan
+  static String getAllDummyLayanan =
+      'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/layanan.json';
 }
