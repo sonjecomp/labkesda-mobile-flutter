@@ -30,3 +30,11 @@ final pekerjaanProvider = FutureProvider<List<ValueDropdown>>((ref) async {
 final golonganDarahProvider = FutureProvider<List<ValueDropdown>>((ref) async {
   return CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("5"));
 });
+
+final jenisPasienProvider = FutureProvider<List<ValueDropdown>>((ref) async {
+  return CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("4"));
+});
+
+final tipePendaftaranProvider = FutureProvider<List<ValueDropdown>>((ref) async {
+  return CategoryController.getDataForDropDown(AppEndpoints.getCategoryById("25"));
+});

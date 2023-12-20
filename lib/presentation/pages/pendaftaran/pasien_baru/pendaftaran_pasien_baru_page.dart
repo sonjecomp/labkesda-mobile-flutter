@@ -19,8 +19,7 @@ class PendaftaranPasienBaru extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currIndex = useState<int>(0);
 
-    final List inputController =
-        List.generate(29, (index) => useTextEditingController());
+    final List inputController = List.generate(31, (index) => useTextEditingController());
 
     final List<Step> steps = [
       Step(

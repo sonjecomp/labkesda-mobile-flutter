@@ -61,6 +61,8 @@ class PemeriksaanController {
           "sample_kondisi": _checkEmptyInput(data[25].text),
           "instansi_id": _checkEmptyInputInt(data[26].text),
           "waktu_kunjungan": _checkEmptyInputDate(data[27].text),
+          "tipe_pendaftaran_id": int.parse(data[29].text),
+          "jenis_pasien_id": int.parse(data[30].text),
         }
       };
 
