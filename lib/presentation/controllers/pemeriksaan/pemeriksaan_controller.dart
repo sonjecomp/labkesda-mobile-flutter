@@ -66,14 +66,31 @@ class PemeriksaanController {
 
       // throw Exception("Error");
 
-      final Response res = await dioPrivate
-          .post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
+      final Response res = await dioPrivate.post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
 
       return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
       return e.response?.data["message"] ?? e.toString();
     } catch (e) {
       return null;
+    }
+  }
+
+  FutureOr<dynamic> createPemeriksaanLama(List data) async {
+    try {
+      final Map<String, dynamic> formData = {
+        "kode_pendaftaran": data[0].text,
+        "tanggal_kunjungan": _checkEmptyInputDate(data[1].text),
+      };
+
+      final Response res = await dioPrivate.post(AppEndpoints.createPemeriksaanPasienLama, data: formData);
+
+      return Pemeriksaan.fromJson(res.data);
+    } on DioException catch (e) {
+      print("ajsuihasuisa ${e.response?.data}");
+      return e.response?.data["message"] ?? e.toString();
+    } catch (e) {
+      return "Terjadi kesalahan, silahkan coba lagi";
     }
   }
 }
