@@ -222,7 +222,10 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
                 return;
               }
 
-              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty)) {
+              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty) ||
+                  selectedKewarganegaraan.value == null ||
+                  selectedJenisPasien.value == null ||
+                  selectedJenisPendaftaran.value == null) {
                 WarningSnackbar.show(
                   context,
                   text: 'Mohon lengkapi data terlebih dahulu!',
