@@ -26,7 +26,7 @@ class PemeriksaanController {
     return int.parse(value);
   }
 
-  FutureOr<Pemeriksaan?> createPemeriksaanBaru(List data) async {
+  FutureOr<dynamic> createPemeriksaanBaru(List data) async {
     try {
       final Map<String, dynamic> formData = {
         "user": {
@@ -89,7 +89,6 @@ class PemeriksaanController {
 
       return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
-      print("ajsuihasuisa ${e.response?.data}");
       return e.response?.data["message"] ?? e.toString();
     } catch (e) {
       return "Terjadi kesalahan, silahkan coba lagi";
