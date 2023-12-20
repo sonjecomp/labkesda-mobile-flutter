@@ -12,8 +12,7 @@ import 'package:labkesda_mobile/presentation/controllers/categories/category_pro
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 
 class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
-  const PendaftaranIsntansiBaruTanpaMouStep1(
-      {super.key, required this.currIndexStepper});
+  const PendaftaranIsntansiBaruTanpaMouStep1({super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
@@ -129,22 +128,6 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
                 ),
               );
             },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Umur Pelanggan',
-            style: AppStyle.inputLabel,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          TextFormFieldInput(
-            isRequired: true,
-            controller: umurPelangganController,
-            keyboardType: TextInputType.number,
-            placeHolder: 'Masukkan umur pelanggan',
           ),
           const SizedBox(
             height: 40,
