@@ -1,131 +1,84 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/form_step/pendaftaran_instansi_lama_step_1.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/form_step/pendaftaran_instansi_lama_step_2.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/form_step/pendaftaran_instansi_lama_step_3.dart';
 
-class PendaftaranInstansiLama extends StatelessWidget {
+final stepScrollController = ScrollController();
+
+class PendaftaranInstansiLama extends HookConsumerWidget {
   const PendaftaranInstansiLama({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currIndex = useState<int>(0);
+
+    final List inputController =
+        List.generate(12, (index) => useTextEditingController());
+
+    final List<Step> steps = [
+      Step(
+        title: const Text(""),
+        content: PendaftaranInstansiLamaStep1(
+          currIndexStepper: currIndex,
+          inputController: inputController,
+        ),
+        isActive: currIndex.value >= 0,
+      ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranInstansiLamaStep2(
+          currIndexStepper: currIndex,
+          inputController: inputController,
+        ),
+        isActive: currIndex.value >= 1,
+      ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranInstansiLamaStep3(
+          currIndexStepper: currIndex,
+          inputController: inputController,
+        ),
+        isActive: currIndex.value >= 2,
+      )
+    ];
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(
-        title: 'Kembali',
+        title: "Kembali",
         forceMaterialTransparency: true,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: AppStyle.formContainerDecoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TitleForm(
-                        title: "Pendaftaran\nInstansi Lama",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Kode Pendaftaran',
-                              style: AppStyle.inputLabel,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            TextFormField(
-                              onChanged: (value) {},
-                              keyboardType: TextInputType.number,
-                              maxLength: 16,
-                              decoration: const InputDecoration(
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                  vertical: 0,
-                                  horizontal: 16,
-                                ),
-                                fillColor: AppColors.whiteColor,
-                                hintText: "Masukkan Kode Pendaftaran",
-                              ),
-                            ),
-                            Text(
-                              'Tanggal Kunjungan',
-                              style: AppStyle.inputLabel,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            TextFormField(
-                              onChanged: (value) {},
-                              readOnly: true,
-                              onTap: () {
-                                showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1999),
-                                  lastDate: DateTime(2030),
-                                );
-                              },
-                              decoration: InputDecoration(
-                                suffixIcon: const Icon(Icons.date_range),
-                                filled: true,
-                                border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0,
-                                  horizontal: 16,
-                                ),
-                                fillColor: AppColors.whiteColor,
-                                hintText: DateFormat('dd-MM-yyyy')
-                                    .format(DateTime.now())
-                                    .toString(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            const DirectButton(
-                              text: "SIMPAN",
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-            ],
-          ),
-        ),
+      body: Stepper(
+        steps: steps,
+        controller: stepScrollController,
+        type: StepperType.horizontal,
+        currentStep: currIndex.value,
+        elevation: 0,
+        controlsBuilder: (context, details) => Container(),
+        onStepContinue: () {
+          if (currIndex.value < steps.length - 1) {
+            currIndex.value++;
+            stepScrollController.animateTo(
+              stepScrollController.offset + 100,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.ease,
+            );
+          }
+        },
+        onStepCancel: () {
+          if (currIndex.value > 0) {
+            currIndex.value--;
+            stepScrollController.animateTo(
+              stepScrollController.offset - 100,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.ease,
+            );
+          }
+        },
+        onStepTapped: (index) {
+          currIndex.value = index;
+        },
       ),
     );
   }
