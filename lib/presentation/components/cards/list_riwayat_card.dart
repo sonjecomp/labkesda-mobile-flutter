@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.dart';
+import 'package:labkesda_mobile/presentation/controllers/library/library_controller.dart';
 
-class ListRiwayatCard extends StatelessWidget {
-  final String tanggalKunjungan;
-  final String kodePemeriksaan;
-  final String statusPendaftar;
-  final int statusPembayaranId;
-  final String statusPembayaranText;
-  final VoidCallback onPressed;
-
+class ListRiwayatCard extends HookConsumerWidget {
   const ListRiwayatCard({
     Key? key,
-    required this.kodePemeriksaan,
-    required this.tanggalKunjungan,
-    required this.onPressed,
-    required this.statusPendaftar,
-    required this.statusPembayaranText,
-    required this.statusPembayaranId,
+    required this.riwayatPemeriksaan,
   }) : super(key: key);
 
+  final RiwayatPemeriksaan riwayatPemeriksaan;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mendaftarSebagaiState = ref.watch(libraryControllerProvider(libraryId: int.parse(riwayatPemeriksaan.hasilPemeriksaan.tipePasienId)));
+    final statusPembayaranState = ref.watch(libraryControllerProvider(libraryId: int.parse(riwayatPemeriksaan.hasilPemeriksaan.statusPembayaranId)));
+
+    void hanleDetail() {
+      context.push('/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/detail-pemeriksaan', extra: riwayatPemeriksaan);
+    }
+
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.only(bottom: 15),
@@ -43,7 +45,9 @@ class ListRiwayatCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Kunjungan pada $tanggalKunjungan',
+                'Kunjungan pada ${DateFormat('dd MMMM yyyy', 'id_ID').format(
+                  DateTime.parse(riwayatPemeriksaan.hasilPemeriksaan.waktuKunjungan),
+                )}',
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.normal,
@@ -52,7 +56,9 @@ class ListRiwayatCard extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: onPressed,
+                onTap: () async {
+                  hanleDetail();
+                },
                 child: const Row(
                   children: [
                     Text(
@@ -90,7 +96,7 @@ class ListRiwayatCard extends StatelessWidget {
             ),
           ),
           Text(
-            kodePemeriksaan,
+            riwayatPemeriksaan.hasilPemeriksaan.kodePemeriksaan ?? '-',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -108,7 +114,7 @@ class ListRiwayatCard extends StatelessWidget {
                 ),
               ),
               Text(
-                statusPendaftar,
+                mendaftarSebagaiState.maybeWhen(orElse: () => '', data: (data) => data!.name ?? '-'),
                 style: const TextStyle(
                   fontSize: 12,
                   color: Color(0xFF000000),
@@ -128,10 +134,14 @@ class ListRiwayatCard extends StatelessWidget {
                 ),
               ),
               Text(
-                statusPembayaranText,
+                statusPembayaranState.maybeWhen(orElse: () => '', data: (data) => data!.name ?? '-'),
                 style: TextStyle(
                   fontSize: 12,
-                  color: statusPembayaranId != 1 ? Colors.amber : Colors.green,
+                  color: statusPembayaranState.maybeWhen(
+                      orElse: () => const Color(
+                            0xFF000000,
+                          ),
+                      data: (data) => data!.id == "30" || data.id == "76" ? const Color(0xFF00BFA6) : const Color(0xFFE53935)),
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.italic,
                 ),

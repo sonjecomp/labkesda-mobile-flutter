@@ -101,12 +101,11 @@ class DetailPaketPemeriksaanPage extends HookConsumerWidget {
                     detailPaketLayanan.layanan?.isEmpty ?? true
                         ? const SizedBox(
                             child: Text(
-                              'data gada',
+                              '-',
                             ),
                           )
                         : TabelDaftarLayananCard(
-                            daftarLayanan:
-                                detailPaketLayanan.layanan as List<Layanan>,
+                            daftarLayanan: detailPaketLayanan.layanan as List<Layanan>,
                           ),
                   ],
                 ),

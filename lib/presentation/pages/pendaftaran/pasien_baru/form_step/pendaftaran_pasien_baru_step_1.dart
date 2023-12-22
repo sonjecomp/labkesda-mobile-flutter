@@ -24,8 +24,12 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final kewarganegaraanState = ref.watch(kewarganegaraanProvider);
+    final jenisPasienState = ref.watch(jenisPasienProvider);
+    final tipePendaftaranState = ref.watch(tipePendaftaranProvider);
 
     final selectedKewarganegaraan = useState<String?>(null);
+    final selectedJenisPasien = useState<String?>(null);
+    final selectedJenisPendaftaran = useState<String?>(null);
     final tanggalLahirController = useTextEditingController();
 
     useEffect(() {
@@ -36,6 +40,22 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
       return () {};
     }, [selectedKewarganegaraan.value]);
 
+    useEffect(() {
+      if (selectedJenisPendaftaran.value != null) {
+        inputController[29].text = selectedJenisPendaftaran.value;
+      }
+
+      return () {};
+    }, [selectedJenisPendaftaran.value]);
+
+    useEffect(() {
+      if (selectedJenisPasien.value != null) {
+        inputController[30].text = selectedJenisPasien.value;
+      }
+
+      return () {};
+    }, [selectedJenisPasien.value]);
+
     return Container(
       padding: const EdgeInsets.all(20),
       width: double.infinity,
@@ -43,11 +63,50 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const TitleForm(
+            title: "Pendaftaran\nPasien Baru",
+          ),
           const SizedBox(
             height: 20,
           ),
-          const TitleForm(
-            title: "Pendaftaran\nPasien Baru",
+          Text(
+            'Tipe Pendaftaran',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          DropdownInput(
+            values: tipePendaftaranState.maybeWhen(
+              orElse: () => [],
+              data: (data) {
+                return data;
+              },
+            ),
+            isDisabled: tipePendaftaranState.isLoading,
+            selectedValue: selectedJenisPendaftaran,
+            placeHolder: tipePendaftaranState.isLoading ? "Loading..." : "--Pilih Tipe Pendaftaran--",
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Jenis Pasien ',
+            style: AppStyle.inputLabel,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          DropdownInput(
+            values: jenisPasienState.maybeWhen(
+              orElse: () => [],
+              data: (data) {
+                return data;
+              },
+            ),
+            isDisabled: jenisPasienState.isLoading,
+            selectedValue: selectedJenisPasien,
+            placeHolder: jenisPasienState.isLoading ? "Loading..." : "--Pilih Jenis Pasien--",
           ),
           const SizedBox(
             height: 20,
@@ -163,7 +222,10 @@ class PendaftaranPasienBaruStep1 extends HookConsumerWidget {
                 return;
               }
 
-              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty)) {
+              if (inputController.sublist(0, 5).any((element) => element.text.isEmpty) ||
+                  selectedKewarganegaraan.value == null ||
+                  selectedJenisPasien.value == null ||
+                  selectedJenisPendaftaran.value == null) {
                 WarningSnackbar.show(
                   context,
                   text: 'Mohon lengkapi data terlebih dahulu!',

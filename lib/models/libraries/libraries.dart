@@ -1,9 +1,16 @@
 class Libraries {
   final String? id;
-  final String name;
+  final String? name;
 
   Libraries({
-    this.id = "",
-    required this.name,
+    this.id,
+    this.name,
   });
+
+  factory Libraries.fromJson(Map<String, dynamic> json) {
+    return Libraries(
+      id: json['id'],
+      name: json['name'],
+    );
+  }
 }

@@ -1,121 +1,86 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
-import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
-import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/form_step/pendaftaran_pasien_lama_step_1.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/form_step/pendaftaran_pasien_lama_step_2.dart';
+import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/form_step/pendaftaran_pasien_lama_step_3.dart';
 
-class PendaftaranPasienLama extends StatelessWidget {
+final stepScrollController = ScrollController();
+
+class PendaftaranPasienLama extends HookConsumerWidget {
   const PendaftaranPasienLama({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(
-        title: 'Kembali',
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currIndex = useState<int>(0);
+
+    final List inputController =
+        List.generate(12, (index) => useTextEditingController());
+
+    final List<Step> steps = [
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienLamaStep1(
+          currIndexStepper: currIndex,
+          inputController: inputController,
+        ),
+        isActive: currIndex.value >= 0,
       ),
-      // appBar: AppBar(
-      //   title: Text(
-      //     'Kembali',
-      //     style: AppStyle.titleAppBar,
-      //   ),
-      // ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: FormPendaftaranPasienLama(),
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienLamaStep2(
+          currIndexStepper: currIndex,
+          inputController: inputController,
         ),
+        isActive: currIndex.value >= 1,
       ),
-    );
-  }
-}
-
-class FormPendaftaranPasienLama extends StatefulWidget {
-  const FormPendaftaranPasienLama({super.key});
-
-  @override
-  State<FormPendaftaranPasienLama> createState() =>
-      _FormPendaftaranPasienLamaState();
-}
-
-class _FormPendaftaranPasienLamaState extends State<FormPendaftaranPasienLama> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          decoration: AppStyle.formContainerDecoration,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const TitleForm(
-                  title: "Pendaftaran\nPasien Lama",
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'NIK/Kode Pendaftaran',
-                  style: AppStyle.inputLabel,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  decoration: AppStyle.inputTextFormDecoration(
-                    hintText: 'Masukkan NIK atau kode pendaftaran',
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Tanggal Kunjungan',
-                  style: AppStyle.inputLabel,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  readOnly: true,
-                  decoration: AppStyle.inputTextFormDecoration(
-                    hintText: DateFormat('dd-MM-yyyy')
-                        .format(DateTime.now())
-                        .toString(),
-                    suffixIcon: const Icon(Icons.date_range),
-                  ),
-                  onTap: () {
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1999),
-                      lastDate: DateTime(2030),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const DirectButton(
-                  text: 'SIMPAN',
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-              ],
-            ),
-          ),
+      Step(
+        title: const Text(""),
+        content: PendaftaranPasienLamaStep3(
+          currIndexStepper: currIndex,
+          inputController: inputController,
         ),
-        const SizedBox(
-          height: 60,
-        ),
-      ],
+        isActive: currIndex.value >= 2,
+      ),
+    ];
+
+    return Scaffold(
+      appBar: const CustomAppBar(
+        title: "Kembali",
+        forceMaterialTransparency: true,
+      ),
+      body: Stepper(
+        steps: steps,
+        controller: stepScrollController,
+        type: StepperType.horizontal,
+        elevation: 0,
+        controlsBuilder: (context, details) => Container(),
+        currentStep: currIndex.value,
+        onStepContinue: () {
+          if (currIndex.value < steps.length - 1) {
+            currIndex.value++;
+            stepScrollController.animateTo(
+              stepScrollController.offset + 100,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 300),
+            );
+          }
+        },
+        onStepCancel: () {
+          if (currIndex.value > 0) {
+            currIndex.value--;
+            stepScrollController.animateTo(
+              stepScrollController.offset - 100,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 300),
+            );
+          }
+        },
+        onStepTapped: (index) {
+          currIndex.value = index;
+        },
+      ),
     );
   }
 }

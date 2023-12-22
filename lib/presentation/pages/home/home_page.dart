@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                   height: 30,
                 ),
                 Text(
-                  'Layanan Labkesda',
+                  'Layanan Labkes',
                   style: AppStyle.titleFeature,
                 ),
                 const SizedBox(

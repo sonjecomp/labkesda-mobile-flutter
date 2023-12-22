@@ -28,9 +28,7 @@ class PaketLayanan {
         ),
       ),
       sampleJenisDefault: json['sample_jenis_default'],
-      layanan: json['layanan'] != null
-          ? (json['layanan'] as List).map((e) => Layanan.fromJson(e)).toList()
-          : [],
+      layanan: json['layanans'] != null ? (json['layanans'] as List).map((e) => Layanan.fromJson(e)).toList() : [],
     );
   }
 }

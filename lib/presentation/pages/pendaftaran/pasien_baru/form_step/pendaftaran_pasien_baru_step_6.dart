@@ -42,7 +42,7 @@ class PendaftaranPasienBaruStep6 extends HookConsumerWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            resBool ? 'Pendaftaran berhasil!' : 'Terjadi kesalahan, silahkan coba lagi',
+            resBool ? 'Pendaftaran berhasil!' : res.toString(),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

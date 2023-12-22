@@ -2,15 +2,20 @@ import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
+import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
+import 'package:labkesda_mobile/presentation/pages/search/search_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/hasil_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/bottom_bar_layout.dart';
+import 'package:labkesda_mobile/presentation/pages/search/search_paket_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/hasil_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/detail_paket_page.dart';
 import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/daftar_paket_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pilih_status_pendaftaran.dart';
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan_page.dart';
+import 'package:labkesda_mobile/presentation/pages/search/search_paket_dan_layanan_page.dart';
+import 'package:labkesda_mobile/presentation/pages/paket_dan_layanan/daftar_layanan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_baru/pendaftaran_pasien_baru_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/pendaftaran_pasien_lama_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_lama/pendaftaran_instansi_lama_page.dart';
@@ -49,12 +54,15 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: "hasil-pencarian-riwayat-pemeriksaan",
-              builder: (context, state) => const RiwayatPemeriksaanResultPage(),
+              builder: (context, state) => RiwayatPemeriksaanResultPage(
+                data: state.extra as List<RiwayatPemeriksaan>,
+              ),
               routes: [
                 GoRoute(
                   path: "detail-pemeriksaan",
-                  builder: (context, state) =>
-                      const RiwayatPemeriksaanDetailPage(),
+                  builder: (context, state) => RiwayatPemeriksaanDetailPage(
+                    data: state.extra as RiwayatPemeriksaan,
+                  ),
                 ),
               ],
             ),
@@ -125,14 +133,37 @@ final router = GoRouter(
             GoRoute(
               path: "detail-paket",
               builder: (context, state) {
-                final PaketLayanan detailPaketLayanan =
-                    state.extra as PaketLayanan;
+                final PaketLayanan detailPaketLayanan = state.extra as PaketLayanan;
                 return DetailPaketPemeriksaanPage(
                   detailPaketLayanan: detailPaketLayanan,
                 );
               },
             )
           ],
+        ),
+        GoRoute(
+          path: "daftar-layanan",
+          builder: (context, state) {
+            return const DaftarLayananPage();
+          },
+        ),
+        GoRoute(
+          path: "search-paket-dan-layanan",
+          builder: (context, state) {
+            return const SearchPaketDanLayananPage();
+          },
+        ),
+        GoRoute(
+          path: "search-paket-layanan",
+          builder: (context, state) {
+            return const SearchPaketLayananPage();
+          },
+        ),
+        GoRoute(
+          path: "search-layanan",
+          builder: (context, state) {
+            return const SearchLayananPage();
+          },
         ),
       ],
     ),

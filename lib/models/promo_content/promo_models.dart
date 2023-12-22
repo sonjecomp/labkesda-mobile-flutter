@@ -1,11 +1,5 @@
 class PromoModels {
-  final String id,
-      title,
-      description,
-      termsAndConditions,
-      coverImage,
-      startDate,
-      dueDate;
+  final String id, title, description, termsAndConditions, coverImage, startDate, dueDate;
   PromoModels({
     required this.id,
     required this.title,
@@ -20,7 +14,7 @@ class PromoModels {
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      termsAndConditions: json['terms_andc_conditions'],
+      termsAndConditions: json['terms_and_conditions'],
       startDate: json['start_date'],
       dueDate: json['due_date'],
       coverImage: json['cover_image'],

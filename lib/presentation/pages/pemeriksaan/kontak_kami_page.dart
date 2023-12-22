@@ -64,7 +64,7 @@ class KontakKamiPage extends StatelessWidget {
                     ),
                     ClipboardContent(
                       title: 'Layanan Email',
-                      content: 'email@email.com',
+                      content: 'labkesprovlampung@gmail.com',
                       icon: Icons.mail,
                       copiedTextMessage: 'Email berhasil disalin.',
                     ),
@@ -94,8 +94,8 @@ class KontakKamiPage extends StatelessWidget {
                           width: 250,
                           child: Text(
                             'Jl. dr. Sam Ratulangi No. 103 Penengahan, Bandar Lampung. Kode Pos 35112.',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                            // maxLines: 2,
+                            // overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 14,
                               color: AppColors.textWhite,
