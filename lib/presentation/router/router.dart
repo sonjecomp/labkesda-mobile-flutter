@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
+import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
 import 'package:labkesda_mobile/presentation/pages/search/search_layanan_page.dart';
@@ -53,12 +54,15 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: "hasil-pencarian-riwayat-pemeriksaan",
-              builder: (context, state) => const RiwayatPemeriksaanResultPage(),
+              builder: (context, state) => RiwayatPemeriksaanResultPage(
+                data: state.extra as List<RiwayatPemeriksaan>,
+              ),
               routes: [
                 GoRoute(
                   path: "detail-pemeriksaan",
-                  builder: (context, state) =>
-                      const RiwayatPemeriksaanDetailPage(),
+                  builder: (context, state) => RiwayatPemeriksaanDetailPage(
+                    data: state.extra as RiwayatPemeriksaan,
+                  ),
                 ),
               ],
             ),
@@ -129,8 +133,7 @@ final router = GoRouter(
             GoRoute(
               path: "detail-paket",
               builder: (context, state) {
-                final PaketLayanan detailPaketLayanan =
-                    state.extra as PaketLayanan;
+                final PaketLayanan detailPaketLayanan = state.extra as PaketLayanan;
                 return DetailPaketPemeriksaanPage(
                   detailPaketLayanan: detailPaketLayanan,
                 );

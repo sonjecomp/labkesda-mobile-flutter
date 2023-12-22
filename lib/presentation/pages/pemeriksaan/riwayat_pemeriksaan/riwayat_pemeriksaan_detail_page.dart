@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
+import 'package:labkesda_mobile/presentation/controllers/library/library_controller.dart';
 
 class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
-  const RiwayatPemeriksaanDetailPage({super.key});
+  const RiwayatPemeriksaanDetailPage({super.key, required this.data});
+
+  final RiwayatPemeriksaan data;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final jkState = ref.watch(libraryControllerProvider(libraryId: int.parse(data.user.jenisKelaminId ?? '0')));
+
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'HASIL PEMERIKSAAN',
@@ -60,12 +68,12 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Kode Pemeriksaan',
                               style: TextStyle(
                                 fontSize: 14,
@@ -74,20 +82,20 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                               ),
                             ),
                             Text(
-                              'P-20201121-0001',
-                              style: TextStyle(
+                              data.hasilPemeriksaan.kodePemeriksaan ?? '-',
+                              style: const TextStyle(
                                 fontSize: 20,
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Nama Pasien',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -95,8 +103,8 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  'John Doe',
-                                  style: TextStyle(
+                                  data.user.name,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.primary,
@@ -104,13 +112,13 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'NIK Pelanggan',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -118,8 +126,8 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  '18710821905899801',
-                                  style: TextStyle(
+                                  data.user.nik ?? '-',
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.primary,
@@ -127,36 +135,13 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'Usia',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                                Text(
-                                  '34 Tahun',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
+                                const Text(
                                   'Jenis Kelamin',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -164,8 +149,11 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  'Laki-laki',
-                                  style: TextStyle(
+                                  jkState.maybeWhen(
+                                    orElse: () => '-',
+                                    data: (data) => data!.name ?? '-',
+                                  ),
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.primary,
@@ -173,13 +161,13 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Tanggal Kunjungan',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -187,8 +175,10 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  '21 November 2020',
-                                  style: TextStyle(
+                                  DateFormat('dd MMMM yyyy').format(
+                                    DateTime.parse(data.hasilPemeriksaan.waktuKunjungan),
+                                  ),
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.primary,
@@ -196,13 +186,13 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Jenis Pemeriksaan',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -210,8 +200,8 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  'Hematologi',
-                                  style: TextStyle(
+                                  data.hasilPemeriksaan.sampeJenis ?? '-',
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.primary,
@@ -219,30 +209,10 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Bahan Pemeriksaan',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                                Text(
-                                  'Darah',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],
@@ -250,6 +220,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                       ),
                       DirectButton(
                         text: 'Unduh PDF',
+                        isDisabled: data.hasilPemeriksaan.kodePemeriksaan == null,
                         onPressed: () {
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(

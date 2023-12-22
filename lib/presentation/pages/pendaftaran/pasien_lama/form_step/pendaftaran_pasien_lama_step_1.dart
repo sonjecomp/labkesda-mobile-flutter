@@ -1,11 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
-import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
+import 'package:labkesda_mobile/models/user/user.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/title_form_layout.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
@@ -28,28 +27,25 @@ class PendaftaranPasienLamaStep1 extends HookConsumerWidget {
 
     void handleSubmit(BuildContext context) async {
       context.loaderOverlay.show();
-      final res =
-          await PemeriksaanController().createPemeriksaanLama(inputController);
+      final res = await PemeriksaanController().checkNikOrKodePendataran(inputController[0].text);
       if (context.mounted) {
         context.loaderOverlay.hide();
-        if (res is Pemeriksaan) {
-          context.push('/hasil-pendaftaran', extra: res);
+        if (res is! User) {
+          Flushbar(
+            message: res.toString(),
+            animationDuration: const Duration(milliseconds: 200),
+            duration: const Duration(seconds: 2),
+            backgroundColor: AppColors.redColor,
+            flushbarPosition: FlushbarPosition.TOP,
+            flushbarStyle: FlushbarStyle.FLOATING,
+            margin: const EdgeInsets.only(top: 50, left: 10, right: 10),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ).show(context);
+        } else {
+          currIndexStepper.value += 1;
         }
-
-        final bool resBool = res is Pemeriksaan;
-
-        Flushbar(
-          message: resBool ? "Pendaftaran berhasil!" : res.toString(),
-          animationDuration: const Duration(milliseconds: 200),
-          duration: const Duration(seconds: 2),
-          backgroundColor: AppColors.redColor,
-          flushbarPosition: FlushbarPosition.TOP,
-          flushbarStyle: FlushbarStyle.FLOATING,
-          margin: const EdgeInsets.only(top: 50, left: 10, right: 10),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(5),
-          ),
-        ).show(context);
       }
     }
 
@@ -115,8 +111,7 @@ class PendaftaranPasienLamaStep1 extends HookConsumerWidget {
                   );
 
                   if (res != null) {
-                    tanggalKunjunganController.text =
-                        DateFormat('dd/MM/yyyy').format(res);
+                    tanggalKunjunganController.text = DateFormat('dd/MM/yyyy').format(res);
 
                     inputController[1].text = res.toIso8601String();
                   }
@@ -128,33 +123,8 @@ class PendaftaranPasienLamaStep1 extends HookConsumerWidget {
               DirectButton(
                 text: 'LANJUTKAN',
                 onPressed: () => {
-                  if (inputController[0].text.isNotEmpty &&
-                      inputController[1].text.isNotEmpty)
-                    {
-                      showDialog(
-                        context: context,
-                        builder: (contextDialog) => AlertDialog(
-                          title: const Text("Konfirmasi"),
-                          content: const Text(
-                              "Apakah anda yakin semua data anda sudah benar?"),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(contextDialog).pop();
-                              },
-                              child: const Text("Batal"),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                contextDialog.pop();
-                                handleSubmit(context);
-                              },
-                              child: const Text("Ya"),
-                            ),
-                          ],
-                        ),
-                      )
-                    }
+                  if (inputController[0].text.isNotEmpty && inputController[1].text.isNotEmpty)
+                    {handleSubmit(context)}
                   else
                     {
                       Flushbar(
@@ -164,8 +134,7 @@ class PendaftaranPasienLamaStep1 extends HookConsumerWidget {
                           backgroundColor: AppColors.redColor,
                           flushbarPosition: FlushbarPosition.TOP,
                           flushbarStyle: FlushbarStyle.FLOATING,
-                          margin: const EdgeInsets.only(
-                              top: 50, left: 10, right: 10),
+                          margin: const EdgeInsets.only(top: 50, left: 10, right: 10),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5),
                           ))

@@ -3,6 +3,8 @@ class User {
   final DateTime tanggalLahir;
   final bool statusVerifEmail, statusVerifNoPhone;
 
+  final String? nik, jenisKelaminId;
+
   User({
     required this.kodePendaftaran,
     required this.name,
@@ -12,6 +14,8 @@ class User {
     required this.statusVerifEmail,
     required this.statusVerifNoPhone,
     required this.tanggalLahir,
+    this.nik,
+    this.jenisKelaminId,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -24,6 +28,8 @@ class User {
       statusVerifEmail: json['status_verif_email'],
       statusVerifNoPhone: json['status_verif_noPhone'],
       tanggalLahir: DateTime.parse(json['tanggal_lahir']),
+      nik: json['nik'],
+      jenisKelaminId: json['jenis_kelamin_id'],
     );
   }
 }

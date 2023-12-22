@@ -166,4 +166,8 @@ class AppEndpoints {
   static String getAllDummyLayanan = 'https://dummy-for-promo-labkesda-default-rtdb.asia-southeast1.firebasedatabase.app/layanan.json';
 
   static String createPemeriksaanPasienLama = '$_baseUrl/api/v1/pemeriksaan/create-pemeriksaan-pasien-lama';
+  static String checkNikOrKodePendaftaran = '$_baseUrl/api/v1/pemeriksaan/check-kode-pendaftaran/';
+  static String getRiwayatPemeriksaan = '$_baseUrl/api/v1/pemeriksaan/riwayat-pemeriksaan/';
+  static String getHasilPemeriksaan = '$_baseUrl/api/v1/pemeriksaan/hasil-pemeriksaan/';
+  static String getLibrary = '$_baseUrl/api/v1/library';
 }

@@ -13,10 +13,7 @@ import 'package:labkesda_mobile/presentation/controllers/categories/category_pro
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/pendaftaran_pasien_lama_page.dart';
 
 class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
-  const PendaftaranPasienLamaStep2(
-      {super.key,
-      required this.currIndexStepper,
-      required this.inputController});
+  const PendaftaranPasienLamaStep2({super.key, required this.currIndexStepper, required this.inputController});
 
   final ValueNotifier<int> currIndexStepper;
   final List inputController;
@@ -37,14 +34,12 @@ class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
       return () {};
     }, [selectedJenisPendaftaran.value]);
 
-    useEffect(
-      () {
-        if (selectedJenisPasien.value != null) {
-          inputController[3].text = selectedJenisPasien.value;
-        }
-        return () {};
-      },
-    );
+    useEffect(() {
+      if (selectedJenisPasien.value != null) {
+        inputController[3].text = selectedJenisPasien.value;
+      }
+      return () {};
+    }, [selectedJenisPasien.value]);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -78,15 +73,13 @@ class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
             ),
             isDisabled: tipePendaftaranState.isLoading,
             selectedValue: selectedJenisPendaftaran,
-            placeHolder: tipePendaftaranState.isLoading
-                ? "Loading..."
-                : "--Pilih Tipe Pendaftaran--",
+            placeHolder: tipePendaftaranState.isLoading ? "Loading..." : "--Pilih Tipe Pendaftaran--",
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Jenis Pasien ',
+            'Jenis Pasien (Opsional)',
             style: AppStyle.inputLabel,
           ),
           const SizedBox(
@@ -101,9 +94,7 @@ class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
             ),
             isDisabled: jenisPasienState.isLoading,
             selectedValue: selectedJenisPasien,
-            placeHolder: jenisPasienState.isLoading
-                ? "Loading..."
-                : "--Pilih Jenis Pasien--",
+            placeHolder: jenisPasienState.isLoading ? "Loading..." : "--Pilih Jenis Pasien--",
           ),
           const SizedBox(
             height: 20,
@@ -180,8 +171,7 @@ class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
                 buttonType: "next",
                 onPressed: () {
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  if (inputController[2].text.isNotEmpty &&
-                      inputController[3].text.isNotEmpty) {
+                  if (inputController[2].text.isNotEmpty) {
                     if (inputController[4].text.isEmpty ||
                         inputController[5].text.isEmpty ||
                         inputController[6].text.isEmpty ||
@@ -190,8 +180,7 @@ class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
                         context: context,
                         builder: (contextDialog) => AlertDialog(
                           title: const Text("Data tidak lengkap"),
-                          content: const Text(
-                              "Apakah anda yakin untuk melanjutkan?"),
+                          content: const Text("Apakah anda yakin untuk melanjutkan?"),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -222,8 +211,7 @@ class PendaftaranPasienLamaStep2 extends HookConsumerWidget {
                         backgroundColor: AppColors.redColor,
                         flushbarPosition: FlushbarPosition.TOP,
                         flushbarStyle: FlushbarStyle.FLOATING,
-                        margin:
-                            const EdgeInsets.only(top: 50, left: 10, right: 10),
+                        margin: const EdgeInsets.only(top: 50, left: 10, right: 10),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(5),
                         ))

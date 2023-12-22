@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:labkesda_mobile/constants/colors.dart';
+import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/step_buttton.dart';
 import 'package:labkesda_mobile/presentation/components/input/dropdown_input.dart';
 import 'package:labkesda_mobile/presentation/components/input/text_form_field_input.dart';
@@ -9,8 +12,10 @@ import 'package:labkesda_mobile/presentation/components/layouts/title_form_layou
 import 'package:labkesda_mobile/presentation/components/snackbar/warning_snackbar.dart';
 import 'package:labkesda_mobile/presentation/controllers/dokter/dokter_provider.dart';
 import 'package:labkesda_mobile/presentation/controllers/instansi/instansi_provider.dart';
+import 'package:labkesda_mobile/presentation/controllers/pemeriksaan/pemeriksaan_controller.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/pasien_lama/pendaftaran_pasien_lama_page.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
   const PendaftaranPasienLamaStep3({
@@ -23,6 +28,38 @@ class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
   final List inputController;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void handleSubmit(BuildContext context) async {
+      context.loaderOverlay.show();
+      final res = await PemeriksaanController().createPemeriksaanLama(inputController);
+      if (context.mounted) {
+        context.loaderOverlay.hide();
+
+        if (res is Pemeriksaan) {
+          context.push('/hasil-pendaftaran', extra: res);
+        }
+
+        final bool resBool = res is Pemeriksaan;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              resBool ? 'Pendaftaran berhasil!' : res.toString(),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            backgroundColor: resBool ? AppColors.greenColor : AppColors.orangeColor,
+            behavior: SnackBarBehavior.floating,
+            dismissDirection: DismissDirection.up,
+            margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height - 150,
+              left: 10,
+              right: 10,
+            ),
+          ),
+        );
+      }
+    }
+
     final dokterPengirimState = ref.watch(dokterProvider);
     final instansiPengirimState = ref.watch(instansiProvider);
 
@@ -81,8 +118,7 @@ class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
               );
               if (value != null) {
                 inputController[8].text = value.toIso8601String();
-                tanggalPengambilanSampelController.text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
+                tanggalPengambilanSampelController.text = DateFormat('dd/MM/yyyy').format(value).toString();
               }
             },
           ),
@@ -117,9 +153,7 @@ class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
             ),
             isDisabled: dokterPengirimState.isLoading,
             selectedValue: selectedDokterPengirim,
-            placeHolder: dokterPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Dokter Pengirim",
+            placeHolder: dokterPengirimState.isLoading ? "Memuat..." : "Pilih Dokter Pengirim",
           ),
           const SizedBox(
             height: 20,
@@ -138,9 +172,7 @@ class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
             ),
             isDisabled: instansiPengirimState.isLoading,
             selectedValue: selectedInstansiPengirim,
-            placeHolder: instansiPengirimState.isLoading
-                ? "Memuat..."
-                : "Pilih Instansi Pengirim",
+            placeHolder: instansiPengirimState.isLoading ? "Memuat..." : "Pilih Instansi Pengirim",
           ),
           const SizedBox(
             height: 40,
@@ -168,8 +200,7 @@ class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
                       context: context,
                       builder: (contextDialog) => AlertDialog(
                         title: const Text("Konfirmasi"),
-                        content: const Text(
-                            "Apakah anda yakin semua data anda sudah benar?"),
+                        content: const Text("Apakah anda yakin semua data anda sudah benar?"),
                         actions: [
                           TextButton(
                             onPressed: () {
@@ -178,11 +209,11 @@ class PendaftaranPasienLamaStep3 extends HookConsumerWidget {
                             child: const Text("Batal"),
                           ),
                           TextButton(
-                            // onPressed: () async {
-                            //   contextDialog.pop();
-                            //   handleSubmit(context);
-                            // },
-                            onPressed: () {},
+                            onPressed: () async {
+                              contextDialog.pop();
+                              handleSubmit(context);
+                            },
+                            // onPressed: () {},
                             child: const Text("Ya"),
                           ),
                         ],
