@@ -6,13 +6,13 @@ import 'package:labkesda_mobile/presentation/components/cards/paket_layanan_card
 import 'package:labkesda_mobile/presentation/components/cards/konten_tidak_tersedia_card.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/manipulation_search_button.dart';
 import 'package:labkesda_mobile/presentation/components/cards/loading/paket_layanan_card_loading.dart';
-import 'package:labkesda_mobile/presentation/controllers/paket_pemeriksaan_dummy/paket_pemeriksaan_dumy_provider.dart';
+import 'package:labkesda_mobile/presentation/controllers/paket_layanan/paket_layanan_controller.dart';
 
 class DaftarPaketPage extends HookConsumerWidget {
   const DaftarPaketPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final paketPemeriksaanState = ref.watch(paketPemeriksaanDummyProvider);
+    final paketPemeriksaanState = ref.watch(paketLayananControllerProvider);
 
     return Scaffold(
       appBar: const CustomAppBar(
@@ -84,9 +84,7 @@ class DaftarPaketPage extends HookConsumerWidget {
                 spacing: 20,
                 runSpacing: 20,
                 verticalDirection: VerticalDirection.down,
-                children: [
-                  for (int i = 0; i < 10; i++) const PaketLayananCardLoading()
-                ],
+                children: [for (int i = 0; i < 10; i++) const PaketLayananCardLoading()],
               ),
             ),
           ],
