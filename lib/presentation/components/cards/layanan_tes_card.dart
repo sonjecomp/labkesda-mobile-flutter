@@ -34,7 +34,6 @@ class LayananTesCard extends HookConsumerWidget {
 
     return Material(
       child: InkWell(
-        onTap: () {},
         child: Stack(
           children: [
             Ink(
@@ -66,9 +65,7 @@ class LayananTesCard extends HookConsumerWidget {
                     height: 5,
                   ),
                   Text(
-                    layanan.jenisTindakanId != ""
-                        ? getJenisLayananName(layanan.jenisTindakanId!)
-                        : 'Layanan',
+                    layanan.jenisTindakanId != "" ? getJenisLayananName(layanan.jenisTindakanId!) : 'Layanan',
                     style: const TextStyle(
                       color: AppColors.textWhite,
                       fontSize: 12,

@@ -13,8 +13,8 @@ class PaketLayananLayout extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final paketState = ref.watch(paketLayananControllerProvider);
     return Wrap(
-      spacing: 20,
-      runSpacing: 20,
+      spacing: 10,
+      runSpacing: 10,
       verticalDirection: VerticalDirection.down,
       children: paketState.when(
         data: (data) {

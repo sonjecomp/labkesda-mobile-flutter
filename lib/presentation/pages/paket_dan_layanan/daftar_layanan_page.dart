@@ -5,14 +5,14 @@ import 'package:labkesda_mobile/presentation/components/cards/layanan_tes_card.d
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
 import 'package:labkesda_mobile/presentation/components/cards/konten_tidak_tersedia_card.dart';
 import 'package:labkesda_mobile/presentation/components/buttons/manipulation_search_button.dart';
-import 'package:labkesda_mobile/presentation/controllers/layanan_dummy/layanan_dummy_provider.dart';
+import 'package:labkesda_mobile/presentation/controllers/layanan/layanan_controller.dart';
 import 'package:labkesda_mobile/presentation/components/cards/loading/layanan_tes_card_loading.dart';
 
 class DaftarLayananPage extends HookConsumerWidget {
   const DaftarLayananPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final layananState = ref.watch(layananDummyProvider);
+    final layananState = ref.watch(layananControllerProvider);
 
     return Scaffold(
       appBar: const CustomAppBar(
