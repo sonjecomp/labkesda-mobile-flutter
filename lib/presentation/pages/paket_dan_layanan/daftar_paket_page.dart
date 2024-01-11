@@ -27,67 +27,73 @@ class DaftarPaketPage extends HookConsumerWidget {
                   text: 'Paket layanan tidak tersedia',
                 ),
               )
-            : ListView(
-                children: [
-                  const ManipulationSearchButton(
-                    placeHolder: 'Cari paket layanan',
-                    padding: EdgeInsets.only(
-                      top: 10,
-                      right: 20,
-                      bottom: 15,
-                      left: 20,
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const ManipulationSearchButton(
+                      placeHolder: 'Cari paket layanan',
+                      padding: EdgeInsets.only(
+                        top: 10,
+                        right: 20,
+                        bottom: 15,
+                        left: 20,
+                      ),
+                      href: '/search-paket-layanan',
                     ),
-                    href: '/search-paket-layanan',
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
+                      ),
+                      child: Wrap(
+                        spacing: MediaQuery.of(context).size.width * 0.1,
+                        runSpacing: 15,
+                        verticalDirection: VerticalDirection.down,
+                        children: data
+                            .map(
+                              (e) => PaketLayananCard(
+                                detailPaket: e,
+                              ),
+                            )
+                            .toList(),
+                      ),
                     ),
-                    child: Wrap(
-                      spacing: 20,
-                      runSpacing: 20,
-                      verticalDirection: VerticalDirection.down,
-                      children: data
-                          .map(
-                            (e) => PaketLayananCard(
-                              detailPaket: e,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
         error: (error, stackTrace) => const Center(
           child: Text(
             'Konten gagal dimuat, silahkan coba lagi',
           ),
         ),
-        loading: () => ListView(
-          children: [
-            const ManipulationSearchButton(
-              placeHolder: 'Cari paket layanan',
-              padding: EdgeInsets.only(
-                top: 10,
-                right: 20,
-                bottom: 15,
-                left: 20,
+        loading: () => SingleChildScrollView(
+          child: Column(
+            children: [
+              const ManipulationSearchButton(
+                placeHolder: 'Cari paket layanan',
+                padding: EdgeInsets.only(
+                  top: 10,
+                  right: 20,
+                  bottom: 15,
+                  left: 20,
+                ),
+                href: '/search-paket-layanan',
               ),
-              href: '/search-paket-layanan',
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                20,
+              Padding(
+                padding: const EdgeInsets.all(
+                  20,
+                ),
+                child: Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  verticalDirection: VerticalDirection.down,
+                  children: [
+                    for (int i = 0; i < 10; i++) const PaketLayananCardLoading()
+                  ],
+                ),
               ),
-              child: Wrap(
-                spacing: 20,
-                runSpacing: 20,
-                verticalDirection: VerticalDirection.down,
-                children: [for (int i = 0; i < 10; i++) const PaketLayananCardLoading()],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
