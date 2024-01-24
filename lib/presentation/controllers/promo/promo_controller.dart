@@ -7,10 +7,10 @@ class PromoController {
     try {
       final Dio dio = Dio();
       final Response response = await dio.get(AppEndpoints.getAllPromo);
-      final List<PromoModels> data =
-          (response.data as List).map((e) => PromoModels.fromJson(e)).toList();
+      final List<PromoModels> data = (response.data as List).map((e) => PromoModels.fromJson(e)).toList();
       return data;
     } catch (e) {
+      print(e);
       return [];
     }
   }

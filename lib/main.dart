@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -6,6 +8,13 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/router/router.dart';
 import 'package:labkesda_mobile/presentation/controllers/jenis_layanan/jenis_layanan_controller.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +25,7 @@ Future main() async {
     ],
   );
   await initializeDateFormatting('id_ID');
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const ProviderScope(child: App()));
 }
 

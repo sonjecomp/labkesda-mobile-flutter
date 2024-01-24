@@ -6,7 +6,8 @@ class AppEndpoints {
 
   // Base URL
   // static const String _baseUrl = 'http://10.0.2.2:3001';
-  static const String _baseUrl = 'https://relieved-cheaply-drum.ngrok-free.app';
+  // static const String _baseUrl = 'https://relieved-cheaply-drum.ngrok-free.app';
+  static const String _baseUrl = 'https://api1.sistem.labkes.lampungprov.go.id:3001';
 
   // ====Provinsi====
   /// Get All Provinsi
