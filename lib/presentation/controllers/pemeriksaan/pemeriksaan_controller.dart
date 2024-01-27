@@ -141,7 +141,7 @@ class PemeriksaanController {
     try {
       final Response res = await dioPrivate.get(AppEndpoints.getHasilPemeriksaan + kodePemeriksaan);
 
-      print(res.data);
+      print("ABC ${res.data}");
 
       return RiwayatPemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
