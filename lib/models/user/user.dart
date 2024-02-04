@@ -1,19 +1,19 @@
 class User {
-  final String kodePendaftaran, name, noHP, email, alamatDomisili;
+  final String kodePendaftaran, name, noHP, alamatDomisili;
   final DateTime tanggalLahir;
   final bool statusVerifEmail, statusVerifNoPhone;
 
-  final String? nik, jenisKelaminId;
+  final String? nik, jenisKelaminId, email;
 
   User({
     required this.kodePendaftaran,
     required this.name,
     required this.noHP,
-    required this.email,
     required this.alamatDomisili,
     required this.statusVerifEmail,
     required this.statusVerifNoPhone,
     required this.tanggalLahir,
+    this.email,
     this.nik,
     this.jenisKelaminId,
   });
@@ -23,7 +23,7 @@ class User {
       kodePendaftaran: json['kode_pendaftaran'],
       name: json['name'],
       noHP: json['noHP'],
-      email: json['email'],
+      email: json['email'] ?? '',
       alamatDomisili: json['alamat_domisili'],
       statusVerifEmail: json['status_verif_email'],
       statusVerifNoPhone: json['status_verif_noPhone'],

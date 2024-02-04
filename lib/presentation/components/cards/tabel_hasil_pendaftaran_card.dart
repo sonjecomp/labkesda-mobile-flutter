@@ -138,7 +138,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
               child: Wrap(
                 children: [
                   Text(
-                    data.user.email,
+                    data.user.email ?? '',
                     style: AppStyle.cellsStyle,
                   ),
                   Text(
