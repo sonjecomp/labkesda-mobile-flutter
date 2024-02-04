@@ -24,9 +24,24 @@ import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksa
 import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksaan/riwayat_pemeriksaan_result_page.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+String? initialLocation() {
+  final prefs = _prefs;
+  prefs.then((SharedPreferences prefs) {
+    final bool? seen = prefs.getBool('seen');
+    if (seen == null) {
+      return "/on-board";
+    } else {
+      return "/";
+    }
+  });
+}
 
 final router = GoRouter(
-  initialLocation: "/on-board",
+  initialLocation: initialLocation(),
   routes: [
     GoRoute(
       path: "/on-board",
@@ -133,7 +148,8 @@ final router = GoRouter(
             GoRoute(
               path: "detail-paket",
               builder: (context, state) {
-                final PaketLayanan detailPaketLayanan = state.extra as PaketLayanan;
+                final PaketLayanan detailPaketLayanan =
+                    state.extra as PaketLayanan;
                 return DetailPaketPemeriksaanPage(
                   detailPaketLayanan: detailPaketLayanan,
                 );
