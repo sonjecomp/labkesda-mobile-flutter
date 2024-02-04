@@ -46,7 +46,7 @@ class DaftarPaketPage extends HookConsumerWidget {
                         vertical: 20,
                       ),
                       child: Wrap(
-                        spacing: MediaQuery.of(context).size.width * 0.1,
+                        spacing: MediaQuery.of(context).size.width * 0.05,
                         runSpacing: 15,
                         verticalDirection: VerticalDirection.down,
                         children: data

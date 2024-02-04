@@ -6,6 +6,7 @@ import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/constants/doubles.dart';
 import 'package:labkesda_mobile/models/on_board/on_board.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -18,6 +19,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(BuildContext context) {
+    final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+    prefs.then((SharedPreferences prefs) {
+      prefs.setBool('seen', true);
+    });
     context.go('/');
   }
 
@@ -25,22 +30,26 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     OnBoard(
       image: "assets/images/onboard/onboard1.png",
       title: "Selamat Datang Di Labkesda Mobile Provinsi Lampung",
-      description: "Aplikasi Mobile Laboratorium Kesehatan Derah Provinsi Lampung",
+      description:
+          "Aplikasi Mobile Laboratorium Kesehatan Derah Provinsi Lampung",
     ),
     OnBoard(
       image: "assets/images/onboard/onboard2.png",
       title: "Akses Mudah & Cepat",
-      description: "Nikmati pelayaan laboratorium yang mudah dan cepat dalam genggaman anda",
+      description:
+          "Nikmati pelayaan laboratorium yang mudah dan cepat dalam genggaman anda",
     ),
     OnBoard(
       image: "assets/images/onboard/onboard3.png",
       title: "Akses & Pelayanan 24 Jam",
-      description: "Pelayanan laboratorium tersedia penuh selama 24 jam dapat diakses kapanpun dan dimanapun",
+      description:
+          "Pelayanan laboratorium tersedia penuh selama 24 jam dapat diakses kapanpun dan dimanapun",
     ),
     OnBoard(
       image: "assets/images/onboard/onboard4.png",
       title: "Mulai Nikmati Semua Layanan",
-      description: "Mulai nikmati semua layanan Laboratorium Kesehatan Daerah Provinsi Lampung",
+      description:
+          "Mulai nikmati semua layanan Laboratorium Kesehatan Daerah Provinsi Lampung",
     ),
   ];
 
