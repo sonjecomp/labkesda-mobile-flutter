@@ -29,7 +29,6 @@ class HasilPemeriksaanPage extends HookConsumerWidget {
 
       if (context.mounted) {
         context.loaderOverlay.hide();
-        print(res);
         if (res is RiwayatPemeriksaan) {
           context.push(
             '/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/detail-pemeriksaan',
@@ -119,7 +118,8 @@ class HasilPemeriksaanPage extends HookConsumerWidget {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    onPressed: () => Navigator.pop(context, 'OK'),
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],
