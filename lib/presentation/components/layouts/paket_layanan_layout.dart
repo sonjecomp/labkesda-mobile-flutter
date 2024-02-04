@@ -13,8 +13,8 @@ class PaketLayananLayout extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final paketState = ref.watch(paketLayananControllerProvider);
     return Wrap(
-      spacing: MediaQuery.of(context).size.width * 0.1,
-      runSpacing: 15,
+      spacing: MediaQuery.of(context).size.width * 0.05,
+      runSpacing: 15.0,
       verticalDirection: VerticalDirection.down,
       children: paketState.when(
         data: (data) {
@@ -40,7 +40,7 @@ class PaketLayananLayout extends HookConsumerWidget {
         error: (error, stackTrace) => [
           Center(
             child: Text(
-              'Konten gagal dimuat, silahkan coba lagi',
+              'Konten gagal dimuat',
               style: AppStyle.contentDescText,
             ),
           ),
