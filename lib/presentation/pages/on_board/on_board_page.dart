@@ -18,8 +18,8 @@ class OnBoardingPage extends StatefulWidget {
 class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   void _onIntroEnd(BuildContext context) {
-    final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
     prefs.then((SharedPreferences prefs) {
       prefs.setBool('seen', true);
     });
