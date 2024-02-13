@@ -41,5 +41,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/bundle/release/*"
-          tag: v0.0.${{github.run_number}} Bundled
+          tag: v0.0.${{github.run_number}}-Bundled
           token: ${{secrets.TOKEN}}
