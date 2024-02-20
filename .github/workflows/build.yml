@@ -36,3 +36,10 @@ jobs:
           artifacts: "build/app/outputs/apk/release/*"
           tag: v0.0.${{github.run_number}}
           token: ${{secrets.TOKEN}}
+      - run: flutter build appbundle
+      - name: Push to Releases Appbundle
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/bundle/release/*"
+          tag: v0.0.${{github.run_number}}-Bundled
+          token: ${{secrets.TOKEN}}

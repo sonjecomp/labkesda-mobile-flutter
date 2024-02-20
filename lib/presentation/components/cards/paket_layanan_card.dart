@@ -22,8 +22,8 @@ class PaketLayananCard extends HookConsumerWidget {
         ],
       ),
       clipBehavior: Clip.antiAlias,
-      width: 150,
-      height: 130,
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.width * 0.4,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
