@@ -24,28 +24,31 @@ class DetailPaketPemeriksaanPage extends HookConsumerWidget {
         ),
         body: ListView(
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: AppColors.secondary,
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                border: Border(
+                  bottom: BorderSide(
+                    color: AppColors.primary.withOpacity(.3),
+                    width: 1,
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      detailPaketLayanan.name,
-                      style: const TextStyle(
-                        color: AppColors.textWhite,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    detailPaketLayanan.name,
+                    style: const TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Container(
