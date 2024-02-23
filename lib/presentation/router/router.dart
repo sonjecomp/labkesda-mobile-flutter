@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
@@ -28,18 +25,6 @@ import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksa
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/splash/splash_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-// FutureOr<String> initialLocation() async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   final seen = prefs.getBool('seen');
-//   if (seen == null) {
-//     return "/on-board";
-//   }
-//   return "/";
-// }
-
-// String location = initialLocation()
 
 final router = GoRouter(
   initialLocation: "/splash",

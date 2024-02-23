@@ -70,8 +70,7 @@ class PemeriksaanController {
 
       // throw Exception("Error");
 
-      final Response res = await dioPrivate
-          .post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
+      final Response res = await dioPrivate.post(AppEndpoints.createPemeriksaanPasienBaru, data: formData);
 
       return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
@@ -81,11 +80,9 @@ class PemeriksaanController {
     }
   }
 
-  FutureOr<dynamic> checkNikOrKodePendataran(
-      String nikOrKodePendaftaran) async {
+  FutureOr<dynamic> checkNikOrKodePendataran(String nikOrKodePendaftaran) async {
     try {
-      final Response res = await dioPrivate
-          .get(AppEndpoints.checkNikOrKodePendaftaran + nikOrKodePendaftaran);
+      final Response res = await dioPrivate.get(AppEndpoints.checkNikOrKodePendaftaran + nikOrKodePendaftaran);
 
       return User.fromJson(res.data);
     } on DioException catch (e) {
@@ -116,8 +113,7 @@ class PemeriksaanController {
         }
       };
 
-      final Response res = await dioPrivate
-          .post(AppEndpoints.createPemeriksaanPasienLama, data: formData);
+      final Response res = await dioPrivate.post(AppEndpoints.createPemeriksaanPasienLama, data: formData);
 
       return Pemeriksaan.fromJson(res.data);
     } on DioException catch (e) {
@@ -129,25 +125,23 @@ class PemeriksaanController {
 
   FutureOr<dynamic> getRiwayatPemeriksaan(String nik) async {
     try {
-      final Response res =
-          await dioPrivate.get(AppEndpoints.getRiwayatPemeriksaan + nik);
+      final Response res = await dioPrivate.get(AppEndpoints.getRiwayatPemeriksaan + nik);
 
-      final List<RiwayatPemeriksaan> hasilPemeriksaan = res.data
-          .map<RiwayatPemeriksaan>((e) => RiwayatPemeriksaan.fromJson(e))
-          .toList();
+      final List<RiwayatPemeriksaan> hasilPemeriksaan = res.data.map<RiwayatPemeriksaan>((e) => RiwayatPemeriksaan.fromJson(e)).toList();
 
       return hasilPemeriksaan;
     } on DioException catch (e) {
       return e.response?.data["message"] ?? e.toString();
-    } catch (e) {
+    } catch (e, s) {
+      print(e.toString());
+      print(s.toString());
       return "Terjadi kesalahan, silahkan coba lagi";
     }
   }
 
   FutureOr<dynamic> getHasilPemeriksaan(String kodePemeriksaan) async {
     try {
-      final Response res = await dioPrivate
-          .get(AppEndpoints.getHasilPemeriksaan + kodePemeriksaan);
+      final Response res = await dioPrivate.get(AppEndpoints.getHasilPemeriksaan + kodePemeriksaan);
 
       return RiwayatPemeriksaan.fromJson(res.data);
     } on DioException catch (e) {

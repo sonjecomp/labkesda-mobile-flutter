@@ -151,7 +151,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 Text(
                                   jkState.maybeWhen(
                                     orElse: () => '-',
-                                    data: (data) => data!.name ?? '-',
+                                    data: (data) => data?.name ?? '-',
                                   ),
                                   style: const TextStyle(
                                     fontSize: 14,

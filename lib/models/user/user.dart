@@ -1,9 +1,8 @@
 class User {
   final String kodePendaftaran, name, noHP, alamatDomisili;
-  final DateTime tanggalLahir;
   final bool statusVerifEmail, statusVerifNoPhone;
 
-  final String? nik, jenisKelaminId, email;
+  final String? nik, jenisKelaminId, email, tanggalLahir;
 
   User({
     required this.kodePendaftaran,
@@ -12,7 +11,7 @@ class User {
     required this.alamatDomisili,
     required this.statusVerifEmail,
     required this.statusVerifNoPhone,
-    required this.tanggalLahir,
+    this.tanggalLahir,
     this.email,
     this.nik,
     this.jenisKelaminId,
@@ -27,7 +26,7 @@ class User {
       alamatDomisili: json['alamat_domisili'],
       statusVerifEmail: json['status_verif_email'],
       statusVerifNoPhone: json['status_verif_noPhone'],
-      tanggalLahir: DateTime.parse(json['tanggal_lahir']),
+      tanggalLahir: json['tanggal_lahir'] ?? '',
       nik: json['nik'],
       jenisKelaminId: json['jenis_kelamin_id'],
     );
