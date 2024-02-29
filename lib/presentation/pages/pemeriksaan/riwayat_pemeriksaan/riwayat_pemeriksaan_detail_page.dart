@@ -223,7 +223,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                         text: 'Unduh PDF',
                         isDisabled: data.hasilPemeriksaan.kodePemeriksaan == null,
                         onPressed: () {
-                          context.go("/hasil-pemeriksaan/webview-document-pemeriksaan");
+                          context.go("/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/webview-document-pemeriksaan");
                         },
                       ),
                     ],
