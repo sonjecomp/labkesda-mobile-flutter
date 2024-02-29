@@ -95,6 +95,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Nama Pasien',
@@ -103,12 +104,16 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                     color: AppColors.primary,
                                   ),
                                 ),
-                                Text(
-                                  data.user.name,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.5,
+                                  child: Text(
+                                    textAlign: TextAlign.right,
+                                    data.user.name,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -192,6 +197,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Jenis Pemeriksaan',
@@ -200,12 +206,16 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                     color: AppColors.primary,
                                   ),
                                 ),
-                                Text(
-                                  data.hasilPemeriksaan.sampeJenis ?? '-',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Text(
+                                    data.hasilPemeriksaan.sampeJenis ?? '-',
+                                    textAlign: TextAlign.right,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ),
                               ],
