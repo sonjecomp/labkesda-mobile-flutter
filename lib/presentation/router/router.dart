@@ -72,9 +72,9 @@ final router = GoRouter(
                 ),
                 GoRoute(
                   path: "webview-document-pemeriksaan",
-                  builder: (context, state) {
-                    return const WebViewDocumentPemeriksaanPage();
-                  },
+                  builder: (context, state) => WebViewDocumentPemeriksaanPage(
+                    kodePemeriksaan: state.extra as String,
+                  ),
                 ),
               ],
             ),

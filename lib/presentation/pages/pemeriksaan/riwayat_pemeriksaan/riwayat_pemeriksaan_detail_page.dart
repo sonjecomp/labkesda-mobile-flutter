@@ -7,6 +7,7 @@ import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.d
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
 import 'package:labkesda_mobile/presentation/controllers/library/library_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
   const RiwayatPemeriksaanDetailPage({super.key, required this.data});
@@ -232,8 +233,17 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                       DirectButton(
                         text: 'Unduh PDF',
                         isDisabled: data.hasilPemeriksaan.kodePemeriksaan == null,
-                        onPressed: () {
-                          context.push("/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/webview-document-pemeriksaan");
+                        onPressed: () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                          prefs.setString('kodePemeriksaan', data.hasilPemeriksaan.kodePemeriksaan ?? '');
+
+                          if (context.mounted) {
+                            context.push(
+                              "/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/webview-document-pemeriksaan",
+                              extra: data.hasilPemeriksaan.kodePemeriksaan as String,
+                            );
+                          }
                         },
                       ),
                     ],
