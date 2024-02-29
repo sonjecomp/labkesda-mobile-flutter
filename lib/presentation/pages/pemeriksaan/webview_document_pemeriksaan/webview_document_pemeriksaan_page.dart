@@ -11,6 +11,8 @@ class WebViewDocumentPemeriksaanPage extends StatefulWidget {
 class _WebViewDocumentPemeriksaanPageState extends State<WebViewDocumentPemeriksaanPage> {
   late WebViewController _controller;
 
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -21,7 +23,11 @@ class _WebViewDocumentPemeriksaanPageState extends State<WebViewDocumentPemeriks
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            // Update loading bar.
+            if (progress == 100) {
+              setState(() {
+                isLoading = false;
+              });
+            }
           },
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
@@ -40,8 +46,20 @@ class _WebViewDocumentPemeriksaanPageState extends State<WebViewDocumentPemeriks
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Simple Example')),
-      body: WebViewWidget(controller: _controller),
+      body: Stack(
+        children: [
+          WebViewWidget(controller: _controller),
+          if (isLoading)
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Colors.white,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
