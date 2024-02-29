@@ -9,8 +9,7 @@ import 'package:labkesda_mobile/presentation/components/input/text_form_field_in
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
 
 class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
-  const PendaftaranIsntansiBaruTanpaMouStep3(
-      {super.key, required this.currIndexStepper});
+  const PendaftaranIsntansiBaruTanpaMouStep3({super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
@@ -81,8 +80,7 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
                 helpText: 'Pilih tanggal pengambilan sampel',
               );
               if (value != null) {
-                tanggalPengambilanSampelController.text =
-                    DateFormat('dd/MM/yyyy').format(value).toString();
+                tanggalPengambilanSampelController.text = DateFormat('dd/MM/yyyy').format(value).toString();
                 selectedTanggalPengambilanSampel.value = value;
               }
             },
@@ -147,7 +145,7 @@ class PendaftaranIsntansiBaruTanpaMouStep3 extends HookConsumerWidget {
                 text: "Lanjutkan",
                 buttonType: "next",
                 onPressed: () {
-                  // currIndexStepper.value++;
+                  currIndexStepper.value++;
                   // stepScrollController.jumpTo(0);
                 },
               ),

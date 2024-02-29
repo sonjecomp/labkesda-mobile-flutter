@@ -139,8 +139,7 @@ class PendaftaranIsntansiBaruTanpaMouStep1 extends HookConsumerWidget {
               if (namaInstansiController.text.isEmpty ||
                   namaPelangganController.text.isEmpty ||
                   nikPelangganController.text.isEmpty ||
-                  selectedvalueJenisKelamin.value == null ||
-                  umurPelangganController.text.isEmpty) {
+                  selectedvalueJenisKelamin.value == null) {
                 WarningSnackbar.show(
                   context,
                   text: 'Mohon lengkapi data terlebih dahulu!',

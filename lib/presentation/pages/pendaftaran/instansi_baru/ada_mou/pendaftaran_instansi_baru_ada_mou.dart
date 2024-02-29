@@ -54,20 +54,19 @@ class PendaftaranInstansiBaruAdaMou extends HookConsumerWidget {
         currentStep: currIndex.value,
         elevation: 0,
         controlsBuilder: (context, details) => Container(),
-        onStepTapped: (index) {
-          currIndex.value = index;
-          stepScrollController.animateTo(
-            (index * 0.33) * stepScrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.ease,
-          );
-        },
+        // onStepTapped: (index) {
+        //   currIndex.value = index;
+        //   stepScrollController.animateTo(
+        //     (index * 0.33) * stepScrollController.position.maxScrollExtent,
+        //     duration: const Duration(milliseconds: 500),
+        //     curve: Curves.ease,
+        //   );
+        // },
         onStepContinue: () {
           if (currIndex.value < steps.length - 1) {
             currIndex.value++;
             stepScrollController.animateTo(
-              (currIndex.value * 0.33) *
-                  stepScrollController.position.maxScrollExtent,
+              (currIndex.value * 0.33) * stepScrollController.position.maxScrollExtent,
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
             );
@@ -77,8 +76,7 @@ class PendaftaranInstansiBaruAdaMou extends HookConsumerWidget {
           if (currIndex.value > 0) {
             currIndex.value--;
             stepScrollController.animateTo(
-              (currIndex.value * 0.33) *
-                  stepScrollController.position.maxScrollExtent,
+              (currIndex.value * 0.33) * stepScrollController.position.maxScrollExtent,
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
             );

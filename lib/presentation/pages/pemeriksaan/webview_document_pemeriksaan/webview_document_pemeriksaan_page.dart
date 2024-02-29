@@ -15,6 +15,7 @@ class _WebViewDocumentPemeriksaanPageState extends State<WebViewDocumentPemeriks
   late WebViewController _controller;
 
   bool isLoading = true;
+  int isFrontPage = 0;
   String kodePemeriksaan = '';
   late SharedPreferences prefs;
 
@@ -34,17 +35,11 @@ class _WebViewDocumentPemeriksaanPageState extends State<WebViewDocumentPemeriks
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-            if (progress == 100) {
-              setState(() {
-                isLoading = false;
-              });
-            }
-          },
+          onProgress: (int progress) {},
           onPageStarted: (String url) {},
           onPageFinished: (String url) {
             setState(() {
-              isLoading = false;
+              isFrontPage++;
             });
 
             _controller.runJavaScript("""
@@ -52,11 +47,23 @@ class _WebViewDocumentPemeriksaanPageState extends State<WebViewDocumentPemeriks
               document.querySelector('button[type="submit"]').click();
               """);
           },
+          onUrlChange: (UrlChange url) {
+            print('ABC onUrlChange: $url');
+            print('ABCC isFrontPage: $isFrontPage');
+            if (isFrontPage >= 1) {
+              Future.delayed(const Duration(seconds: 1), () {
+                setState(() {
+                  isLoading = false;
+                });
+              });
+            }
+          },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.startsWith('https://www.youtube.com/')) {
               return NavigationDecision.prevent;
             }
+            print('ABC allowing navigation to $request');
             return NavigationDecision.navigate;
           },
         ),
