@@ -3,6 +3,7 @@ import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
 import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.dart';
+import 'package:labkesda_mobile/presentation/pages/pemeriksaan/webview_document_pemeriksaan/webview_document_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
 import 'package:labkesda_mobile/presentation/pages/search/search_layanan_page.dart';
@@ -68,6 +69,12 @@ final router = GoRouter(
                   builder: (context, state) => RiwayatPemeriksaanDetailPage(
                     data: state.extra as RiwayatPemeriksaan,
                   ),
+                ),
+                GoRoute(
+                  path: "webview-document-pemeriksaan",
+                  builder: (context, state) {
+                    return const WebViewDocumentPemeriksaanPage();
+                  },
                 ),
               ],
             ),

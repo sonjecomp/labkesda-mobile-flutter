@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
@@ -222,16 +223,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                         text: 'Unduh PDF',
                         isDisabled: data.hasilPemeriksaan.kodePemeriksaan == null,
                         onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              behavior: SnackBarBehavior.floating,
-                              dismissDirection: DismissDirection.startToEnd,
-                              showCloseIcon: true,
-                              content: Text('Cooming soon'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
+                          context.go("/hasil-pemeriksaan/webview-document-pemeriksaan");
                         },
                       ),
                     ],
