@@ -14,8 +14,7 @@ class PendaftaranInstansiLama extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currIndex = useState<int>(0);
 
-    final List inputController =
-        List.generate(12, (index) => useTextEditingController());
+    final List inputController = List.generate(12, (index) => useTextEditingController());
 
     final List<Step> steps = [
       Step(
@@ -76,9 +75,9 @@ class PendaftaranInstansiLama extends HookConsumerWidget {
             );
           }
         },
-        onStepTapped: (index) {
-          currIndex.value = index;
-        },
+        // onStepTapped: (index) {
+        //   currIndex.value = index;
+        // },
       ),
     );
   }

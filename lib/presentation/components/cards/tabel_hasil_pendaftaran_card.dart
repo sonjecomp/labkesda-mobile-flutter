@@ -81,7 +81,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                DateFormat('dd/MM/yyyy').format(data.user.tanggalLahir),
+                data.user.tanggalLahir ?? '-',
                 style: AppStyle.cellsStyle,
               ),
             ),
@@ -105,7 +105,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
               child: Wrap(
                 children: [
                   Text(
-                    data.user.noHP,
+                    data.user.noHP ?? '-',
                     style: AppStyle.cellsStyle,
                   ),
                   Text(
@@ -169,7 +169,7 @@ class TabelHasilPendaftaranCard extends HookConsumerWidget {
             ),
             TableCell(
               child: Text(
-                data.user.alamatDomisili,
+                data.user.alamatDomisili ?? '',
                 style: AppStyle.cellsStyle,
               ),
             ),

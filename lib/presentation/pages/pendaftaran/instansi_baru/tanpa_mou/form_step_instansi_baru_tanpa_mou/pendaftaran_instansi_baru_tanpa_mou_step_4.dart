@@ -11,8 +11,7 @@ import 'package:labkesda_mobile/presentation/controllers/instansi/instansi_provi
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 
 class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
-  const PendaftaranIsntansiBaruTanpaMouStep4(
-      {super.key, required this.currIndexStepper});
+  const PendaftaranIsntansiBaruTanpaMouStep4({super.key, required this.currIndexStepper});
 
   final ValueNotifier<int> currIndexStepper;
 
@@ -89,9 +88,7 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
               },
             ),
             isDisabled: dokterPengirimState.isLoading,
-            placeHolder: dokterPengirimState.isLoading
-                ? 'Memuat...'
-                : '-- Pilih Dokter Pengirim --',
+            placeHolder: dokterPengirimState.isLoading ? 'Memuat...' : '-- Pilih Dokter Pengirim --',
             selectedValue: selectedValueDokterPengirim,
           ),
           const SizedBox(
@@ -115,9 +112,7 @@ class PendaftaranIsntansiBaruTanpaMouStep4 extends HookConsumerWidget {
               },
             ),
             isDisabled: instansiPengirimState.isLoading,
-            placeHolder: instansiPengirimState.isLoading
-                ? 'Memuat...'
-                : '-- Pilih Instansi Pengirim --',
+            placeHolder: instansiPengirimState.isLoading ? 'Memuat...' : '-- Pilih Instansi Pengirim --',
             selectedValue: selectedValueInstansiPengirim,
           ),
           const SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:labkesda_mobile/constants/colors.dart';
@@ -6,6 +7,7 @@ import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.d
 import 'package:labkesda_mobile/presentation/components/buttons/direct_button.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
 import 'package:labkesda_mobile/presentation/controllers/library/library_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
   const RiwayatPemeriksaanDetailPage({super.key, required this.data});
@@ -94,6 +96,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Nama Pasien',
@@ -102,12 +105,16 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                     color: AppColors.primary,
                                   ),
                                 ),
-                                Text(
-                                  data.user.name,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.5,
+                                  child: Text(
+                                    textAlign: TextAlign.right,
+                                    data.user.name,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -151,7 +158,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                 Text(
                                   jkState.maybeWhen(
                                     orElse: () => '-',
-                                    data: (data) => data!.name ?? '-',
+                                    data: (data) => data?.name ?? '-',
                                   ),
                                   style: const TextStyle(
                                     fontSize: 14,
@@ -191,6 +198,7 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Jenis Pemeriksaan',
@@ -199,12 +207,16 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                                     color: AppColors.primary,
                                   ),
                                 ),
-                                Text(
-                                  data.hasilPemeriksaan.sampeJenis ?? '-',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Text(
+                                    data.hasilPemeriksaan.sampeJenis ?? '-',
+                                    textAlign: TextAlign.right,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -221,17 +233,17 @@ class RiwayatPemeriksaanDetailPage extends HookConsumerWidget {
                       DirectButton(
                         text: 'Unduh PDF',
                         isDisabled: data.hasilPemeriksaan.kodePemeriksaan == null,
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              behavior: SnackBarBehavior.floating,
-                              dismissDirection: DismissDirection.startToEnd,
-                              showCloseIcon: true,
-                              content: Text('Cooming soon'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
+                        onPressed: () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                          prefs.setString('kodePemeriksaan', data.hasilPemeriksaan.kodePemeriksaan ?? '');
+
+                          if (context.mounted) {
+                            context.push(
+                              "/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan/webview-document-pemeriksaan",
+                              extra: data.hasilPemeriksaan.kodePemeriksaan as String,
+                            );
+                          }
                         },
                       ),
                     ],

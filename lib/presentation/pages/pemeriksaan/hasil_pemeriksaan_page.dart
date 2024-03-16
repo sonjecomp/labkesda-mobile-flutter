@@ -91,8 +91,6 @@ class HasilPemeriksaanPage extends HookConsumerWidget {
                         height: 5,
                       ),
                       TextFormFieldInput(
-                        isNik: true,
-                        keyboardType: TextInputType.number,
                         controller: kodeIdentitasController,
                         isRequired: true,
                         placeHolder: 'Masukkan kode pemeriksaan',
@@ -118,8 +116,7 @@ class HasilPemeriksaanPage extends HookConsumerWidget {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],

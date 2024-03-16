@@ -84,10 +84,10 @@ class PendaftaranInstansiBaruTanpaMou extends HookConsumerWidget {
             );
           }
         },
-        onStepTapped: (index) {
-          stepScrollController.jumpTo(0);
-          currIndex.value = index;
-        },
+        // onStepTapped: (index) {
+        //   stepScrollController.jumpTo(0);
+        //   currIndex.value = index;
+        // },
       ),
     );
   }

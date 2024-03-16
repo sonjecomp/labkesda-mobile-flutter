@@ -30,8 +30,10 @@ class RiwayatPemeriksaanPage extends HookConsumerWidget {
       if (context.mounted) {
         context.loaderOverlay.hide();
         if (res is List<RiwayatPemeriksaan>) {
-          context.go("/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan",
-              extra: res);
+          context.go(
+            "/riwayat-pemeriksaan/hasil-pencarian-riwayat-pemeriksaan",
+            extra: res,
+          );
         } else {
           Flushbar(
             message: res.toString(),
@@ -115,8 +117,7 @@ class RiwayatPemeriksaanPage extends HookConsumerWidget {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],

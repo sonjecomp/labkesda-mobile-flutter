@@ -1,11 +1,9 @@
-import 'dart:async';
-
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:labkesda_mobile/models/pemeriksaan/pemeriksaan.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/models/paket_layanan/paket_layanan.dart';
 import 'package:labkesda_mobile/models/riwayat_pemeriksaan/riwayat_pemeriksaan.dart';
+import 'package:labkesda_mobile/presentation/pages/pemeriksaan/webview_document_pemeriksaan/webview_document_pemeriksaan_page.dart';
 import 'package:labkesda_mobile/presentation/pages/promo/promo_page.dart';
 import 'package:labkesda_mobile/presentation/pages/on_board/on_board_page.dart';
 import 'package:labkesda_mobile/presentation/pages/search/search_layanan_page.dart';
@@ -28,18 +26,6 @@ import 'package:labkesda_mobile/presentation/pages/pemeriksaan/riwayat_pemeriksa
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/ada_mou/pendaftaran_instansi_baru_ada_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/pendaftaran/instansi_baru/tanpa_mou/pendaftaran_instansi_baru_tanpa_mou.dart';
 import 'package:labkesda_mobile/presentation/pages/splash/splash_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-// FutureOr<String> initialLocation() async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   final seen = prefs.getBool('seen');
-//   if (seen == null) {
-//     return "/on-board";
-//   }
-//   return "/";
-// }
-
-// String location = initialLocation()
 
 final router = GoRouter(
   initialLocation: "/splash",
@@ -82,6 +68,12 @@ final router = GoRouter(
                   path: "detail-pemeriksaan",
                   builder: (context, state) => RiwayatPemeriksaanDetailPage(
                     data: state.extra as RiwayatPemeriksaan,
+                  ),
+                ),
+                GoRoute(
+                  path: "webview-document-pemeriksaan",
+                  builder: (context, state) => WebViewDocumentPemeriksaanPage(
+                    kodePemeriksaan: state.extra as String,
                   ),
                 ),
               ],

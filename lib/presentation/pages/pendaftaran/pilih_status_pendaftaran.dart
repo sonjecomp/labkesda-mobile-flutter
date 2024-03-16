@@ -103,8 +103,7 @@ class PilihStatusPendaftaran extends HookConsumerWidget {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text(
                                       'OK',
                                       style: TextStyle(
@@ -118,6 +117,19 @@ class PilihStatusPendaftaran extends HookConsumerWidget {
                             );
                             return;
                           }
+
+                          // hapus ini jika ingin mengaktifkan fitur
+                          if (selectedValue.value == "instansi-baru" || selectedValue.value == "instansi-lama") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Fitur ini dalam pengembangan',
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+
                           context.push(
                             "/pilih-status-pendaftaran/${selectedValue.value}",
                           );
