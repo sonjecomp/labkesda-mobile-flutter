@@ -6,6 +6,7 @@ import 'package:labkesda_mobile/constants/colors.dart';
 import 'package:labkesda_mobile/presentation/styles/styles.dart';
 import 'package:labkesda_mobile/models/promo_content/promo_models.dart';
 import 'package:labkesda_mobile/presentation/components/layouts/custom_app_bar.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class DetailPenawaranPromo extends HookConsumerWidget {
   const DetailPenawaranPromo({super.key, required this.detailPromo});
@@ -109,9 +110,38 @@ class DetailPenawaranPromo extends HookConsumerWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  Text(
+                  // Text(
+                  //   detailPromo.termsAndConditions,
+                  //   style: AppStyle.contentDescText,
+                  // )
+                  HtmlWidget(
                     detailPromo.termsAndConditions,
-                    style: AppStyle.contentDescText,
+                    renderMode: RenderMode.column,
+                    customStylesBuilder: (element) {
+                      if (element.localName == 'h1' ||
+                          element.localName == 'h2' ||
+                          element.localName == 'h3' ||
+                          element.localName == 'h4' ||
+                          element.localName == 'h5' ||
+                          element.localName == 'h6' ||
+                          element.localName == 'p' ||
+                          element.localName == 'a' ||
+                          element.localName == 'span' ||
+                          element.localName == 'div') {
+                        return {
+                          'font-size': '12px',
+                          'font-weight': '400',
+                        };
+                      }
+                      if (element.localName == 'ul' || element.localName == 'ol') {
+                        return {
+                          'padding-left': '18px',
+                          'font-size': '12px',
+                          'font-weight': '400',
+                        };
+                      }
+                      return null;
+                    },
                   )
                 ],
               ),

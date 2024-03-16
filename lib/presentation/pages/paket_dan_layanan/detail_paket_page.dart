@@ -26,9 +26,12 @@ class DetailPaketPemeriksaanPage extends HookConsumerWidget {
           children: [
             Container(
               width: double.infinity,
+              constraints: const BoxConstraints(
+                minHeight: 200,
+              ),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: AppColors.whiteColor,
+                color: AppColors.secondary,
                 border: Border(
                   bottom: BorderSide(
                     color: AppColors.primary.withOpacity(.3),
@@ -43,7 +46,7 @@ class DetailPaketPemeriksaanPage extends HookConsumerWidget {
                   Text(
                     detailPaketLayanan.name,
                     style: const TextStyle(
-                      color: AppColors.primary,
+                      color: AppColors.textWhite,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),

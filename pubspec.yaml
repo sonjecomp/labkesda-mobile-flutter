@@ -23,11 +23,11 @@ dependencies:
   skeletonizer: ^0.8.0
   qr_flutter: ^4.1.0
   shared_preferences: ^2.2.2
+  flutter_widget_from_html: ^0.14.11
 
   cupertino_icons: ^1.0.2
   loader_overlay: ^3.0.2
   another_flushbar: ^1.12.30
-
 
   webview_flutter: ^4.7.0
 
@@ -47,7 +47,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/onboard/
-
 
 flutter_launcher_icons:
   android: true
