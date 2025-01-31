@@ -28,6 +28,7 @@ jobs:
       - run: echo storeFile=${{runner.temp}}/key.jks >> ${{env.PROPERTIES_PATH}}
       - run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > ${{runner.temp}}/key.jks
       - run: flutter pub get
+      - run: flutter pub upgrade
       - run: dart run build_runner build --delete-conflicting-outputs -d
       - run: flutter build apk --release
       - name: Push to Releases
